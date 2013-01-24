@@ -1,4 +1,4 @@
-+ mediastore/
++ /mediastore/
   + build/
   + dist/
   + nbproject/
@@ -9,3 +9,4 @@
   + src/
   + test/
   + build.xml
+/mediastore/build/
