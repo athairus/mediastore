@@ -3,7 +3,7 @@
   + dist/
   + nbproject/
     build-impl.xml
-    + private/
+    + /private/
     + project.properties
     + project.xml
   + src/
@@ -11,4 +11,5 @@
   + build.xml
 /mediastore/build/
 
-private.properties
+*private.properties
+*private.xml
