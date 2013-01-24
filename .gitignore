@@ -10,3 +10,5 @@
   + test/
   + build.xml
 /mediastore/build/
+
+private.properties
