@@ -1,13 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package mediastore;
 
 /**
- *
+ * A class that encapsulates a music CD.
  * @author Milton John
  */
 public class Album extends Media {
-    // contains no special fields
 }

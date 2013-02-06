@@ -1,18 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Name: Milton John
+ * Section: 1
+ * Program: Term project
+ * Date: Feb 6, 2013
  */
 package mediastore;
 
 /**
- *
- * @author whiplash
+ * A test driver meant to test the Media subclasses.
+ * @author Milton John
  */
 public class TestDriver {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main( String[] args ) {
         
     }
