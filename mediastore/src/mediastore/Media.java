@@ -12,7 +12,7 @@ public abstract class Media {
     int duration;           // in seconds
     String genre;           // genre the object belongs to
     int ranking;            // 0 means not ranked, otherwise ranked from 
-    // most popular to least in descending order
+                            // most popular to least in descending order
     double price;           // price in USD
     
     String id;              // unique ID 
@@ -28,13 +28,13 @@ public abstract class Media {
 
     }
 
-    public Media( String author, String title, int duration, String genre, int ranking, double price ) {
+    public Media( String author, String title, int duration, String genre, double price ) {
         // initializes all data member to their respective parameters
+        this();
         this.author = author;
         this.title = title;
         this.duration = duration;
         this.genre = genre;
-        this.ranking = ranking;
         this.price = price;
 
     }

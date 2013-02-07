@@ -3,7 +3,7 @@ package mediastore;
 /**
  * A class that encapsulates a single purchase.
  *
- * @author Milton John
+ * @author Milton John and Ryan Smith
  * @version 1.0 Feb 7, 2013
  *
  */
@@ -35,5 +35,9 @@ public class Purchase {
 
     public long getDate() {
         return date;
+    }
+    
+    public String toString(){
+        return "Item ID: " + id + "\nItem Price: " + price + "\nDate: " + System.currentTimeMillis();
     }
 }
