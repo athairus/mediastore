@@ -22,17 +22,26 @@ public class Movie extends Media {
  //****************************************************************************
     
     public void setDirector(String director)
-    { //POST: Takes string and sets director to indicated string
+    {   //PRE: Parameter takes a director name
+        //POST: Sets director to indicated string
         this.director = director;
     }
     
-    public void setReleaseYear(int releaseYear)
-    {
+    public void setReleaseYear(int releaseYear){
+      //PRE: Parameter takes in year of movie release
+      //POST: Release year is set to given value
         this.releaseYear = releaseYear;
     }
     
+    public String getDirector(){
+      //POST: returns movie's director
+        return director;
+    }
     
-    
+    public int getReleaseYear(){
+      //POST: returns movie's release year
+        return releaseYear;
+    }
     
     
     
