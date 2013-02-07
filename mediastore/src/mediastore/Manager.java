@@ -6,8 +6,11 @@ package mediastore;
 
 /**
  *
- * @author max7b_000
+ * @author Cole Arnold
  */
+
 public class Manager {
+    String name;
+    String password;
     
 }
