@@ -11,18 +11,27 @@ public class Movie extends Media {
     private String director; //director of the movie
     private int releaseYear; //year of movie's release
     
-    public Movie()
-    {   //POST: Initializes data members to "" or 0
+    public Movie(){   
+      //POST: Initializes data members to "" or 0
+        super();
         director = "";
         releaseYear = 0;
+    }
+    
+    public Movie(String author, String title, int duration, String genre, int ranking, double price, String director, int releaseYear){
+      //PRE: Takes an author, title, duration, genre, ranking, price ( > 0 ), director of movie, and release year ( > 0 )
+      //POST: Sets data members to respective values
+      super(author, title, duration, genre, ranking, price);
+      this.director = director;
+      this.releaseYear = releaseYear;
     }
 
  //****************************************************************************
  //*                            Set and Get Methods                           *
  //****************************************************************************
     
-    public void setDirector(String director)
-    {   //PRE: Parameter takes a director name
+    public void setDirector(String director){   
+        //PRE: Parameter takes a director name
         //POST: Sets director to indicated string
         this.director = director;
     }
