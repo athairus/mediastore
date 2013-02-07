@@ -1,54 +1,47 @@
 package mediastore;
 
+import java.util.LinkedList;
+
 /**
- *
- * @author Cole Arnold and Ryan Smith
+ * Encapsulates a single customer.
+ * @author Milton John, Cole Arnold and Ryan Smith
  */
 public class Customer {
-    String ID;
+
+    String id;
     String name;
     String address;
-    // Purchase History
-    int credit;
-    int startingSize = 50; // starting size of Media arrays
-    Album[] albumsOwned;
-    AudioBooks[] audioBooksOwned;
-    Movie[] moviesOwned;
-    int albumIndex; // keeps track of current index in album array
-    int audioIndex;
-    int movieIndex;
-    
-    Database db;
-    
+    int credits;
+    LinkedList<Purchase> purchaseHistory;
+    Database db; // the Database this instance is a member of
 
     public Customer() {
-        
+        // TODO: default values
     }
-    
-    public Customer(String ID, String name, String address, int credit) {
-        this.ID = ID;
+
+    public Customer( String ID, String name, String address, int credits, LinkedList purchaseHistory, Database db ) {
+        this.id = id;
         this.name = name;
         this.address = address;
-        this.credit = credit;
-        albumsOwned = new Album[ startingSize ];
-        audioBooksOwned = new AudioBooks[ startingSize ];
-        moviesOwned = new Movie[ startingSize ];
-        albumIndex = 0;
-        audioIndex = 0;
-        movieIndex = 0;
+        this.credits = credits;
+
+        this.purchaseHistory = purchaseHistory;
     }
 
-
-    public void buy( String id ) {
+    public void Buy( String id ) {
         Media object = db.getFromID( id );
-        // check to see if enough credits are present
-        credit -= object.getPrice();
-        Purchase purchase = new Purchase( id, object.getPrice(), System.currentTimeMillis());
-        db.writeCustomerPurchase( ID, purchase );
+        double price = object.getPrice();
+        if( credits < price ) {
+            // not enough money
+            return;
+        }
+        credits -= price;
+
+        Purchase purchase = new Purchase( id, price, System.currentTimeMillis() );
+        db.writeCustomerPurchase( id, purchase );
+        purchaseHistory.add( purchase );
     }
-    
-    public void search()
-    {
-        
+
+    public void Search() {
     }
 }

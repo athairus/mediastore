@@ -14,9 +14,8 @@ package mediastore;
 public class CustomerTestDriver {
 
     public static void main( String[] args ) {
+        
+        Database db = new TextDatabase( System.getProperty("user.dir").concat("\\..\\..\\db\\") );
 
-        Database db = new TextDatabase( "../db" );
-
-        Media test = new Movie();
     }
 }

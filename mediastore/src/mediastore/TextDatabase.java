@@ -1,5 +1,9 @@
 package mediastore;
 
+import java.util.LinkedList;
+import java.util.Scanner;
+import java.io.File;
+
 /**
  * A class that interacts with a text-based database.
  *
@@ -18,37 +22,53 @@ public class TextDatabase extends Database {
      */
     public TextDatabase( String rootDir ) { // TODO: throws some kinda exception
         this.rootDir = rootDir;
+
         // check that the root dir exists and is freely writable
+
+        File customerFolder = new File( rootDir.concat( "customers" ) );
+
+        if ( customerFolder == null ) {
+            System.out.println( "customerFolder = null" );
+        }
 
         // check for customer folder
         // if not, create one
+
         int customerCount = 0;
+        customerCount = customerFolder.listFiles().length; // determine the number of Customers
+        System.out.println( customerCount );
+        System.out.println( customerFolder.toString() );
+
+        File[] filesInCustomerFolder = customerFolder.listFiles();
         // parse customer folder, get number of customers
 
         // initalize customer list
-        customers = new Customer[ customerCount ];
+        customers = new LinkedList();
 
-        int iterator = 0;
-        /*
-         for( file f : filesInCustomerFolder ) {
-            
-         // parse the text file
-         * String ID;
-         String name;
-         String address;
-         // Purchase History
-         int credit;
-         int startingSize = 50; // starting size of Media arrays
-         Album[] albumsOwned;
-         AudioBooks[] audioBooksOwned;
-         Movie[] moviesOwned;
+        for ( File f : filesInCustomerFolder ) {
 
-         customer[iterator] = new Customer(...);
-          
-         iterator++;
-         }
-         */
+            // parse the text file
+            String ID = "";
+            String name = "";
+            String address = "";
+            int credit = 0;
+
+            // parse purchase history
+            LinkedList purchaseHistory = new LinkedList();
+
+            customers.add( new Customer( ID, name, address, credit, purchaseHistory, this ) );
+
+        }
+
     }
 
-    
+    public void writeCustomerPurchase( String id, Purchase purchase ) {
+        // search for filename in customer folder with given id
+        // append the purchase to the customer file
+        return;
+    }
+
+    public void writeMediaItem( Media m ) {
+        return;
+    }
 }

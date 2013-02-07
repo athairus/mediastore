@@ -1,7 +1,7 @@
 package mediastore;
 
 /**
- * A class that encapsulates a single purchase.
+ * A class that encapsulates a single purchase made by a Customer.
  *
  * @author Milton John and Ryan Smith
  * @version 1.0 Feb 7, 2013
@@ -9,7 +9,7 @@ package mediastore;
  */
 public class Purchase {
 
-    private String id;
+    private String id; // id of the product purchased.
     private double price;
     private long date;
 

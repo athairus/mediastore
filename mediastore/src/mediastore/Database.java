@@ -1,5 +1,7 @@
 package mediastore;
 
+import java.util.LinkedList;
+
 /**
  * A class that represents a generic database.
  *
@@ -9,8 +11,8 @@ package mediastore;
  */
 public abstract class Database {
 
-    Customer[] customers;
-    Media[] media;
+    LinkedList<Customer> customers;
+    LinkedList<Media> media;
 
     public Media getFromID( String id ) {
         for ( Media m : media ) {
@@ -23,7 +25,8 @@ public abstract class Database {
         return null;
     }
     
-    public void writeCustomerPurchase( String id, Purchase purchase ){
-        return;
-    }
+    public abstract void writeCustomerPurchase( String id, Purchase purchase );
+    
+    public abstract void writeMediaItem( Media m );
+    
 }
