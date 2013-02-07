@@ -2,6 +2,7 @@ package mediastore;
 
 /**
  * A class that encapsulates a movie.
+ *
  * @author Ryan Smith
  */
 
