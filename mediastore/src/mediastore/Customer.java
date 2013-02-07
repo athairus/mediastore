@@ -5,12 +5,11 @@ package mediastore;
  * @author Cole Arnold
  */
 public class Customer {
-
+    String ID;
     String name;
-    String emailAddress;
-    int age;
-    int birthdate;
-    int moneySpent;
+    String address;
+    // Purchase History
+    int credit;
     int startingSize = 50; // starting size of Media arrays
     Album[] albumsOwned;
     AudioBooks[] audioBooksOwned;
@@ -19,12 +18,11 @@ public class Customer {
     int audioIndex;
     int movieIndex;
 
-    public Customer( String name, String emailAddress, int age, int birthdate ) {
+    public Customer(String ID, String name, String address, int credit) {
+        this.ID = ID;
         this.name = name;
-        this.emailAddress = emailAddress;
-        this.age = age;
-        this.birthdate = birthdate;
-        this.moneySpent = 0;
+        this.address = address;
+        this.credit = credit;
         albumsOwned = new Album[ startingSize ];
         audioBooksOwned = new AudioBooks[ startingSize ];
         moviesOwned = new Movie[ startingSize ];
