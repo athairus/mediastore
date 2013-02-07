@@ -14,5 +14,9 @@ package mediastore;
 public class CustomerTestDriver {
 
     public static void main( String[] args ) {
+
+        Database db = new TextDatabase( "../db" );
+
+        Media test = new Movie();
     }
 }

@@ -52,6 +52,9 @@ public class Movie extends Media {
         return releaseYear;
     }
     
+    protected Movie getFromID(){ // only media should call this method
+        return null;
+    }
     
     
 }

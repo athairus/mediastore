@@ -17,7 +17,14 @@ public class Customer {
     int albumIndex; // keeps track of current index in album array
     int audioIndex;
     int movieIndex;
+    
+    Database db;
+    
 
+    public Customer() {
+        
+    }
+    
     public Customer(String ID, String name, String address, int credit) {
         this.ID = ID;
         this.name = name;
@@ -31,46 +38,13 @@ public class Customer {
         movieIndex = 0;
     }
 
-    public Album[] reallocateAudioBooksSize( AudioBooks[] AubioBooksOwned ) {
-        int oldSize = startingSize;
-        this.startingSize = startingSize * 2;
-        albumsOwned = new Album[ startingSize ];
-        System.arraycopy( this.albumsOwned, 0, albumsOwned, 0, oldSize );
 
-        return albumsOwned;
-    }
-
-    public Movie[] reallocateMovieSize( Movie[] moviesOwned ) {
-        int oldSize = startingSize;
-        this.startingSize = startingSize * 2;
-        moviesOwned = new Movie[ startingSize ];
-        System.arraycopy( this.moviesOwned, 0, moviesOwned, 0, oldSize );
-
-        return moviesOwned;
-    }
-
-    public AudioBooks[] reallocateAlbumSize( AudioBooks[] audioBooksOwned ) {
-        int oldSize = startingSize;
-        this.startingSize = startingSize * 2;
-        audioBooksOwned = new AudioBooks[ startingSize ];
-        System.arraycopy( this.audioBooksOwned, 0, audioBooksOwned, 0, oldSize );
-
-        return audioBooksOwned;
-    }
-
-    public void buyAlbum( Album newAlbum ) {
-        albumsOwned[albumIndex] = newAlbum;
-        albumIndex++;
-    }
-
-    public void buyMovie( Movie newMovie ) {
-        moviesOwned[movieIndex] = newMovie;
-        movieIndex++;
-    }
-
-    public void buyAudioBook( AudioBooks newAudioBooks ) {
-        audioBooksOwned[audioIndex] = newAudioBooks;
-        audioIndex++;
+    public void buy( String id ) {
+        Media object = db.getFromID( id );
+        // check to see if enough credits are present
+        credit -= object.getPrice();
+        Purchase purchase = new Purchase( id, object.getPrice(), System.currentTimeMillis());
+        db.writeCustomerPurchase( ID, purchase );
     }
     
     public void search()

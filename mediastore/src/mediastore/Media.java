@@ -7,14 +7,16 @@ package mediastore;
  */
 public abstract class Media {
 
-    String author;      // the author (or artist) of the work
-    String title;       // the title of the work
-    int duration;       // in seconds
-    String genre;       // genre the object belongs to
-    int ranking;        // 0 means not ranked, otherwise ranked from 
+    String author;          // the author (or artist) of the work
+    String title;           // the title of the work
+    int duration;           // in seconds
+    String genre;           // genre the object belongs to
+    int ranking;            // 0 means not ranked, otherwise ranked from 
     // most popular to least in descending order
-    double price;       // price in USD
-
+    double price;           // price in USD
+    
+    String id;              // unique ID 
+    
     public Media() {
         // initialzies all data members to "" or 0
         author = "";
@@ -99,5 +101,8 @@ public abstract class Media {
         //POST: returns price
         return price;
     }
-    //*****************************************************************************   
+    public String getID() {
+        return id;
+    }
+    //*****************************************************************************  
 }
