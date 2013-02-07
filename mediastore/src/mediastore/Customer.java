@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 /**
  * Encapsulates a single customer.
+ *
  * @author Milton John, Cole Arnold and Ryan Smith
  */
 public class Customer {
@@ -11,7 +12,7 @@ public class Customer {
     String id;
     String name;
     String address;
-    int credits;
+    double credits;
     LinkedList<Purchase> purchaseHistory;
     Database db; // the Database this instance is a member of
 
@@ -19,7 +20,7 @@ public class Customer {
         // TODO: default values
     }
 
-    public Customer( String ID, String name, String address, int credits, LinkedList purchaseHistory, Database db ) {
+    public Customer( String id, String name, String address, double credits, LinkedList purchaseHistory, Database db ) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -31,7 +32,7 @@ public class Customer {
     public void Buy( String id ) {
         Media object = db.getFromID( id );
         double price = object.getPrice();
-        if( credits < price ) {
+        if ( credits < price ) {
             // not enough money
             return;
         }

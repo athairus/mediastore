@@ -24,9 +24,8 @@ public abstract class Database {
         }
         return null;
     }
-    
+
     public abstract void writeCustomerPurchase( String id, Purchase purchase );
-    
+
     public abstract void writeMediaItem( Media m );
-    
 }

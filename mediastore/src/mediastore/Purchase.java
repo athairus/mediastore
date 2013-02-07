@@ -36,8 +36,8 @@ public class Purchase {
     public long getDate() {
         return date;
     }
-    
-    public String toString(){
+
+    public String toString() {
         return "Item ID: " + id + "\nItem Price: " + price + "\nDate: " + System.currentTimeMillis();
     }
 }

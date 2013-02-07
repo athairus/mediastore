@@ -36,8 +36,6 @@ public class TextDatabase extends Database {
 
         int customerCount = 0;
         customerCount = customerFolder.listFiles().length; // determine the number of Customers
-        System.out.println( customerCount );
-        System.out.println( customerFolder.toString() );
 
         File[] filesInCustomerFolder = customerFolder.listFiles();
         // parse customer folder, get number of customers
@@ -48,15 +46,37 @@ public class TextDatabase extends Database {
         for ( File f : filesInCustomerFolder ) {
 
             // parse the text file
-            String ID = "";
+            String id = "";
             String name = "";
             String address = "";
-            int credit = 0;
+            double credit = 0;
+
+            id = f.getName().substring( 0, f.getName().lastIndexOf( '.' ) );
+            try {
+                Scanner scanner = new Scanner( f );
+                name = scanner.nextLine();
+                address = scanner.nextLine();
+                credit = scanner.nextDouble();
+            } catch ( java.io.FileNotFoundException e ) {
+
+                System.exit( -1 );
+
+            } catch ( java.util.InputMismatchException e ) {
+
+                System.out.println( "Error parsing customer information, unable to parse database. (java.util.InputMismatchException)" );
+                System.exit( -1 );
+
+            } catch ( java.util.NoSuchElementException e ) {
+
+                System.out.println( "Error parsing customer information, unable to parse database. (java.util.NoSuchElementException)" );
+                System.exit( -1 );
+
+            }
 
             // parse purchase history
             LinkedList purchaseHistory = new LinkedList();
 
-            customers.add( new Customer( ID, name, address, credit, purchaseHistory, this ) );
+            customers.add( new Customer( id, name, address, credit, purchaseHistory, this ) );
 
         }
 
