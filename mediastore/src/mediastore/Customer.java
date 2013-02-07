@@ -2,7 +2,7 @@ package mediastore;
 
 /**
  *
- * @author Cole Arnold
+ * @author Cole Arnold and Ryan Smith
  */
 public class Customer {
     String ID;
@@ -71,5 +71,10 @@ public class Customer {
     public void buyAudioBook( AudioBooks newAudioBooks ) {
         audioBooksOwned[audioIndex] = newAudioBooks;
         audioIndex++;
+    }
+    
+    public void search()
+    {
+        
     }
 }
