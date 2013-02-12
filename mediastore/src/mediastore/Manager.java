@@ -9,30 +9,7 @@ import java.util.Scanner;
 public class Manager {
 
     String password;
-<<<<<<< HEAD
-
-    public void add() {
-        System.out.println( "What media type do you want to add?" );
-        System.out.println( "1. Album" );
-        System.out.println( "2. Movie" );
-        System.out.println( "3. Audiobook" );
-        Scanner input = new Scanner( System.in );
-        int choice = input.nextInt();
-
-        if ( choice == 1 ) {
-            System.out.println( "Enter the artist, album title, album duration, genre, and price respectively." );
-
-        } else if ( choice == 2 ) {
-        } else if ( choice == 3 ) {
-        } else {
-            System.out.println( "Input was invalid." );
-        }
-
-
-    }
-=======
-    
-    
+  
     public void add(){
         
         //Command Line prompt for manager to add desired item to Media store
@@ -80,5 +57,4 @@ public class Manager {
             break;
         }
     }   
->>>>>>> Added default constructor and initializer constructor in Album and AudioBooks class, began add method in manager, edited movie class
 }
