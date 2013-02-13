@@ -17,7 +17,14 @@ public class Customer {
     private Database db; // the Database this instance is a member of
 
     public Customer() {
-        // TODO: default values
+        // TODO: Unsure of default values check for validity.
+        credits = 0;
+        name = "";
+        address = "";
+        id = 0; // Not sure how long each Id should be. Correct later to correct length
+        purchaseHistory = null;
+        db = null;
+        
     }
 
     public Customer( int id, String name, String address, double credits, LinkedList purchaseHistory, Database db ) {

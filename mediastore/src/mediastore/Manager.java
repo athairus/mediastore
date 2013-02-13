@@ -42,7 +42,7 @@ public class Manager {
                 double moviePrice = input.nextDouble();
                 int movieYear = input.nextInt();
                 Media newMovie = new Movie( director, movieTitle, movieDuration, movieGenre, moviePrice, movieYear );
-                //sore this new movie in appropriate place (ask milton)
+                //store this new movie in appropriate place (ask milton)
 
                 break;
             case 3:
