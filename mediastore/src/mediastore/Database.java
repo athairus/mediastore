@@ -13,11 +13,12 @@ public abstract class Database {
 
     protected LinkedList<Customer> customers;
     protected LinkedList<Media> media;
+    protected Manager manager;
     protected int customerCount;
     protected int mediaCount;
     protected int movieCount;
     protected int albumCount;
-    protected int audioBookCount;
+    protected int audiobookCount;
     protected int maxID;
 
     public Media getFromID( int id ) {

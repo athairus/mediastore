@@ -26,6 +26,7 @@ public class CustomerCLITestDriver {
             e.printStackTrace();
         }
         System.exit( 0 );
+        
         // choose a customer to act as
 
         // ask what the user wants to test

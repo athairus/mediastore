@@ -9,6 +9,12 @@ import java.util.Scanner;
 public class Manager {
 
     private String password;
+    
+    Manager( String password ) {
+        
+        this.password = password;
+    
+    }
 
     public void add() {
 
@@ -53,7 +59,7 @@ public class Manager {
                 String bookGenre = input.next();
                 double bookPrice = input.nextDouble();
                 int bookYear     = input.nextInt();
-                Media newAudioBooks = new AudioBook( author, bookTitle, bookDuration, bookGenre, bookPrice, bookYear );
+                Media newAudiobooks = new Audiobook( author, bookTitle, bookDuration, bookGenre, bookPrice, bookYear );
                 //store this new album in appropriate place (ask milton)
 
                 break;
