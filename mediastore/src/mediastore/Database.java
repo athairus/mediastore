@@ -5,18 +5,24 @@ import java.util.LinkedList;
 /**
  * A class that represents a generic database.
  *
- * @author Milton John
+ * @author Milton John, Ryan Smith and Cole Arnold
  * @version 1.0 Feb 7, 2013
  *
  */
 public abstract class Database {
 
-    LinkedList<Customer> customers;
-    LinkedList<Media> media;
+    protected LinkedList<Customer> customers;
+    protected LinkedList<Media> media;
+    protected int customerCount;
+    protected int mediaCount;
+    protected int movieCount;
+    protected int albumCount;
+    protected int audioBookCount;
+    protected int maxID;
 
-    public Media getFromID( String id ) {
+    public Media getFromID( int id ) {
         for ( Media m : media ) {
-            if ( id.equals( m.getID() ) ) {
+            if ( id == m.getID() ) {
                 return m;
             } else {
                 return null;
@@ -25,7 +31,10 @@ public abstract class Database {
         return null;
     }
 
-    public abstract void writeCustomerPurchase( String id, Purchase purchase );
+    // checks the given id, if it is larger than the maxID, set maxID to it
+    protected abstract void checkID( int id );
+
+    public abstract void writeCustomerPurchase( int id, Purchase purchase );
 
     public abstract void writeMediaItem( Media m );
 }

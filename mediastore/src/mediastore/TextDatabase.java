@@ -3,92 +3,273 @@ package mediastore;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FileReader;
+import java.io.LineNumberReader;
 
 /**
  * A class that interacts with a text-based database.
  *
- * @author Milton John
+ * @author Milton John, Ryan Smith and Cole Arnold
  * @version 1.0 Feb 7, 2013
  *
  */
 public class TextDatabase extends Database {
-
-    String rootDir;
+    
+    private String rootDir;
 
     /**
-     * Parses database from a given root directory.
+     * Parses a text database from a given root directory.
      *
      * @param rootDir Location in the filesystem of the database
      */
-    public TextDatabase( String rootDir ) { // TODO: throws some kinda exception
+    public TextDatabase( String rootDir ) throws java.io.IOException, java.io.FileNotFoundException, java.util.InputMismatchException, java.util.InputMismatchException {
         this.rootDir = rootDir;
 
-        // check that the root dir exists and is freely writable
-
-        File customerFolder = new File( rootDir.concat( "customers" ) );
-
-        if ( customerFolder == null ) {
-            System.out.println( "customerFolder = null" );
+        // check that the root dir exists
+        File rootDirFile = new File( rootDir );
+        if ( !rootDirFile.exists() ) {
+            System.out.println( "WARNING: \"" + rootDirFile.getCanonicalPath() + "\" is missing, intializing an empty master database at this location..." );
+            rootDirFile.mkdir();
         }
 
-        // check for customer folder
-        // if not, create one
 
-        int customerCount = 0;
-        customerCount = customerFolder.listFiles().length; // determine the number of Customers
+        // <editor-fold defaultstate="collapsed" desc="parse customer database">
 
+        // check that the customer folder exists
+        File customerFolder = new File( rootDir.concat( "Customers" ) );
+        if ( !customerFolder.exists() ) {
+            System.out.println( "WARNING: \"" + customerFolder.getCanonicalPath() + "\" is missing, initalizing an empty customer database at this location..." );
+            customerFolder.mkdir();
+        }
+
+        // get number of customers
         File[] filesInCustomerFolder = customerFolder.listFiles();
-        // parse customer folder, get number of customers
+        customerCount = filesInCustomerFolder.length;
+
 
         // initalize customer list
         customers = new LinkedList();
-
+        
+        
         for ( File f : filesInCustomerFolder ) {
 
-            // parse the text file
-            String id = "";
-            String name = "";
-            String address = "";
-            double credit = 0;
-
-            id = f.getName().substring( 0, f.getName().lastIndexOf( '.' ) );
-            try {
-                Scanner scanner = new Scanner( f );
-                name = scanner.nextLine();
-                address = scanner.nextLine();
-                credit = scanner.nextDouble();
-            } catch ( java.io.FileNotFoundException e ) {
-
-                System.exit( -1 );
-
-            } catch ( java.util.InputMismatchException e ) {
-
-                System.out.println( "Error parsing customer information, unable to parse database. (java.util.InputMismatchException)" );
-                System.exit( -1 );
-
-            } catch ( java.util.NoSuchElementException e ) {
-
-                System.out.println( "Error parsing customer information, unable to parse database. (java.util.NoSuchElementException)" );
-                System.exit( -1 );
-
+            // strip the '.txt' from the filename to get the customer id
+            int id = Integer.parseInt( f.getName().substring( 0, f.getName().lastIndexOf( '.' ) ) );
+            
+            if ( id == 0 ) {
+                throw new java.util.InputMismatchException( "Invalid customer ID 0 present." );
             }
 
-            // parse purchase history
+            // parse the customer's information
+            LineNumberReader in = new LineNumberReader( new FileReader( f ) );
+            String name = in.readLine();
+            String address = in.readLine();
+            double credit = Double.parseDouble( in.readLine() );
+
+            // parse the customer's purchase history
             LinkedList purchaseHistory = new LinkedList();
-
+            while ( in.ready() ) {
+                int purchaseID = Integer.parseInt( in.readLine() );
+                double purchasePrice = Double.parseDouble( in.readLine() );
+                long purchaseDate = Long.parseLong( in.readLine() );
+                
+                purchaseHistory.add( new Purchase( purchaseID, purchasePrice, purchaseDate ) );
+            }
+            
+            checkID( id );
             customers.add( new Customer( id, name, address, credit, purchaseHistory, this ) );
+            
+        }
+        // </editor-fold>
 
+
+        // <editor-fold defaultstate="collapsed" desc="parse media databases">        
+
+        // a filter that only lets directories through
+        class DirectoryChecker implements FileFilter {
+            
+            public boolean accept( File f ) {
+                return f.isDirectory();
+            }
+        }
+        
+        DirectoryChecker filter = new DirectoryChecker();
+        
+        media = new LinkedList();
+
+        // <editor-fold defaultstate="collapsed" desc="parse movie database">
+        File movieFolder = new File( rootDir.concat( "Movies" ) );
+        if ( !movieFolder.exists() ) {
+            System.out.println( "WARNING: \"" + movieFolder.getCanonicalPath() + "\" is missing, initalizing an empty movie database at this location..." );
+            movieFolder.mkdir();
         }
 
-    }
+        // get number of movies
+        File[] filesInMovieFolder = movieFolder.listFiles( filter ); // determine the number of movies
+        movieCount = filesInMovieFolder.length;
 
-    public void writeCustomerPurchase( String id, Purchase purchase ) {
+
+
+        // parse movie database
+        for ( File fdir : filesInMovieFolder ) {
+            // strip the '.txt' from the filename to get the id
+            int id = Integer.parseInt( fdir.getName() );
+            
+            File f = null;
+
+            // parse metadata
+            f = new File( fdir.getCanonicalPath().concat( File.separator + "metadata.txt" ) );
+            if ( !f.exists() ) {
+                System.out.println( "Error parsing database: Movie id " + id + " is missing metadata.txt" );
+                throw new java.io.FileNotFoundException();
+            }
+            LineNumberReader in = new LineNumberReader( new FileReader( f ) );
+            String author = in.readLine();
+            String title = in.readLine();
+            int duration = Integer.parseInt( in.readLine() );
+            String genre = in.readLine();
+            double price = Double.parseDouble( in.readLine() );
+            int releaseYear = Integer.parseInt( in.readLine() );
+            
+            media.add( new Movie( author, title, duration, genre, price, releaseYear ) );
+
+            // check for presence of cover, background, and trailer
+            // warn if missing
+            f = new File( fdir.getCanonicalPath().concat( File.separator + "cover.png" ) );
+            if ( !f.exists() ) {
+                System.out.println( "WARNING: Movie id " + id + " is missing cover.png" );
+            }
+            
+            f = new File( fdir.getCanonicalPath().concat( File.separator + "background.png" ) );
+            if ( !f.exists() ) {
+                System.out.println( "WARNING: Movie id " + id + " is missing background.png" );
+            }
+            
+            f = new File( fdir.getCanonicalPath().concat( File.separator + "trailer.mp4" ) );
+            if ( !f.exists() ) {
+                System.out.println( "WARNING: Movie id " + id + " is missing trailer.mp4" );
+            }
+            
+        }
+
+
+
+
+        // </editor-fold>
+
+        // <editor-fold defaultstate="collapsed" desc="parse music album database">
+        
+        // just so there's no confusion, in comments and output strings these are refered to as "music albums"
+        // in code they're refered to as "album" or "albums"
+        // the folder name is "Music"
+        
+        
+        File albumFolder = new File( rootDir.concat( "Music" ) );
+        if ( !albumFolder.exists() ) {
+            System.out.println( "WARNING: \"" + albumFolder.getCanonicalPath() + "\" is missing, initalizing an empty music album database at this location..." );
+            albumFolder.mkdir();
+        }
+
+        // get number of music albums
+        File[] filesInAlbumFolder = albumFolder.listFiles( filter ); // determine the number of music albums
+        albumCount = filesInAlbumFolder.length;
+
+
+
+        // parse music albums database
+        for ( File fdir : filesInAlbumFolder ) {
+            // strip the '.txt' from the filename to get the id
+            int id = Integer.parseInt( fdir.getName() );
+            
+            File f = null;
+
+            // parse metadata
+            f = new File( fdir.getCanonicalPath().concat( File.separator + "metadata.txt" ) );
+            if ( !f.exists() ) {
+                System.out.println( "Error parsing database: Movie id " + id + " is missing metadata.txt" );
+                throw new java.io.FileNotFoundException();
+            }
+            LineNumberReader in = new LineNumberReader( new FileReader( f ) );
+            String author = in.readLine();
+            String title = in.readLine();
+            int duration = Integer.parseInt( in.readLine() );
+            String genre = in.readLine();
+            double price = Double.parseDouble( in.readLine() );
+            int releaseYear = Integer.parseInt( in.readLine() );
+                        
+            media.add( new Album( author, title, duration, genre, price, releaseYear ) );
+
+            // check for presence of cover, background, and trailer
+            // warn if missing
+            f = new File( fdir.getCanonicalPath().concat( File.separator + "cover.png" ) );
+            if ( !f.exists() ) {
+                System.out.println( "WARNING: Movie id " + id + " is missing cover.png" );
+            }
+            
+            f = new File( fdir.getCanonicalPath().concat( File.separator + "background.png" ) );
+            if ( !f.exists() ) {
+                System.out.println( "WARNING: Movie id " + id + " is missing background.png" );
+            }
+            
+            f = new File( fdir.getCanonicalPath().concat( File.separator + "preview.mp3" ) );
+            if ( !f.exists() ) {
+                System.out.println( "WARNING: Movie id " + id + " is missing preview.mp3" );
+            }
+            
+        }
+
+
+
+
+        // </editor-fold>
+
+
+        // </editor-fold>
+
+        
+    }
+    
+    public void test() {
+        System.out.println( "test" );
+    }
+    
+    protected void checkID( int id ) {
+        
+        maxID = Math.max( id, maxID );
+    }
+    
+    public void writeCustomerPurchase( int id, Purchase purchase ) {
         // search for filename in customer folder with given id
         // append the purchase to the customer file
         return;
     }
-
+    
     public void writeMediaItem( Media m ) {
+
+        // increment media count
+        mediaCount++;
+        if ( m instanceof Movie ) {
+            // increment movie count
+            movieCount++;
+
+            // generate a new ID
+            maxID++;
+
+            // create a new .txt entry
+
+            // fill it with data
+
+            return;
+        }
+        
+        if ( m instanceof Album ) {
+            return;
+        }
+        
+        if ( m instanceof AudioBook ) {
+            return;
+        }
         return;
     }
 }

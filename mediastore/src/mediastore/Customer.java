@@ -5,31 +5,31 @@ import java.util.LinkedList;
 /**
  * Encapsulates a single customer.
  *
- * @author Milton John, Cole Arnold and Ryan Smith
+ * @author Milton John, Ryan Smith and Cole Arnold
  */
 public class Customer {
 
-    String id;
-    String name;
-    String address;
-    double credits;
-    LinkedList<Purchase> purchaseHistory;
-    Database db; // the Database this instance is a member of
+    private int id;
+    private String name;
+    private String address;
+    private double credits;
+    private LinkedList<Purchase> purchaseHistory;
+    private Database db; // the Database this instance is a member of
 
     public Customer() {
         // TODO: default values
     }
 
-    public Customer( String id, String name, String address, double credits, LinkedList purchaseHistory, Database db ) {
+    public Customer( int id, String name, String address, double credits, LinkedList purchaseHistory, Database db ) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.credits = credits;
-
+        this.db = db;
         this.purchaseHistory = purchaseHistory;
     }
 
-    public void Buy( String id ) {
+    public void Buy( int id ) {
         Media object = db.getFromID( id );
         double price = object.getPrice();
         if ( credits < price ) {
