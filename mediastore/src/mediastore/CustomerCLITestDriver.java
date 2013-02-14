@@ -33,7 +33,7 @@ public class CustomerCLITestDriver {
             System.exit( -1 );
         }
         for ( Customer c : db.customers ) {
-            System.out.println( c.getID() + c.getName() );
+            System.out.println( c.getID() + ". " + c.getName() );
             // while we're here, pass the db reference to each Customer
             c.setDB( db );
             // list customers
