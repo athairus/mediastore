@@ -8,15 +8,15 @@ import java.util.Scanner;
  */
 public class Manager {
 
-    private String password;
-    
+    private String password; //managers password
+
     Manager( String password ) {
-        
+
         this.password = password;
-    
+
     }
 
-    public void add() {
+    public void addContent() {
 
         //Command Line prompt for manager to add desired item to Media store
         System.out.println( "What media type do you want to add?" );
@@ -28,52 +28,57 @@ public class Manager {
         int choice = input.nextInt();
         switch ( choice ) {
             case 1:
-                System.out.print( "Enter the album artist: ");
+                System.out.print( "Enter the album artist: " );
                 String artist = input.next();
                 System.out.print( "Enter the album title: " );
                 String albumTitle = input.next();
-                System.out.print( "Enter the album duration: ");
+                System.out.print( "Enter the album duration: " );
                 int albumDuration = input.nextInt();
-                System.out.print( "Enter the album's genre: ");
+                System.out.print( "Enter the album's genre: " );
                 String albumGenre = input.next();
-                System.out.print("Enter the album's price: ");
+                System.out.print( "Enter the album's price: " );
                 double albumPrice = input.nextDouble();
-                Media newAlbum = new Album(artist, albumTitle, albumDuration, albumGenre, albumPrice);
+                Media newAlbum = new Album( artist, albumTitle, albumDuration, albumGenre, albumPrice );
                 //store this new album in appropriate place (ask milton)
 
                 break;
             case 2:
-                System.out.println("Enter the movie director: ");
+                System.out.println( "Enter the movie director: " );
                 String director = input.next();
-                System.out.print("Enter the movie title: ");
+                System.out.print( "Enter the movie title: " );
                 String movieTitle = input.next();
-                System.out.print("Enter the movie duration: ");
+                System.out.print( "Enter the movie duration: " );
                 int movieDuration = input.nextInt();
-                System.out.print("Enter the movie genre: ");
+                System.out.print( "Enter the movie genre: " );
                 String movieGenre = input.next();
-                System.out.print("Enter the movie price: ");
+                System.out.print( "Enter the movie price: " );
                 double moviePrice = input.nextDouble();
-                System.out.print("Enter the movie release year: ");
+                System.out.print( "Enter the movie release year: " );
                 int movieYear = input.nextInt();
                 Media newMovie = new Movie( director, movieTitle, movieDuration, movieGenre, moviePrice, movieYear );
                 //store this new movie in appropriate place (ask milton)
 
                 break;
             case 3:
-                System.out.print("Enter the audiobook author: , book title, book duration, genre, and price respectively.");
+                System.out.print( "Enter the audiobook author: , book title, book duration, genre, and price respectively." );
                 String author = input.next();
-                System.out.print("Enter the audiobook title: ");
+                System.out.print( "Enter the audiobook title: " );
                 String bookTitle = input.next();
-                System.out.print("Enter the audiobook duration: ");
+                System.out.print( "Enter the audiobook duration: " );
                 int bookDuration = input.nextInt();
-                System.out.print("Enter the audiobook genre: ");               
+                System.out.print( "Enter the audiobook genre: " );
                 String bookGenre = input.next();
-                System.out.print("Enter the audiobook price: ");
+                System.out.print( "Enter the audiobook price: " );
                 double bookPrice = input.nextDouble();
-                Media newAudiobook = new Audiobook(author, bookTitle, bookDuration, bookGenre, bookPrice);
+                Media newAudiobook = new Audiobook( author, bookTitle, bookDuration, bookGenre, bookPrice );
                 //store this new album in appropriate place (ask milton)
 
                 break;
         }
+  
     }
+    
+    public void removeContent( Media item ){
+         item = null;
+     }
 }

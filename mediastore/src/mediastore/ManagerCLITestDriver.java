@@ -16,5 +16,8 @@ package mediastore;
 public class ManagerCLITestDriver {
 
     public static void main( String[] args ) {
+        
+        Manager m = new Manager("12345");
+        
     }
 }
