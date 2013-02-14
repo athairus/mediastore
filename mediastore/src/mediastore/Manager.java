@@ -39,7 +39,7 @@ public class Manager {
                 String albumGenre = input.next();
                 System.out.print( "Enter the album's price: " );
                 double albumPrice = input.nextDouble();
-                Media newAlbum = new Album( artist, albumTitle, albumDuration, albumGenre, albumPrice );
+                Media newAlbum = new Album( artist, albumTitle, albumDuration, albumGenre, albumPrice, 0 );
                 //store this new album in appropriate place (ask milton)
 
                 break;
@@ -56,7 +56,7 @@ public class Manager {
                 double moviePrice = input.nextDouble();
                 System.out.print( "Enter the movie release year: " );
                 int movieYear = input.nextInt();
-                Media newMovie = new Movie( director, movieTitle, movieDuration, movieGenre, moviePrice, movieYear );
+                Media newMovie = new Movie( director, movieTitle, movieDuration, movieGenre, moviePrice, movieYear, 0 );
                 //store this new movie in appropriate place (ask milton)
 
                 break;
@@ -71,7 +71,7 @@ public class Manager {
                 String bookGenre = input.next();
                 System.out.print( "Enter the audiobook price: " );
                 double bookPrice = input.nextDouble();
-                Media newAudiobook = new Audiobook( author, bookTitle, bookDuration, bookGenre, bookPrice );
+                Media newAudiobook = new Audiobook( author, bookTitle, bookDuration, bookGenre, bookPrice, 0 );
                 //store this new album in appropriate place (ask milton)
 
                 break;
