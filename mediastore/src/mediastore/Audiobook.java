@@ -11,9 +11,9 @@ public class Audiobook extends Media {
         super();
     }
 
-    public Audiobook( String author, String title, int duration, String genre, double price, int releaseYear ) {
+    public Audiobook( String author, String title, int duration, String genre, double price ) {
 
-        super( author, title, duration, genre, price, releaseYear );
+        super( author, title, duration, genre, price );
     }
     
     public String toTextDBRepresentation(){

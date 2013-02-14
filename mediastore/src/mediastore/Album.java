@@ -11,8 +11,12 @@ public class Album extends Media {
         super();
     }
 
-    public Album( String author, String title, int duration, String genre, double price, int releaseYear ) {
+    public Album( String author, String title, int duration, String genre, double price) {
 
-        super( author, title, duration, genre, price, releaseYear );
+        super( author, title, duration, genre, price);
+    }
+    
+    public String toTextDBRepresentation() {
+        return author + '\n' + title + '\n' + duration + '\n' + genre + '\n' + ranking + '\n' + price;
     }
 }

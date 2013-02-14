@@ -28,38 +28,49 @@ public class Manager {
         int choice = input.nextInt();
         switch ( choice ) {
             case 1:
-                System.out.println( "Enter the artist, album title, album duration, genre, price and release year respectively." );
+                System.out.print( "Enter the album artist: ");
                 String artist = input.next();
+                System.out.print( "Enter the album title: " );
                 String albumTitle = input.next();
+                System.out.print( "Enter the album duration: ");
                 int albumDuration = input.nextInt();
+                System.out.print( "Enter the album's genre: ");
                 String albumGenre = input.next();
+                System.out.print("Enter the album's price: ");
                 double albumPrice = input.nextDouble();
-                int albumYear   = input.nextInt();
-                Media newAlbum = new Album( artist, albumTitle, albumDuration, albumGenre, albumPrice, albumYear );
+                Media newAlbum = new Album(artist, albumTitle, albumDuration, albumGenre, albumPrice);
                 //store this new album in appropriate place (ask milton)
 
                 break;
             case 2:
-                System.out.println( "Enter the director, movie title, movie duration, genre, price, and release year respectively." );
+                System.out.println("Enter the movie director: ");
                 String director = input.next();
+                System.out.print("Enter the movie title: ");
                 String movieTitle = input.next();
+                System.out.print("Enter the movie duration: ");
                 int movieDuration = input.nextInt();
+                System.out.print("Enter the movie genre: ");
                 String movieGenre = input.next();
+                System.out.print("Enter the movie price: ");
                 double moviePrice = input.nextDouble();
+                System.out.print("Enter the movie release year: ");
                 int movieYear = input.nextInt();
                 Media newMovie = new Movie( director, movieTitle, movieDuration, movieGenre, moviePrice, movieYear );
                 //store this new movie in appropriate place (ask milton)
 
                 break;
             case 3:
-                System.out.println( "Enter the author, book title, book duration, genre, and price respectively." );
+                System.out.print("Enter the audiobook author: , book title, book duration, genre, and price respectively.");
                 String author = input.next();
+                System.out.print("Enter the audiobook title: ");
                 String bookTitle = input.next();
+                System.out.print("Enter the audiobook duration: ");
                 int bookDuration = input.nextInt();
+                System.out.print("Enter the audiobook genre: ");               
                 String bookGenre = input.next();
+                System.out.print("Enter the audiobook price: ");
                 double bookPrice = input.nextDouble();
-                int bookYear     = input.nextInt();
-                Media newAudiobooks = new Audiobook( author, bookTitle, bookDuration, bookGenre, bookPrice, bookYear );
+                Media newAudiobook = new Audiobook(author, bookTitle, bookDuration, bookGenre, bookPrice);
                 //store this new album in appropriate place (ask milton)
 
                 break;

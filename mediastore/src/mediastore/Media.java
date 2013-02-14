@@ -17,7 +17,8 @@ public abstract class Media {
                                     // ranked, otherwise ranked from 
                                     // most popular to least in descending order
     protected double price;         // price in USD
-    protected int releaseYear;      // year this media item was released
+
+
 
     public Media() {
         // initialzies all data members to "" or 0
@@ -27,10 +28,9 @@ public abstract class Media {
         duration = 0;
         ranking = 0;
         price = 0.0;
-        releaseYear = 0;
     }
 
-    public Media( String author, String title, int duration, String genre, double price, int releaseYear ) {
+    public Media( String author, String title, int duration, String genre, double price ) {
         // initializes all data member to their respective parameters
         this();
         this.author = author;
@@ -38,7 +38,6 @@ public abstract class Media {
         this.duration = duration;
         this.genre = genre;
         this.price = price;
-        this.releaseYear = releaseYear;
 
     }
 
