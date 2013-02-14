@@ -10,7 +10,7 @@ import java.util.LinkedList;
  *
  */
 public abstract class Database {
-
+    
     protected LinkedList<Customer> customers;
     protected LinkedList<Media> media;
     protected Manager manager;
@@ -19,8 +19,10 @@ public abstract class Database {
     protected int movieCount;
     protected int albumCount;
     protected int audiobookCount;
-    protected int maxID;
-
+    protected int maxMediaID;
+    protected int maxCustomerID;
+    protected int maxPurchaseID;
+    
     public Media getFromID( int id ) {
         for ( Media m : media ) {
             if ( id == m.getID() ) {
@@ -34,8 +36,8 @@ public abstract class Database {
 
     // checks the given id, if it is larger than the maxID, set maxID to it
     protected abstract void checkID( int id );
-
+    
     public abstract void writeCustomerPurchase( int id, Purchase purchase );
-
-    public abstract void writeMediaItem( Media m );
+    
+    public abstract void writeNewMediaItem( Media m ) throws java.io.IOException ;
 }

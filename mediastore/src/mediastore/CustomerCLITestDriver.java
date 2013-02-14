@@ -34,6 +34,9 @@ public class CustomerCLITestDriver {
         }
         for( Customer c : db.customers ) {
             System.out.println(c.getID() + c.getName());
+            // while we're here, pass the db reference to each Customer
+            c.setDB( db);
+            // list customers
         }
         // choose what customer to act as
         System.out.println("Choose as customer to act as for this test: ");

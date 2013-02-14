@@ -1,15 +1,15 @@
 package mediastore;
 
 import java.io.BufferedWriter;
-import java.util.LinkedList;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.OutputStreamWriter;
+import java.util.LinkedList;
 
 /**
  * A class that interacts with a text-based database.
@@ -36,7 +36,6 @@ public class TextDatabase extends Database {
             System.out.println( "WARNING: \"" + rootDirFile.getCanonicalPath() + "\" is missing, intializing an empty master database at this location..." );
             rootDirFile.mkdir();
         }
-
 
         // <editor-fold defaultstate="collapsed" desc="parse customer database">
 
@@ -87,7 +86,6 @@ public class TextDatabase extends Database {
         }
         // </editor-fold>
 
-
         // <editor-fold defaultstate="collapsed" desc="parse media databases">        
 
         // a filter that only lets directories through
@@ -133,6 +131,7 @@ public class TextDatabase extends Database {
             String title = in.readLine();
             int duration = Integer.parseInt( in.readLine() );
             String genre = in.readLine();
+            int ranking = Integer.parseInt( in.readLine() );
             double price = Double.parseDouble( in.readLine() );
             int releaseYear = Integer.parseInt( in.readLine() );
 
@@ -309,8 +308,7 @@ public class TextDatabase extends Database {
     }
 
     protected void checkID( int id ) {
-
-        maxID = Math.max( id, maxID );
+        //maxID = Math.max( id, maxID );
     }
 
     public void writeCustomerPurchase( int id, Purchase purchase ) {
@@ -318,8 +316,9 @@ public class TextDatabase extends Database {
         // append the purchase to the customer file
         return;
     }
-
-    public void writeMediaItem( Media m ) {
+    
+    public void writeNewMediaItem( Media m ) throws java.io.IOException {
+        File newFile;
 
         // increment media count
         mediaCount++;
@@ -328,11 +327,15 @@ public class TextDatabase extends Database {
             movieCount++;
 
             // generate a new ID
-            maxID++;
+            maxMediaID++;
 
             // create a new .txt entry
-
             // fill it with data
+            newFile = new File( rootDir.concat( Integer.toString( maxMediaID ) ).concat( ".txt" ) );
+            FileWriter fw = new FileWriter( newFile );
+            BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
+            out.write( ( (Movie) m ).toString() );
+            out.close();
 
             return;
         }
