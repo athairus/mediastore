@@ -17,7 +17,7 @@ public abstract class Media {
                                     // ranked, otherwise ranked from 
                                     // most popular to least in descending order
     protected double price;         // price in USD
-    protected double numSold;       // number of media objects sold
+    protected int numSold;          // number of media objects sold
 
 
 
@@ -32,7 +32,7 @@ public abstract class Media {
         numSold = 0;
     }
 
-    public Media( String author, String title, int duration, String genre, double price ) {
+    public Media( String author, String title, int duration, String genre, double price, double numSold ) {
         // initializes all data member to their respective parameters
         this();
         this.author = author;

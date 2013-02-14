@@ -14,10 +14,10 @@ public class Movie extends Media {
         super();
     }
 
-    public Movie( String author, String title, int duration, String genre, double price, int releaseYear ) {
+    public Movie( String author, String title, int duration, String genre, double price, int releaseYear, int numSold ) {
         //PRE: Takes an author (director), title, duration, genre, ranking, price ( > 0 ), and release year ( > 0 )
         //POST: Sets data members to respective values
-        super( author, title, duration, genre, price);
+        super( author, title, duration, genre, price, numSold );
         this.releaseYear = releaseYear;
     }
 

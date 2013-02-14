@@ -27,6 +27,7 @@ public class TextDatabase extends Database {
      *
      * @param rootDir Location in the file system of the database
      */
+    //<editor-fold defaultstate="collapsed" desc="public TextDatabase( String rootDir )">
     public TextDatabase( String rootDir ) throws java.io.IOException, java.io.FileNotFoundException, java.util.InputMismatchException, java.util.InputMismatchException {
         this.rootDir = rootDir;
 
@@ -86,7 +87,7 @@ public class TextDatabase extends Database {
         }
         // </editor-fold>
 
-        // <editor-fold defaultstate="collapsed" desc="parse media databases">        
+        // <editor-fold defaultstate="collapsed" desc="parse media databases">
 
         // a filter that only lets directories through
         class DirectoryChecker implements FileFilter {
@@ -133,9 +134,10 @@ public class TextDatabase extends Database {
             String genre = in.readLine();
             int ranking = Integer.parseInt( in.readLine() );
             double price = Double.parseDouble( in.readLine() );
+            int numSold = Integer.parseInt( in.readLine() );
             int releaseYear = Integer.parseInt( in.readLine() );
 
-            media.add( new Movie( author, title, duration, genre, price, releaseYear ) );
+            media.add( new Movie( author, title, duration, genre, price, releaseYear, numSold ) );
 
             // check for presence of cover, background, and trailer
             // warn if missing
@@ -199,8 +201,8 @@ public class TextDatabase extends Database {
             int duration = Integer.parseInt( in.readLine() );
             String genre = in.readLine();
             double price = Double.parseDouble( in.readLine() );
-
-            media.add( new Album( author, title, duration, genre, price ) );
+            int numSold = Integer.parseInt( in.readLine() );
+            media.add( new Album( author, title, duration, genre, price, numSold ) );
 
             // check for presence of cover, background, and preview
             // warn if missing
@@ -223,7 +225,7 @@ public class TextDatabase extends Database {
 
         // </editor-fold>
 
-        // <editor-fold defaultstate="collapsed" desc="parse audiobooks database">     
+        // <editor-fold defaultstate="collapsed" desc="parse audiobooks database">
 
         // the 'b' in audiobook is always lowercase
 
@@ -258,8 +260,9 @@ public class TextDatabase extends Database {
             int duration = Integer.parseInt( in.readLine() );
             String genre = in.readLine();
             double price = Double.parseDouble( in.readLine() );
+            int numSold = Integer.parseInt( in.readLine() );
 
-            media.add( new Audiobook( author, title, duration, genre, price ) );
+            media.add( new Audiobook( author, title, duration, genre, price, numSold ) );
 
             // check for presence of cover, background, and preview
             // warn if missing
@@ -304,31 +307,37 @@ public class TextDatabase extends Database {
         // </editor-fold>
 
     }
+    //</editor-fold>
 
     @Override
+    //<editor-fold defaultstate="collapsed" desc="protected void checkCustomerID( int id )">
     protected void checkCustomerID( int id ) {
         maxCustomerID = Math.max( id, maxCustomerID );
     }
+    //</editor-fold>
 
     @Override
-    public void writeCustomerPurchase( int id, Purchase purchase ) {
+    //<editor-fold defaultstate="collapsed" desc="public void writeCustomerPurchase( Customer customer, Purchase purchase )">
+    public void writeCustomerPurchase( Customer customer, Purchase purchase ) {
         // search for filename in customer folder with given id
         // append the purchase to the customer file
     }
+    //</editor-fold>
 
     @Override
+    //<editor-fold defaultstate="collapsed" desc="public void writeNewMediaItem( Media m )">
     public void writeNewMediaItem( Media m ) throws java.io.IOException {
         File newFile;
 
         // increment media count
         mediaCount++;
 
+        // generate a new ID
+        maxMediaID++;
+
         if ( m instanceof Movie ) {
             // increment movie count
             movieCount++;
-
-            // generate a new ID
-            maxMediaID++;
 
             // create a new .txt entry, fill it with data
             newFile = new File( rootDir.concat( "Movies" + File.separator + Integer.toString( maxMediaID ) + File.separator + "metadata.txt" ) );
@@ -344,9 +353,6 @@ public class TextDatabase extends Database {
             // increment movie count
             movieCount++;
 
-            // generate a new ID
-            maxMediaID++;
-
             // create a new .txt entry, fill it with data
             newFile = new File( rootDir.concat( "Music" + File.separator + Integer.toString( maxMediaID ) + File.separator + "metadata.txt" ) );
             FileWriter fw = new FileWriter( newFile );
@@ -361,9 +367,6 @@ public class TextDatabase extends Database {
             // increment movie count
             movieCount++;
 
-            // generate a new ID
-            maxMediaID++;
-
             // create a new .txt entry, fill it with data
             newFile = new File( rootDir.concat( "Audiobooks" + File.separator + Integer.toString( maxMediaID ) + File.separator + "metadata.txt" ) );
             FileWriter fw = new FileWriter( newFile );
@@ -372,8 +375,10 @@ public class TextDatabase extends Database {
             out.close();
         }
     }
-    
+    //</editor-fold>
+
     @Override
+    //<editor-fold defaultstate="collapsed" desc="public void writeModifiedMediaItem( Media m )">
     public void writeModifiedMediaItem( Media m ) throws java.io.IOException {
         File newFile;
 
@@ -410,5 +415,11 @@ public class TextDatabase extends Database {
             out.write( ( (Audiobook) m ).toTextDBRepresentation() );
             out.close();
         }
+    }
+    //</editor-fold>
+    
+    @Override
+    public  void deleteMediaItem( Media m ) {
+        
     }
 }
