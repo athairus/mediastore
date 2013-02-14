@@ -37,7 +37,7 @@ public class Customer {
     }
 
     public void Buy( int id ) {
-        Media object = db.getFromID( id );
+        Media object = db.getMediaFromID( id );
         double price = object.getPrice();
         if ( credits < price ) {
             // not enough money
@@ -74,5 +74,9 @@ public class Customer {
 
     public void setDB( Database db ) {
         this.db = db;
+    }
+    
+    public String textToDBRepresentation() {
+        return name + '\n' + address + '\n' + credits + '\n' + purchaseHistory;
     }
 }

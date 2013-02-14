@@ -23,7 +23,7 @@ public abstract class Database {
     protected int maxCustomerID;
     protected int maxPurchaseID;
     
-    public Media getFromID( int id ) {
+    public Media getMediaFromID( int id ) {
         for ( Media m : media ) {
             if ( id == m.getID() ) {
                 return m;
@@ -32,6 +32,19 @@ public abstract class Database {
             }
         }
         return null;
+    }
+    
+    public Customer getCustomerFromID ( int id ) {
+        for ( Customer c : customers ) {
+            if ( id == c.getID() ) {
+                return c;
+            }
+            else {
+                return null;
+            }
+        }
+        return null;
+        
     }
 
     // checks the given id, if it is larger than the maxID, set maxID to it

@@ -81,7 +81,7 @@ public class Manager {
     }
 
     public void removeContent( int id ) {
-        Media object = db.getFromID( id ); //stores desired media item in temporary object
+        Media object = db.getMediaFromID( id ); //stores desired media item in temporary object
         db.media.remove( object );         //deletes temporary media object
         db.deleteMediaItem( object );      //deletes media object from store
 
@@ -89,7 +89,7 @@ public class Manager {
 
     public int checkItemSales( int id ) {
 
-        Media object = db.getFromID( id );
+        Media object = db.getMediaFromID( id );
         return object.numSold;
     }
 
@@ -97,4 +97,9 @@ public class Manager {
         
     }
     
+    public String getCustomerInfo( int id ) {
+        Customer person = db.getCustomerFromID( id );
+        
+        return person.textToDBRepresentation();
+    }
 }
