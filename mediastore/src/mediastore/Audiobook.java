@@ -14,6 +14,6 @@ public class Audiobook extends Media {
     }
     
     public String toTextDBRepresentation(){
-        return author + "\n " + title + "\n " + duration + "\n " + genre + "\n " + ranking + "\n " + price + "\n ";
+        return author + "\n " + title + "\n " + duration + "\n " + genre + "\n " + ranking + "\n " + price + "\n " + numSold;
     }
 }

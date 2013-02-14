@@ -18,6 +18,6 @@ public class Album extends Media {
     }
     
     public String toTextDBRepresentation() {
-        return author + '\n' + title + '\n' + duration + '\n' + genre + '\n' + ranking + '\n' + price;
+        return author + '\n' + title + '\n' + duration + '\n' + genre + '\n' + ranking + '\n' + price + "\n" + numSold;
     }
 }
