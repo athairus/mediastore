@@ -24,7 +24,7 @@ public class Customer {
         id = 0; // Not sure how long each Id should be. Correct later to correct length
         purchaseHistory = null;
         db = null;
-        
+
     }
 
     public Customer( int id, String name, String address, double credits, LinkedList purchaseHistory, Database db ) {
@@ -46,34 +46,33 @@ public class Customer {
         credits -= price;
 
         Purchase purchase = new Purchase( id, price, System.currentTimeMillis() );
-        db.writeCustomerPurchase( id, purchase );
+        db.writeCustomerPurchase( this, purchase );
         purchaseHistory.add( purchase );
-        
+
         // recalculate ranking
-        for( Media m : db.media ) {
-            
+        for ( Media m : db.media ) {
         }
     }
 
     public Media Search( String query ) {
         Media media = null;
-        for ( Media m : db.media){
-            if ( m.title.equals(query) ){
+        for ( Media m : db.media ) {
+            if ( m.title.equals( query ) ) {
                 media = m;
             }
         }
         return media;
     }
-    
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    
-    public int getID(){
+
+    public int getID() {
         return id;
     }
-    
-    public void setDB ( Database db ) {
+
+    public void setDB( Database db ) {
         this.db = db;
     }
 }
