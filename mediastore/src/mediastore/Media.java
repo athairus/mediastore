@@ -17,6 +17,7 @@ public abstract class Media {
                                     // ranked, otherwise ranked from 
                                     // most popular to least in descending order
     protected double price;         // price in USD
+    protected double numSold;       // number of media objects sold
 
 
 

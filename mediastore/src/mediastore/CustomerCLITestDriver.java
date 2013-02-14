@@ -15,7 +15,7 @@ import java.io.File;
  * @author Milton John, Ryan Smith and Cole Arnold
  */
 public class CustomerCLITestDriver {
-    
+
     @SuppressWarnings( "CallToThreadDumpStack" )
     public static void main( String[] args ) {
         TextDatabase db = null;
@@ -26,23 +26,23 @@ public class CustomerCLITestDriver {
             e.printStackTrace(); // this is what the @SupressWarnings is for
         }
         System.exit( 0 );
-        
+
         // List customers
-        if( db.customers.isEmpty() ) {
+        if ( db.customers.isEmpty() ) {
             System.out.println( "Error: Customer database is empty." );
             System.exit( -1 );
         }
-        for( Customer c : db.customers ) {
-            System.out.println(c.getID() + c.getName());
+        for ( Customer c : db.customers ) {
+            System.out.println( c.getID() + c.getName() );
             // while we're here, pass the db reference to each Customer
-            c.setDB( db);
+            c.setDB( db );
             // list customers
         }
         // choose what customer to act as
-        System.out.println("Choose as customer to act as for this test: ");
-        
-        
+        System.out.println( "Choose as customer to act as for this test: " );
+
+
         // ask what the user what he wants to test
-        System.out.println("Choose an action to prefom: ");
+        System.out.println( "Choose an action to prefom: " );
     }
 }

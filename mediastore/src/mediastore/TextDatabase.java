@@ -80,7 +80,7 @@ public class TextDatabase extends Database {
                 purchaseHistory.add( new Purchase( purchaseID, purchasePrice, purchaseDate ) );
             }
 
-            checkID( id );
+            checkCustomerID( id );
             customers.add( new Customer( id, name, address, credit, purchaseHistory, this ) );
 
         }
@@ -199,9 +199,8 @@ public class TextDatabase extends Database {
             int duration = Integer.parseInt( in.readLine() );
             String genre = in.readLine();
             double price = Double.parseDouble( in.readLine() );
-            int releaseYear = Integer.parseInt( in.readLine() );
 
-            media.add( new Album( author, title, duration, genre, price, releaseYear ) );
+            media.add( new Album( author, title, duration, genre, price ) );
 
             // check for presence of cover, background, and preview
             // warn if missing
@@ -259,9 +258,8 @@ public class TextDatabase extends Database {
             int duration = Integer.parseInt( in.readLine() );
             String genre = in.readLine();
             double price = Double.parseDouble( in.readLine() );
-            int releaseYear = Integer.parseInt( in.readLine() );
 
-            media.add( new Audiobook( author, title, duration, genre, price, releaseYear ) );
+            media.add( new Audiobook( author, title, duration, genre, price ) );
 
             // check for presence of cover, background, and preview
             // warn if missing
