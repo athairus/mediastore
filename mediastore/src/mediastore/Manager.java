@@ -17,7 +17,7 @@ public class Manager {
 
     }
 
-    public void addContent() {
+    public void addContent() throws java.io.IOException {
 
         //Command Line prompt for manager to add desired item to Media store
         System.out.println( "What media type do you want to add?" );
@@ -40,7 +40,7 @@ public class Manager {
                 System.out.print( "Enter the album's price: " );
                 double albumPrice = input.nextDouble();
                 Media newAlbum = new Album( artist, albumTitle, albumDuration, albumGenre, albumPrice, 0 );
-                //store this new album in appropriate place (ask milton)
+                db.writeNewMediaItem( newAlbum );
 
                 break;
             case 2:
@@ -57,7 +57,7 @@ public class Manager {
                 System.out.print( "Enter the movie release year: " );
                 int movieYear = input.nextInt();
                 Media newMovie = new Movie( director, movieTitle, movieDuration, movieGenre, moviePrice, movieYear, 0 );
-                //store this new movie in appropriate place (ask milton)
+                db.writeNewMediaItem( newMovie );
 
                 break;
             case 3:
@@ -72,7 +72,7 @@ public class Manager {
                 System.out.print( "Enter the audiobook price: " );
                 double bookPrice = input.nextDouble();
                 Media newAudiobook = new Audiobook( author, bookTitle, bookDuration, bookGenre, bookPrice, 0 );
-                //store this new album in appropriate place (ask milton)
+                db.writeNewMediaItem( newAudiobook );
 
                 break;
         }
