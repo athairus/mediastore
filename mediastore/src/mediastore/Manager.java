@@ -11,9 +11,10 @@ public class Manager {
     private String password; //managers password
     private Database db; //the database this instance is a member of
 
-    Manager( String password ) {
+    Manager( String password, Database db ) {
 
         this.password = password;
+        this.db = db;
 
     }
 
@@ -26,7 +27,7 @@ public class Manager {
         System.out.println( "3. Audiobook" );
         Scanner input = new Scanner( System.in ); //Scanner oject
 
-        int choice = input.nextInt();
+        int choice = Integer.parseInt( input.nextLine() );
         switch ( choice ) {
             case 1:
                 System.out.print( "Enter the album artist: " );
@@ -34,11 +35,11 @@ public class Manager {
                 System.out.print( "Enter the album title: " );
                 String albumTitle = input.nextLine();
                 System.out.print( "Enter the album duration: " );
-                int albumDuration = input.nextInt();
+                int albumDuration = Integer.parseInt( input.nextLine() );
                 System.out.print( "Enter the album's genre: " );
                 String albumGenre = input.nextLine();
                 System.out.print( "Enter the album's price: " );
-                double albumPrice = input.nextDouble();
+                double albumPrice = Double.parseDouble( input.nextLine() );
                 Media newAlbum = new Album( artist, albumTitle, albumDuration, albumGenre, albumPrice, 0 );
                 db.writeNewMediaItem( newAlbum );
 
@@ -49,13 +50,13 @@ public class Manager {
                 System.out.print( "Enter the movie title: " );
                 String movieTitle = input.nextLine();
                 System.out.print( "Enter the movie duration: " );
-                int movieDuration = input.nextInt();
+                int movieDuration = Integer.parseInt( input.nextLine() );
                 System.out.print( "Enter the movie genre: " );
                 String movieGenre = input.nextLine();
                 System.out.print( "Enter the movie price: " );
-                double moviePrice = input.nextDouble();
+                double moviePrice = Double.parseDouble( input.nextLine() );
                 System.out.print( "Enter the movie release year: " );
-                int movieYear = input.nextInt();
+                int movieYear = Integer.parseInt( input.nextLine() );
                 Media newMovie = new Movie( director, movieTitle, movieDuration, movieGenre, moviePrice, movieYear, 0 );
                 db.writeNewMediaItem( newMovie );
 
@@ -66,11 +67,11 @@ public class Manager {
                 System.out.print( "Enter the audiobook title: " );
                 String bookTitle = input.nextLine();
                 System.out.print( "Enter the audiobook duration: " );
-                int bookDuration = input.nextInt();
+                int bookDuration = Integer.parseInt( input.nextLine() );
                 System.out.print( "Enter the audiobook genre: " );
                 String bookGenre = input.nextLine();
                 System.out.print( "Enter the audiobook price: " );
-                double bookPrice = input.nextDouble();
+                double bookPrice = Double.parseDouble( input.nextLine() );
                 Media newAudiobook = new Audiobook( author, bookTitle, bookDuration, bookGenre, bookPrice, 0 );
                 db.writeNewMediaItem( newAudiobook );
 

@@ -60,7 +60,9 @@ public class TextDatabase extends Database {
 
             // strip the '.txt' from the filename to get the customer id
             int id = Integer.parseInt( f.getName().substring( 0, f.getName().lastIndexOf( '.' ) ) );
-
+            
+            checkCustomerID( id );
+            
             if ( id == 0 ) {
                 throw new java.util.InputMismatchException( "Invalid customer ID 0 present." );
             }
@@ -79,9 +81,10 @@ public class TextDatabase extends Database {
                 long purchaseDate = Long.parseLong( in.readLine() );
 
                 purchaseHistory.add( new Purchase( purchaseID, purchasePrice, purchaseDate ) );
+                
+                checkPurchaseID( purchaseID );
             }
 
-            checkCustomerID( id );
             customers.add( new Customer( id, name, address, credit, purchaseHistory, this ) );
 
         }
@@ -118,6 +121,8 @@ public class TextDatabase extends Database {
         for ( File fdir : filesInMovieFolder ) {
             // strip the '.txt' from the filename to get the id
             int id = Integer.parseInt( fdir.getName() );
+            
+            checkMediaID( id );
 
             File f = null;
 
@@ -187,6 +192,8 @@ public class TextDatabase extends Database {
             // strip the '.txt' from the filename to get the id
             int id = Integer.parseInt( fdir.getName() );
 
+            checkMediaID( id );
+            
             File f = null;
 
             // parse metadata
@@ -246,6 +253,8 @@ public class TextDatabase extends Database {
             // strip the '.txt' from the filename to get the id
             int id = Integer.parseInt( fdir.getName() );
 
+            
+            
             File f = null;
 
             // parse metadata
@@ -302,17 +311,10 @@ public class TextDatabase extends Database {
         // parse manager config file
         LineNumberReader in = new LineNumberReader( new FileReader( managerFile ) );
         String password = in.readLine();
-        manager = new Manager( password );
+        manager = new Manager( password, this );
 
         // </editor-fold>
 
-    }
-    //</editor-fold>
-
-    @Override
-    //<editor-fold defaultstate="collapsed" desc="protected void checkCustomerID( int id )">
-    protected void checkCustomerID( int id ) {
-        maxCustomerID = Math.max( id, maxCustomerID );
     }
     //</editor-fold>
 
@@ -328,6 +330,7 @@ public class TextDatabase extends Database {
     //<editor-fold defaultstate="collapsed" desc="public void writeNewMediaItem( Media m )">
     public void writeNewMediaItem( Media m ) throws java.io.IOException {
         File newFile;
+        File newDir;
 
         // increment media count
         mediaCount++;
@@ -340,7 +343,10 @@ public class TextDatabase extends Database {
             movieCount++;
 
             // create a new .txt entry, fill it with data
-            newFile = new File( rootDir.concat( "Movies" + File.separator + Integer.toString( maxMediaID ) + File.separator + "metadata.txt" ) );
+            newDir = new File( rootDir.concat( "Movies" + File.separator + Integer.toString( maxMediaID ) + File.separator ) );
+            newDir.mkdir();
+            newFile = new File( newDir.getCanonicalPath() + File.separator + "metadata.txt" );
+            newFile.createNewFile();
             FileWriter fw = new FileWriter( newFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
             out.write( ( (Movie) m ).toTextDBRepresentation() );
@@ -354,7 +360,10 @@ public class TextDatabase extends Database {
             movieCount++;
 
             // create a new .txt entry, fill it with data
-            newFile = new File( rootDir.concat( "Music" + File.separator + Integer.toString( maxMediaID ) + File.separator + "metadata.txt" ) );
+            newDir = new File( rootDir.concat( "Music" + File.separator + Integer.toString( maxMediaID ) + File.separator ) );
+            newDir.mkdir();
+            newFile = new File( newDir.getCanonicalPath() + File.separator + "metadata.txt" );
+            newFile.createNewFile();
             FileWriter fw = new FileWriter( newFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
             out.write( ( (Album) m ).toTextDBRepresentation() );
@@ -368,7 +377,10 @@ public class TextDatabase extends Database {
             movieCount++;
 
             // create a new .txt entry, fill it with data
-            newFile = new File( rootDir.concat( "Audiobooks" + File.separator + Integer.toString( maxMediaID ) + File.separator + "metadata.txt" ) );
+            newDir = new File( rootDir.concat( "Audiobooks" + File.separator + Integer.toString( maxMediaID ) + File.separator ) );
+            newDir.mkdir();
+            newFile = new File( newDir.getCanonicalPath() + File.separator + "metadata.txt" );
+            newFile.createNewFile();
             FileWriter fw = new FileWriter( newFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
             out.write( ( (Audiobook) m ).toTextDBRepresentation() );
@@ -386,6 +398,8 @@ public class TextDatabase extends Database {
 
             // create a new .txt entry, fill it with data
             newFile = new File( rootDir.concat( "Movies" + File.separator + Integer.toString( m.id ) + File.separator + "metadata.txt" ) );
+            newFile.delete();
+            newFile.createNewFile();
             FileWriter fw = new FileWriter( newFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
             out.write( ( (Movie) m ).toTextDBRepresentation() );
@@ -398,6 +412,8 @@ public class TextDatabase extends Database {
 
             // create a new .txt entry, fill it with data
             newFile = new File( rootDir.concat( "Music" + File.separator + Integer.toString( m.id ) + File.separator + "metadata.txt" ) );
+            newFile.delete();
+            newFile.createNewFile();
             FileWriter fw = new FileWriter( newFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
             out.write( ( (Album) m ).toTextDBRepresentation() );
@@ -410,6 +426,8 @@ public class TextDatabase extends Database {
 
             // create a new .txt entry, fill it with data
             newFile = new File( rootDir.concat( "Audiobooks" + File.separator + Integer.toString( m.id ) + File.separator + "metadata.txt" ) );
+            newFile.delete();
+            newFile.createNewFile();
             FileWriter fw = new FileWriter( newFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
             out.write( ( (Audiobook) m ).toTextDBRepresentation() );
@@ -417,9 +435,31 @@ public class TextDatabase extends Database {
         }
     }
     //</editor-fold>
+
+    @Override
+    //<editor-fold defaultstate="collapsed" desc="public void deleteMediaItem( Media m )">
+    public void deleteMediaItem( Media m ) {
+    }
+    //</editor-fold>
     
     @Override
-    public  void deleteMediaItem( Media m ) {
-        
+    //<editor-fold defaultstate="collapsed" desc="protected void checkCustomerID( int id )">
+    protected void checkCustomerID( int id ) {
+        maxCustomerID = Math.max( id, maxCustomerID );
     }
+    //</editor-fold>
+    
+    @Override
+    //<editor-fold defaultstate="collapsed" desc="protected void checkMediaID( int id )">
+    protected void checkMediaID( int id ) {
+        maxMediaID = Math.max( id, maxMediaID );
+    }
+    //</editor-fold>
+    
+    @Override
+    //<editor-fold defaultstate="collapsed" desc="protected void checkPurchaseID( int id )">
+    protected void checkPurchaseID( int id ) {
+        maxPurchaseID = Math.max( id, maxPurchaseID );
+    }
+    //</editor-fold>
 }
