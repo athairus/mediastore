@@ -30,13 +30,13 @@ public class Manager {
         switch ( choice ) {
             case 1:
                 System.out.print( "Enter the album artist: " );
-                String artist = input.next();
+                String artist = input.nextLine();
                 System.out.print( "Enter the album title: " );
-                String albumTitle = input.next();
+                String albumTitle = input.nextLine();
                 System.out.print( "Enter the album duration: " );
                 int albumDuration = input.nextInt();
                 System.out.print( "Enter the album's genre: " );
-                String albumGenre = input.next();
+                String albumGenre = input.nextLine();
                 System.out.print( "Enter the album's price: " );
                 double albumPrice = input.nextDouble();
                 Media newAlbum = new Album( artist, albumTitle, albumDuration, albumGenre, albumPrice, 0 );
@@ -44,14 +44,14 @@ public class Manager {
 
                 break;
             case 2:
-                System.out.println( "Enter the movie director: " );
-                String director = input.next();
+                System.out.print( "Enter the movie director: " );
+                String director = input.nextLine();
                 System.out.print( "Enter the movie title: " );
-                String movieTitle = input.next();
+                String movieTitle = input.nextLine();
                 System.out.print( "Enter the movie duration: " );
                 int movieDuration = input.nextInt();
                 System.out.print( "Enter the movie genre: " );
-                String movieGenre = input.next();
+                String movieGenre = input.nextLine();
                 System.out.print( "Enter the movie price: " );
                 double moviePrice = input.nextDouble();
                 System.out.print( "Enter the movie release year: " );
@@ -61,14 +61,14 @@ public class Manager {
 
                 break;
             case 3:
-                System.out.print( "Enter the audiobook author: , book title, book duration, genre, and price respectively." );
-                String author = input.next();
+                System.out.print( "Enter the audiobook author: " );
+                String author = input.nextLine();
                 System.out.print( "Enter the audiobook title: " );
-                String bookTitle = input.next();
+                String bookTitle = input.nextLine();
                 System.out.print( "Enter the audiobook duration: " );
                 int bookDuration = input.nextInt();
                 System.out.print( "Enter the audiobook genre: " );
-                String bookGenre = input.next();
+                String bookGenre = input.nextLine();
                 System.out.print( "Enter the audiobook price: " );
                 double bookPrice = input.nextDouble();
                 Media newAudiobook = new Audiobook( author, bookTitle, bookDuration, bookGenre, bookPrice, 0 );
