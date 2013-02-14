@@ -35,9 +35,11 @@ public abstract class Database {
     }
 
     // checks the given id, if it is larger than the maxID, set maxID to it
-    protected abstract void checkID( int id );
+    protected abstract void checkCustomerID( int id );
     
     public abstract void writeCustomerPurchase( int id, Purchase purchase );
     
-    public abstract void writeNewMediaItem( Media m ) throws java.io.IOException ;
+    public abstract void writeNewMediaItem( Media m ) throws java.io.IOException;
+    
+    public abstract void writeModifiedMediaItem( Media m ) throws java.io.IOException;
 }

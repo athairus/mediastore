@@ -307,21 +307,24 @@ public class TextDatabase extends Database {
 
     }
 
-    protected void checkID( int id ) {
-        //maxID = Math.max( id, maxID );
+    @Override
+    protected void checkCustomerID( int id ) {
+        maxCustomerID = Math.max( id, maxCustomerID );
     }
 
+    @Override
     public void writeCustomerPurchase( int id, Purchase purchase ) {
         // search for filename in customer folder with given id
         // append the purchase to the customer file
-        return;
     }
-    
+
+    @Override
     public void writeNewMediaItem( Media m ) throws java.io.IOException {
         File newFile;
 
         // increment media count
         mediaCount++;
+
         if ( m instanceof Movie ) {
             // increment movie count
             movieCount++;
@@ -329,24 +332,85 @@ public class TextDatabase extends Database {
             // generate a new ID
             maxMediaID++;
 
-            // create a new .txt entry
-            // fill it with data
-            newFile = new File( rootDir.concat( Integer.toString( maxMediaID ) ).concat( ".txt" ) );
+            // create a new .txt entry, fill it with data
+            newFile = new File( rootDir.concat( "Movies" + File.separator + Integer.toString( maxMediaID ) + File.separator + "metadata.txt" ) );
             FileWriter fw = new FileWriter( newFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
-            out.write( ( (Movie) m ).toString() );
+            out.write( ( (Movie) m ).toTextDBRepresentation() );
             out.close();
 
             return;
         }
 
         if ( m instanceof Album ) {
+            // increment movie count
+            movieCount++;
+
+            // generate a new ID
+            maxMediaID++;
+
+            // create a new .txt entry, fill it with data
+            newFile = new File( rootDir.concat( "Music" + File.separator + Integer.toString( maxMediaID ) + File.separator + "metadata.txt" ) );
+            FileWriter fw = new FileWriter( newFile );
+            BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
+            out.write( ( (Album) m ).toTextDBRepresentation() );
+            out.close();
+
             return;
         }
 
         if ( m instanceof Audiobook ) {
+            // increment movie count
+            movieCount++;
+
+            // generate a new ID
+            maxMediaID++;
+
+            // create a new .txt entry, fill it with data
+            newFile = new File( rootDir.concat( "Audiobooks" + File.separator + Integer.toString( maxMediaID ) + File.separator + "metadata.txt" ) );
+            FileWriter fw = new FileWriter( newFile );
+            BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
+            out.write( ( (Audiobook) m ).toTextDBRepresentation() );
+            out.close();
+        }
+    }
+    
+    @Override
+    public void writeModifiedMediaItem( Media m ) throws java.io.IOException {
+        File newFile;
+
+        if ( m instanceof Movie ) {
+
+            // create a new .txt entry, fill it with data
+            newFile = new File( rootDir.concat( "Movies" + File.separator + Integer.toString( m.id ) + File.separator + "metadata.txt" ) );
+            FileWriter fw = new FileWriter( newFile );
+            BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
+            out.write( ( (Movie) m ).toTextDBRepresentation() );
+            out.close();
+
             return;
         }
-        return;
+
+        if ( m instanceof Album ) {
+
+            // create a new .txt entry, fill it with data
+            newFile = new File( rootDir.concat( "Music" + File.separator + Integer.toString( m.id ) + File.separator + "metadata.txt" ) );
+            FileWriter fw = new FileWriter( newFile );
+            BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
+            out.write( ( (Album) m ).toTextDBRepresentation() );
+            out.close();
+
+            return;
+        }
+
+        if ( m instanceof Audiobook ) {
+
+            // create a new .txt entry, fill it with data
+            newFile = new File( rootDir.concat( "Audiobooks" + File.separator + Integer.toString( m.id ) + File.separator + "metadata.txt" ) );
+            FileWriter fw = new FileWriter( newFile );
+            BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
+            out.write( ( (Audiobook) m ).toTextDBRepresentation() );
+            out.close();
+        }
     }
 }
