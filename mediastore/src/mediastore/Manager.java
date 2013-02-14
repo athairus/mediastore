@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Manager {
 
     private String password; //managers password
+    private Database db; //the database this instance is a member of
 
     Manager( String password ) {
 
@@ -75,10 +76,24 @@ public class Manager {
 
                 break;
         }
-  
+
+    }
+
+    public void removeContent( int id ) {
+        Media object = db.getFromID( id ); //stores desired media item in temporary object
+        db.media.remove( object );         //deletes temporary media object
+        db.deleteMediaItem( object );      //deletes media object from store
+
+    }
+
+    public int checkItemSales( int id ) {
+
+        Media object = db.getFromID( id );
+        return object.numSold;
+    }
+
+    public void checkTotalSales() {
+        
     }
     
-    public void removeContent( Media item ){
-         item = null;
-     }
 }
