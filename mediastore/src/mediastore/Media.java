@@ -29,6 +29,7 @@ public abstract class Media {
         duration = 0;
         ranking = 0;
         price = 0.0;
+        numSold = 0;
     }
 
     public Media( String author, String title, int duration, String genre, double price ) {
