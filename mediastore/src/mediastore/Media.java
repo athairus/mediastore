@@ -13,11 +13,22 @@ public abstract class Media {
     protected String title;         // the title of the work
     protected int duration;         // in seconds
     protected String genre;         // genre the object belongs to
+    protected int rating;           // the item's rating (out of 5 stars)
+                                    // a rating of 0 indicates it was not
+                                    // reviewed yet
+    protected int totalReviews;     // the total number of customers who have
+                                    // reviewed this item
+    protected double price;         // price in USD
+    protected int numSold;          // number of media objects sold
+    
+    
+    
+    
+    
     protected int ranking;          // ranking in terms of sales,0 means not 
                                     // ranked, otherwise ranked from 
                                     // most popular to least in descending order
-    protected double price;         // price in USD
-    protected int numSold;          // number of media objects sold
+                                    // generated on demand
 
 
     //Default constructor
@@ -25,31 +36,36 @@ public abstract class Media {
         // initialzies all data members to "" or 0
         author = "";
         title = "";
-        genre = "";
         duration = 0;
-        ranking = 0;
+        genre = "";
+        rating = 0;
+        totalReviews = 0;
         price = 0.0;
         numSold = 0;
+        
+        ranking = 0;
     }
-    /** Initializer constructor for Media object
+    
+    /**
      * 
-     * @param author the author's name
-     * @param title the media contents title
-     * @param duration length of media object
-     * @param genre genre of the work
-     * @param price price of the media object
-     * @param numSold the amount sold 
+     * @param author
+     * @param title
+     * @param duration
+     * @param genre
+     * @param price
+     * @param numSold 
      */
-    public Media( String author, String title, int duration, String genre, double price, double numSold ) {
+    public Media( String author, String title, int duration, String genre, int rating, int totalReviews, double price, int numSold ) {
         // initializes all data member to their respective parameters
         this();
         this.author = author;
         this.title = title;
         this.duration = duration;
         this.genre = genre;
-        ranking = 0;
+        this.rating = rating;
+        this.totalReviews = totalReviews;
         this.price = price;
-
+        this.numSold = numSold;
     }
 
     //****************************************************************************

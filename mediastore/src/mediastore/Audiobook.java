@@ -6,14 +6,14 @@ package mediastore;
  * @author Milton John, Ryan Smith and Cole Arnold
  */
 public class Audiobook extends Media {
-    
-    public Audiobook( String author, String title, int duration, String genre, double price, double numSold ) {
 
-        super( author, title, duration, genre, price, numSold );
-        
+    public Audiobook( String author, String title, int duration, String genre, int rating, int totalReviews, double price, int numSold ) {
+
+        super( author, title, duration, genre, rating, totalReviews, price, numSold );
+
     }
-    
-    public String toTextDBRepresentation(){
-        return author + "\n " + title + "\n " + duration + "\n " + genre + "\n " + ranking + "\n " + price + "\n " + numSold;
+
+    public String toTextDBRepresentation() {
+        return author + "\n " + title + "\n " + duration + "\n " + genre + "\n " + rating + "\n " + totalReviews + "\n " + price + "\n " + numSold;
     }
 }

@@ -8,15 +8,16 @@ package mediastore;
 public class Movie extends Media {
 
     protected int releaseYear;
-    
+
     //Default constructor
     public Movie() {
         //POST: Initializes data members to "" or 0
         super();
     }
 
-    /** Initializer constructor
-     * 
+    /**
+     * Initializer constructor
+     *
      * @param author director of the movie
      * @param title title of the movie
      * @param duration length of the movie (in seconds)
@@ -25,19 +26,19 @@ public class Movie extends Media {
      * @param releaseYear year movie was released
      * @param numSold numbers sold (initialized to 0)
      */
-    public Movie( String author, String title, int duration, String genre, double price, int releaseYear, int numSold ) {
+    public Movie( String author, String title, int duration, String genre, int rating, int totalReviews, double price, int numSold, int releaseYear ) {
         //PRE: Takes an author (director), title, duration, genre, ranking, price ( > 0 ), and release year ( > 0 )
         //POST: Sets data members to respective values
-        super( author, title, duration, genre, price, numSold );
+        super( author, title, duration, genre, rating, totalReviews, price, numSold );
         this.releaseYear = releaseYear;
     }
 
     //****************************************************************************
     //*                            Set and Get Methods                           *
     //****************************************************************************
-    
-    /** Sets the release year of a movie
-     * 
+    /**
+     * Sets the release year of a movie
+     *
      * @param releaseYear year of release
      */
     public void setReleaseYear( int releaseYear ) {
@@ -46,8 +47,9 @@ public class Movie extends Media {
         this.releaseYear = releaseYear;
     }
 
-    /** Returns the release year of the movie
-     * 
+    /**
+     * Returns the release year of the movie
+     *
      * @return releaseYear
      */
     public int getReleaseYear() {
@@ -55,19 +57,22 @@ public class Movie extends Media {
         return releaseYear;
     }
 
-    /** Returns movie object when called from Media class
-     * 
+    /**
+     * Returns movie object when called from Media class
+     *
      * @return null
      */
     protected Movie getFromID() { // only media should call this method
         return null;
     }
-    
-    /** toString method to properly display in a text file
-     * 
+
+    /**
+     * toString method to properly display in a text file
+     *
      * @return toString
      */
-    public String toTextDBRepresentation(){
-        return author + "\n " + title + "\n " + duration + "\n " + genre + "\n " + ranking + "\n " + price + "\n "  + numSold + "\n" + releaseYear;
+    public String toTextDBRepresentation() {
+        return author + "\n " + title + "\n " + duration + "\n " + genre + "\n " + rating + "\n " + totalReviews + "\n "  + price + "\n " + numSold + "\n" + releaseYear;
     }
+    
 }

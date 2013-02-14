@@ -60,9 +60,9 @@ public class TextDatabase extends Database {
 
             // strip the '.txt' from the filename to get the customer id
             int id = Integer.parseInt( f.getName().substring( 0, f.getName().lastIndexOf( '.' ) ) );
-            
+
             checkCustomerID( id );
-            
+
             if ( id == 0 ) {
                 throw new java.util.InputMismatchException( "Invalid customer ID 0 present." );
             }
@@ -81,7 +81,7 @@ public class TextDatabase extends Database {
                 long purchaseDate = Long.parseLong( in.readLine() );
 
                 purchaseHistory.add( new Purchase( purchaseID, purchasePrice, purchaseDate ) );
-                
+
                 checkPurchaseID( purchaseID );
             }
 
@@ -121,7 +121,7 @@ public class TextDatabase extends Database {
         for ( File fdir : filesInMovieFolder ) {
             // strip the '.txt' from the filename to get the id
             int id = Integer.parseInt( fdir.getName() );
-            
+
             checkMediaID( id );
 
             File f = null;
@@ -132,17 +132,19 @@ public class TextDatabase extends Database {
                 System.out.println( "Error parsing database: Movie id " + id + " is missing metadata.txt" );
                 throw new java.io.FileNotFoundException();
             }
+            //String author, String title, int duration, String genre, int rating, int totalReviews, double price, int numSold, int releaseYear
             LineNumberReader in = new LineNumberReader( new FileReader( f ) );
             String author = in.readLine();
             String title = in.readLine();
             int duration = Integer.parseInt( in.readLine() );
             String genre = in.readLine();
-            int ranking = Integer.parseInt( in.readLine() );
+            int rating = Integer.parseInt( in.readLine() );
+            int totalReviews = Integer.parseInt( in.readLine() );
             double price = Double.parseDouble( in.readLine() );
             int numSold = Integer.parseInt( in.readLine() );
             int releaseYear = Integer.parseInt( in.readLine() );
 
-            media.add( new Movie( author, title, duration, genre, price, releaseYear, numSold ) );
+            media.add( new Movie( author, title, duration, genre, rating, totalReviews, price, numSold, releaseYear ) );
 
             // check for presence of cover, background, and trailer
             // warn if missing
@@ -174,7 +176,6 @@ public class TextDatabase extends Database {
         // in code they're refered to as "album" or "albums"
         // the folder name is "Music"
 
-
         File albumFolder = new File( rootDir.concat( "Music" ) );
         if ( !albumFolder.exists() ) {
             System.out.println( "WARNING: \"" + albumFolder.getCanonicalPath() + "\" is missing, initalizing an empty music album database at this location..." );
@@ -193,7 +194,7 @@ public class TextDatabase extends Database {
             int id = Integer.parseInt( fdir.getName() );
 
             checkMediaID( id );
-            
+
             File f = null;
 
             // parse metadata
@@ -207,9 +208,12 @@ public class TextDatabase extends Database {
             String title = in.readLine();
             int duration = Integer.parseInt( in.readLine() );
             String genre = in.readLine();
+            int rating = Integer.parseInt( in.readLine() );
+            int totalReviews = Integer.parseInt( in.readLine() );
             double price = Double.parseDouble( in.readLine() );
             int numSold = Integer.parseInt( in.readLine() );
-            media.add( new Album( author, title, duration, genre, price, numSold ) );
+            
+            media.add( new Album( author, title, duration, genre, rating, totalReviews, price, numSold ) );
 
             // check for presence of cover, background, and preview
             // warn if missing
@@ -253,8 +257,8 @@ public class TextDatabase extends Database {
             // strip the '.txt' from the filename to get the id
             int id = Integer.parseInt( fdir.getName() );
 
-            
-            
+
+
             File f = null;
 
             // parse metadata
@@ -268,10 +272,12 @@ public class TextDatabase extends Database {
             String title = in.readLine();
             int duration = Integer.parseInt( in.readLine() );
             String genre = in.readLine();
+            int rating = Integer.parseInt( in.readLine() );
+            int totalReviews = Integer.parseInt( in.readLine() );
             double price = Double.parseDouble( in.readLine() );
             int numSold = Integer.parseInt( in.readLine() );
-
-            media.add( new Audiobook( author, title, duration, genre, price, numSold ) );
+            
+            media.add( new Audiobook( author, title, duration, genre, rating, totalReviews, price, numSold ) );
 
             // check for presence of cover, background, and preview
             // warn if missing
@@ -441,21 +447,21 @@ public class TextDatabase extends Database {
     public void deleteMediaItem( Media m ) {
     }
     //</editor-fold>
-    
+
     @Override
     //<editor-fold defaultstate="collapsed" desc="protected void checkCustomerID( int id )">
     protected void checkCustomerID( int id ) {
         maxCustomerID = Math.max( id, maxCustomerID );
     }
     //</editor-fold>
-    
+
     @Override
     //<editor-fold defaultstate="collapsed" desc="protected void checkMediaID( int id )">
     protected void checkMediaID( int id ) {
         maxMediaID = Math.max( id, maxMediaID );
     }
     //</editor-fold>
-    
+
     @Override
     //<editor-fold defaultstate="collapsed" desc="protected void checkPurchaseID( int id )">
     protected void checkPurchaseID( int id ) {
