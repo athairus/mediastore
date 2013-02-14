@@ -35,4 +35,8 @@ public class Movie extends Media {
     protected Movie getFromID() { // only media should call this method
         return null;
     }
+    
+    public String toTextDBRepresentation(){
+        return author + "\n " + title + "\n " + duration + "\n " + genre + "\n " + ranking + "\n " + price + "\n " + releaseYear;
+    }
 }

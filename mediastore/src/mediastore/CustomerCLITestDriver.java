@@ -27,16 +27,19 @@ public class CustomerCLITestDriver {
         }
         System.exit( 0 );
         
-        // choose a customer to act as
+        // List customers
         if( db.customers.isEmpty() ) {
             System.out.println( "Error: Customer database is empty." );
             System.exit( -1 );
         }
         for( Customer c : db.customers ) {
-            // list customers
+            System.out.println(c.getID() + c.getName());
         }
-        // prompt for customers
-
-        // ask what the user wants to test
+        // choose what customer to act as
+        System.out.println("Choose as customer to act as for this test: ");
+        
+        
+        // ask what the user what he wants to test
+        System.out.println("Choose an action to prefom: ");
     }
 }

@@ -25,7 +25,7 @@ public class TextDatabase extends Database {
     /**
      * Parses a text database from a given root directory.
      *
-     * @param rootDir Location in the filesystem of the database
+     * @param rootDir Location in the file system of the database
      */
     public TextDatabase( String rootDir ) throws java.io.IOException, java.io.FileNotFoundException, java.util.InputMismatchException, java.util.InputMismatchException {
         this.rootDir = rootDir;

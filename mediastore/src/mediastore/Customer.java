@@ -55,6 +55,25 @@ public class Customer {
         }
     }
 
-    public void Search() {
+    public Media Search( String query ) {
+        Media media = null;
+        for ( Media m : db.media){
+            if ( m.title.equals(query) ){
+                media = m;
+            }
+        }
+        return media;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public int getID(){
+        return id;
+    }
+    
+    public void setDB ( Database db ) {
+        this.db = db;
     }
 }
