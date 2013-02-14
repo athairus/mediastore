@@ -37,6 +37,7 @@ public abstract class Media {
         this.title = title;
         this.duration = duration;
         this.genre = genre;
+        ranking = 0;
         this.price = price;
 
     }

@@ -7,6 +7,8 @@ package mediastore;
  */
 public class Movie extends Media {
 
+    protected int releaseYear;
+    
     public Movie() {
         //POST: Initializes data members to "" or 0
         super();
@@ -15,7 +17,8 @@ public class Movie extends Media {
     public Movie( String author, String title, int duration, String genre, double price, int releaseYear ) {
         //PRE: Takes an author (director), title, duration, genre, ranking, price ( > 0 ), and release year ( > 0 )
         //POST: Sets data members to respective values
-        super( author, title, duration, genre, price, releaseYear );
+        super( author, title, duration, genre, price);
+        this.releaseYear = releaseYear;
     }
 
     //****************************************************************************
