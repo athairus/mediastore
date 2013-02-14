@@ -23,11 +23,19 @@ public class CustomerCLITestDriver {
             db = new TextDatabase( System.getProperty( "user.dir" ).concat( File.separator + ".." + File.separator + ".." + File.separator + "db" + File.separator ) );
         } catch ( Exception e ) {
             System.out.println( "An exception occured while parsing the database. (" + e.toString() + ")" );
-            e.printStackTrace();
+            e.printStackTrace(); // this is what the @SupressWarnings is for
         }
         System.exit( 0 );
         
         // choose a customer to act as
+        if( db.customers.isEmpty() ) {
+            System.out.println( "Error: Customer database is empty." );
+            System.exit( -1 );
+        }
+        for( Customer c : db.customers ) {
+            // list customers
+        }
+        // prompt for customers
 
         // ask what the user wants to test
     }

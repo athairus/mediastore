@@ -48,6 +48,11 @@ public class Customer {
         Purchase purchase = new Purchase( id, price, System.currentTimeMillis() );
         db.writeCustomerPurchase( id, purchase );
         purchaseHistory.add( purchase );
+        
+        // recalculate ranking
+        for( Media m : db.media ) {
+            
+        }
     }
 
     public void Search() {

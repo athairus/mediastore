@@ -7,14 +7,16 @@ package mediastore;
  */
 public abstract class Media {
 
+    protected int id;               // unique ID 
+    
     protected String author;        // the author (or artist) of the work
     protected String title;         // the title of the work
     protected int duration;         // in seconds
     protected String genre;         // genre the object belongs to
-    protected int ranking;          // 0 means not ranked, otherwise ranked from 
+    protected int ranking;          // ranking in terms of sales,0 means not 
+                                    // ranked, otherwise ranked from 
                                     // most popular to least in descending order
     protected double price;         // price in USD
-    protected int id;               // unique ID 
     protected int releaseYear;      // year this media item was released
 
     public Media() {
