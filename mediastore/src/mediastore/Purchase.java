@@ -37,7 +37,10 @@ public class Purchase {
         return date;
     }
 
- 
+    public String toTextDB() {
+        return "" + id + '\n' + price + '\n' + date + '\n';
+    }
+
     public String toString() {
         return "Item ID: " + id + "\nItem Price: " + price + "\nDate: " + System.currentTimeMillis();
     }
