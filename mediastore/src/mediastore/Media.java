@@ -202,5 +202,15 @@ public abstract class Media {
     public int getNumSold() {
         return numSold;
     }
+
+    public double getRating() {
+        if ( rating < 0 ) {
+            return 0;
+        }
+        if ( rating > 5 ) {
+            return 5;
+        }
+        return rating;
+    }
     //*****************************************************************************  
 }

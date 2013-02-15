@@ -55,32 +55,7 @@ public class Customer {
 
         object.numSold++;
 
-        //<editor-fold defaultstate="collapsed" desc="recalculate ranking">
-        class RankingComparator implements Comparator<Media> {
-
-            @Override
-            public int compare( Media m1, Media m2 ) {
-
-                if ( m1.getNumSold() < m2.getNumSold() ) {
-                    return 1;
-                }
-                if ( m1.getNumSold() == m2.getNumSold() ) {
-                    return 0;
-                }
-                if ( m1.getNumSold() > m2.getNumSold() ) {
-                    return -1;
-                }
-                return 0;
-            }
-        }
-        Collections.sort( db.media, new RankingComparator() );
-
-        int i = 1;
-        for ( Media m : db.media ) {
-            m.setRanking( i++ );
-            db.writeModifiedMediaItem( m );
-        }
-        //</editor-fold>
+        recalculateRanking();
 
         return purchase.getID();
     }
@@ -96,14 +71,65 @@ public class Customer {
     }
 
     public void listCLI() {
+        System.out.println( "Movies: " );
         for ( Media m : db.media ) {
-            System.out.println( m.id + "." + m.title );
+            if ( m instanceof Movie ) {
+                System.out.println( "\t" + m.id + "." + m.title );
+            }
+        }
+        System.out.println( "Music: " );
+        for ( Media m : db.media ) {
+            if ( m instanceof Album ) {
+                System.out.println( "\t" + m.id + "." + m.title );
+            }
+        }
+        System.out.println( "Audiobooks: " );
+        for ( Media m : db.media ) {
+            if ( m instanceof Audiobook ) {
+                System.out.println( "\t" + m.id + "." + m.title );
+            }
         }
     }
 
     public void displayInfoCLI( int id ) throws java.io.IOException {
+        int maxWidth = 100;
+        int padding = 0;
+        String padString = "";
         Media m = db.getMediaFromID( id );
-        System.out.println( ( (TextDatabase) db ).generateCoverASCII( m, 100, (int)( 100 * ( 7.0 / 15.0 ) ) ) );
+        System.out.println( ( (TextDatabase) db ).generateCoverASCII( m, maxWidth, (int) ( maxWidth * ( 7.0 / 15.0 ) ) ) );
+        String info = "";
+        info += m.getTitle() + " | ";
+        info += m.getAuthor() + " | ";
+        info += m.getGenre() + " | ";
+        info += ( m.getDuration() / 60 ) + " min. | ";
+        for ( int i = 0; i < (int) m.getRating(); i++ ) {
+            info += '*';
+        }
+        for ( int i = (int) m.getRating(); i < 5; i++ ) {
+            info += ' ';
+        }
+        info += " | ";
+        recalculateRanking();
+        info += "#" + m.getRanking() + " in ";
+        if ( m instanceof Movie ) {
+            info += "Movies | ";
+        }
+        if ( m instanceof Album ) {
+            info += "Albums | ";
+        }
+        if ( m instanceof Audiobook ) {
+            info += "Audiobooks | ";
+        }
+        info += '$' + String.format( "%.2f", m.getPrice() );
+        padding = maxWidth - info.length();
+        if ( padding > 0 ) {
+            for ( int i = 0; i < padding / 2; i++ ) {
+                padString += ' ';
+            }
+            info = padString + info;
+        }
+        
+        System.out.println( info );
     }
 
     public String getName() {
@@ -149,5 +175,32 @@ public class Customer {
         m.rating = ( ( ( m.rating * (double) m.totalReviews ) + (double) rating ) / ( (double) m.totalReviews + 1.0 ) );
         m.totalReviews++;
         db.writeModifiedMediaItem( m );
+    }
+
+    private void recalculateRanking() throws java.io.IOException {
+        class RankingComparator implements Comparator<Media> {
+
+            @Override
+            public int compare( Media m1, Media m2 ) {
+
+                if ( m1.getNumSold() < m2.getNumSold() ) {
+                    return 1;
+                }
+                if ( m1.getNumSold() == m2.getNumSold() ) {
+                    return 0;
+                }
+                if ( m1.getNumSold() > m2.getNumSold() ) {
+                    return -1;
+                }
+                return 0;
+            }
+        }
+        Collections.sort( db.media, new RankingComparator() );
+
+        int i = 1;
+        for ( Media m : db.media ) {
+            m.setRanking( i++ );
+            db.writeModifiedMediaItem( m );
+        }
     }
 }

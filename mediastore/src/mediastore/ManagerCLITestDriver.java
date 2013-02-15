@@ -32,7 +32,6 @@ public class ManagerCLITestDriver {
         try {
             cus.listCLI();
             cus.displayInfoCLI( 1 );
-            cus.listCLI();
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing the Manager class. (" + e.toString() + ")" );
             e.printStackTrace();
