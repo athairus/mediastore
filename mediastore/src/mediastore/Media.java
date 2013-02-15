@@ -19,7 +19,7 @@ public abstract class Media {
     // reviewed this item
     protected double price;         // price in USD
     protected int numSold;          // number of media objects sold
-    protected int ranking;          // ranking in terms of sales,0 means not 
+    protected int ranking;          // ranking in terms of sales, 0 means not 
     // ranked, otherwise ranked from 
     // most popular to least in descending order
     // generated on demand
@@ -34,7 +34,6 @@ public abstract class Media {
         rating = 0.0;
         totalReviews = 0;
         price = 0.0;
-        numSold = 0;
 
         ranking = 0;
     }
@@ -211,6 +210,10 @@ public abstract class Media {
             return 5;
         }
         return rating;
+    }
+    
+    public int getTotalReviews(){
+        return totalReviews;
     }
     //*****************************************************************************  
 }

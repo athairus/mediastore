@@ -31,7 +31,8 @@ public class ManagerCLITestDriver {
         Customer cus = db.getCustomerFromID( 1 );
         try {
             cus.listCLI();
-            cus.displayInfoCLI( 1 );
+            cus.displayInfoCLI( 2 );
+            cus.listCLI();
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing the Manager class. (" + e.toString() + ")" );
             e.printStackTrace();

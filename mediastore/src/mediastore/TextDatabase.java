@@ -486,10 +486,18 @@ public class TextDatabase extends Database {
     public String generateCoverASCII( Media m, int width, int height ) throws java.io.IOException {
         // thanks to https://github.com/Thelleo/Image2ASCII
         // this code is from my personal fork, https://github.com/o0whiplash0o/Image2ASCII
+        BufferedImage inputImage;
         File image = new File( rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + "cover.png" );
-        BufferedImage inputImage = ImageIO.read( image );
+        if ( !image.exists() ) {
+            String unknown = "images/unknown.png";
+            inputImage = ImageIO.read( getClass().getResource( unknown ) );
+        }
+        else{
+             inputImage = ImageIO.read( image );
+        }
         ColorSpace greyscale = ColorSpace.getInstance( ColorSpace.CS_GRAY );
         ColorConvertOp cco = new ColorConvertOp( greyscale, null );
+        // invert the image for black-on-white terminals (like the one in NetBeans)
         // thanks to http://jonathangiles.net/blog/?p=702
         short[] invertTable;
         invertTable = new short[ 256 ];

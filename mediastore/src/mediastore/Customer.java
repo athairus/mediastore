@@ -108,7 +108,7 @@ public class Customer {
         for ( int i = (int) m.getRating(); i < 5; i++ ) {
             info += ' ';
         }
-        info += " | ";
+        info += "(" + m.totalReviews + ") | ";
         recalculateRanking();
         info += "#" + m.getRanking() + " in ";
         if ( m instanceof Movie ) {
@@ -128,7 +128,7 @@ public class Customer {
             }
             info = padString + info;
         }
-        
+
         System.out.println( info );
     }
 
@@ -195,10 +195,42 @@ public class Customer {
                 return 0;
             }
         }
-        Collections.sort( db.media, new RankingComparator() );
+        
+        // segregate database into 3 different lists
+        LinkedList<Media> movies = new LinkedList();
+        LinkedList<Media> albums = new LinkedList();
+        LinkedList<Media> audiobooks = new LinkedList();
+        for ( Media m : db.media ) {
+            if ( m instanceof Movie ) {
+                movies.add( m );
+            }
+            if ( m instanceof Album ) {
+                albums.add( m );
+            }
+            if ( m instanceof Audiobook ) {
+                audiobooks.add( m );
+            }
+        }
+        
+        // sort these lists
+        Collections.sort( movies, new RankingComparator() );
+        Collections.sort( albums, new RankingComparator() );
+        Collections.sort( audiobooks, new RankingComparator() );
 
         int i = 1;
-        for ( Media m : db.media ) {
+        for ( Media m : movies ) {
+            m.setRanking( i++ );
+            db.writeModifiedMediaItem( m );
+        }
+        
+        i = 1;
+        for ( Media m : albums ) {
+            m.setRanking( i++ );
+            db.writeModifiedMediaItem( m );
+        }
+        
+        i = 1;
+        for ( Media m : audiobooks ) {
             m.setRanking( i++ );
             db.writeModifiedMediaItem( m );
         }
