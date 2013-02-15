@@ -19,6 +19,7 @@ import java.io.File;
 public class ManagerCLITestDriver {
 
     public static void main( String[] args ) {
+        Customer c = new Customer(); // used to list all media
         System.out.println( "test" );
         TextDatabase db = null;
         try {
@@ -30,7 +31,9 @@ public class ManagerCLITestDriver {
 
         try {
             db.manager.addContent();
-            db.manager.checkItemSales();
+
+            c.listText();
+            
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing the Manager class. (" + e.toString() + ")" );
             e.printStackTrace();
