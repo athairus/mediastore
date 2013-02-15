@@ -86,13 +86,13 @@ public class Customer {
         }
         return media;
     }
-    
-    public void listText (){
-        for ( Media m : db.media) {
-            System.out.println( m.id + "." + m.title);
+
+    public void listText() {
+        for ( Media m : db.media ) {
+            System.out.println( m.id + "." + m.title );
         }
     }
-    
+
     public String getName() {
         return name;
     }
@@ -106,11 +106,21 @@ public class Customer {
     }
 
     public String toTextDB() {
-        return name + '\n' + address + '\n' + credits + '\n' + purchaseHistory;
+
+        String customerInfo = name + '\n' + address + '\n' + credits + '\n';
+        for ( Purchase p : purchaseHistory ) {
+            customerInfo += p.toTextDB() + '\n';
+        }
+        return customerInfo;
     }
 
     //also iterate through linked list and append each at end of string
     public String toString() {
-        return "Customer ID: " + id + '\n' + "Name: " + name + '\n' + "Address: " + address + '\n' + "Credit Balance: " + credits + '\n';
+
+        String s = "Customer ID: " + id + '\n' + "Name: " + name + '\n' + "Address: " + address + '\n' + "Credit Balance: " + credits + '\n';
+        for ( Purchase p : purchaseHistory ) {
+            s += p.toString() + '\n';
+        }
+        return s;
     }
 }
