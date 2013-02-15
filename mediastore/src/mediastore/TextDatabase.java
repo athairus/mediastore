@@ -357,8 +357,8 @@ public class TextDatabase extends Database {
         }
 
         if ( m instanceof Album ) {
-            // increment movie count
-            movieCount++;
+            // increment album count
+            albumCount++;
 
             // create a new .txt entry, fill it with data
             newDir = new File( rootDir.concat( "Music" + File.separator + Integer.toString( maxMediaID ) + File.separator ) );
@@ -374,8 +374,8 @@ public class TextDatabase extends Database {
         }
 
         if ( m instanceof Audiobook ) {
-            // increment movie count
-            movieCount++;
+            // increment audiobook count
+            audiobookCount++;
 
             // create a new .txt entry, fill it with data
             newDir = new File( rootDir.concat( "Audiobooks" + File.separator + Integer.toString( maxMediaID ) + File.separator ) );
