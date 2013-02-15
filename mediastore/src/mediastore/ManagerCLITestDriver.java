@@ -20,7 +20,7 @@ import java.util.LinkedList;
 public class ManagerCLITestDriver {
 
     public static void main( String[] args ) {
-        LinkedList<Purchase> purchaseHistory = null;
+        
 
         System.out.println( "test" );
         TextDatabase db = null;
@@ -30,11 +30,18 @@ public class ManagerCLITestDriver {
             System.out.println( "An exception occured while parsing the database. (" + e.toString() + ")" );
             e.printStackTrace(); // this is what the @SupressWarnings is for
         }
-        Customer c = new Customer( 1, "Bob", "124 Derp ln", 200.0, purchaseHistory, db );
+        
+       
         try {
+            Customer c = db.getCustomerFromID( 1 );
+           // c.listText();
             //db.manager.addContent();
-            db.customers.add( 0, c );
             c.listText();
+           // db.manager.getCustomerInfo( 1);
+            c.buy( 1 );
+            System.out.println("Item sales for media id: 1 is " + db.manager.checkItemSales( 2 ));
+            System.exit( 0);
+            
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing the Manager class. (" + e.toString() + ")" );
             e.printStackTrace();
