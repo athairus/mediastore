@@ -471,7 +471,7 @@ public class TextDatabase extends Database {
         }
         return null;
     }
-    
+
     private String getFilename( File f ) {
         return f.getName().substring( 0, f.getName().lastIndexOf( '.' ) );
     }

@@ -27,12 +27,12 @@ public abstract class Database {
         for ( Media m : media ) {
             if ( id == m.getID() ) {
                 return m;
-            } 
+            }            
         }
         return null;
     }
     
-    public Customer getCustomerFromID ( int id ) {
+    public Customer getCustomerFromID( int id ) {
         for ( Customer c : customers ) {
             if ( id == c.getID() ) {
                 return c;

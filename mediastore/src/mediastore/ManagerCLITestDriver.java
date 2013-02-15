@@ -21,7 +21,7 @@ public class ManagerCLITestDriver {
 
     public static void main( String[] args ) {
         LinkedList<Purchase> purchaseHistory = null;
-        
+
         System.out.println( "test" );
         TextDatabase db = null;
         try {
@@ -30,10 +30,10 @@ public class ManagerCLITestDriver {
             System.out.println( "An exception occured while parsing the database. (" + e.toString() + ")" );
             e.printStackTrace(); // this is what the @SupressWarnings is for
         }
-        Customer c = new Customer(1, "Bob", "124 Derp ln", 200.0, purchaseHistory, db );
+        Customer c = new Customer( 1, "Bob", "124 Derp ln", 200.0, purchaseHistory, db );
         try {
             //db.manager.addContent();
-            db.customers.add( 0,c);
+            db.customers.add( 0, c );
             c.listText();
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing the Manager class. (" + e.toString() + ")" );
