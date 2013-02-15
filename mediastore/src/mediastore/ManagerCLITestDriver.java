@@ -29,8 +29,8 @@ public class ManagerCLITestDriver {
         }
 
         try {
-            // db.manager.addContent();
-            db.writeModifiedMediaItem( new Movie( "test", "test", 1234, "test", 4.55, 2000, 3) );
+            db.manager.addContent();
+            
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing the Manager class. (" + e.toString() + ")" );
             e.printStackTrace();

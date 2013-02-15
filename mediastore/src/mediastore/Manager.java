@@ -21,7 +21,7 @@ public class Manager {
     public void addContent() throws java.io.IOException {
 
         //Command Line prompt for manager to add desired item to Media store
-        System.out.println( "What media type do you want to add?" );
+        System.out.println( "What media type do you want to add? (0 to exit)" );
         System.out.println( "1. Album" );
         System.out.println( "2. Movie" );
         System.out.println( "3. Audiobook" );
@@ -38,9 +38,9 @@ public class Manager {
                 int albumDuration = Integer.parseInt( input.nextLine() );
                 System.out.print( "Enter the album's genre: " );
                 String albumGenre = input.nextLine();
-                System.out.print(  "Enter the album's rating (out of 5 stars): ");
+                System.out.print( "Enter the album's rating (out of 5 stars): " );
                 int albumRating = Integer.parseInt( input.nextLine() );
-                System.out.print( "Enter the album's total number of reviews: ");
+                System.out.print( "Enter the album's total number of reviews: " );
                 int totalAlbumReviews = Integer.parseInt( input.nextLine() );
                 System.out.print( "Enter the album's price: " );
                 double albumPrice = Double.parseDouble( input.nextLine() );
@@ -57,9 +57,9 @@ public class Manager {
                 int movieDuration = Integer.parseInt( input.nextLine() );
                 System.out.print( "Enter the movie genre: " );
                 String movieGenre = input.nextLine();
-                System.out.print(  "Enter the movie's rating (out of 5 stars): ");
+                System.out.print( "Enter the movie's rating (out of 5 stars): " );
                 int movieRating = Integer.parseInt( input.nextLine() );
-                System.out.print( "Enter the movie's total number of reviews: ");
+                System.out.print( "Enter the movie's total number of reviews: " );
                 int totalMovieReviews = Integer.parseInt( input.nextLine() );
                 System.out.print( "Enter the movie price: " );
                 double moviePrice = Double.parseDouble( input.nextLine() );
@@ -78,9 +78,9 @@ public class Manager {
                 int bookDuration = Integer.parseInt( input.nextLine() );
                 System.out.print( "Enter the book's genre: " );
                 String bookGenre = input.nextLine();
-                System.out.print(  "Enter the book's rating (out of 5 stars): ");
+                System.out.print( "Enter the book's rating (out of 5 stars): " );
                 int bookRating = Integer.parseInt( input.nextLine() );
-                System.out.print( "Enter the book's total number of reviews: ");
+                System.out.print( "Enter the book's total number of reviews: " );
                 int totalBookReviews = Integer.parseInt( input.nextLine() );
                 System.out.print( "Enter the book's price: " );
                 double bookPrice = Double.parseDouble( input.nextLine() );
@@ -94,8 +94,8 @@ public class Manager {
 
     public void removeContent( int id ) {
         Media object = db.getMediaFromID( id ); //stores desired media item in temporary object
-        db.media.remove( object );         //deletes temporary media object
-        db.deleteMediaItem( object );      //deletes media object from store
+        db.media.remove( object );              //deletes media object from RAM
+        db.deleteMediaItem( object );           //deletes media object from disc
 
     }
 
@@ -105,13 +105,18 @@ public class Manager {
         return object.numSold;
     }
 
-    public void checkTotalSales() {
-        
+    public int checkTotalSales() {
+
+        int sum = 0;
+        for ( Media m : db.media ) {
+            sum += m.numSold;
+        }
+        return sum;
     }
-    
+
     public String getCustomerInfo( int id ) {
         Customer person = db.getCustomerFromID( id );
-        
-        return person.textToDBRepresentation();
+
+        return person.toString();
     }
 }
