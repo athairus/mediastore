@@ -46,6 +46,7 @@ public class Manager {
                 System.out.print( "Enter the album's price: " );
                 double albumPrice = Double.parseDouble( input.nextLine() );
                 Media newAlbum = new Album( 0, artist, albumTitle, albumDuration, albumGenre, albumRating, totalAlbumReviews, albumPrice, 0 );
+                db.media.add( newAlbum );
                 db.writeNewMediaItem( newAlbum );
 
                 break;
@@ -67,6 +68,7 @@ public class Manager {
                 System.out.print( "Enter the movie release year: " );
                 int movieYear = Integer.parseInt( input.nextLine() );
                 Media newMovie = new Movie( 0, director, movieTitle, movieDuration, movieGenre, movieRating, totalMovieReviews, moviePrice, movieYear, 0 );
+                db.media.add( newMovie );
                 db.writeNewMediaItem( newMovie );
 
                 break;
@@ -86,6 +88,7 @@ public class Manager {
                 System.out.print( "Enter the book's price: " );
                 double bookPrice = Double.parseDouble( input.nextLine() );
                 Media newAudiobook = new Audiobook( 0, author, bookTitle, bookDuration, bookGenre, bookRating, totalBookReviews, bookPrice, 0 );
+                db.media.add( newAudiobook );
                 db.writeNewMediaItem( newAudiobook );
 
                 break;

@@ -1,5 +1,7 @@
 package mediastore;
 
+import java.util.Calendar;
+
 /**
  * A class that encapsulates a single purchase made by a Customer.
  *
@@ -11,18 +13,18 @@ public class Purchase {
 
     private int id; // id of the product purchased.
     private double price;
-    private long date;
+    private long purchaseUnixTime;
 
     Purchase() {
         id = 0;
         price = 0.00;
-        date = 0;
+        purchaseUnixTime = 0;
     }
 
     Purchase( int id, double price, long date ) {
         this.id = id;
         this.price = price;
-        this.date = date;
+        this.purchaseUnixTime = date;
     }
 
     public int getID() {
@@ -33,15 +35,17 @@ public class Purchase {
         return price;
     }
 
-    public long getDate() {
-        return date;
+    public long getPurchaseUnixTime() {
+        return purchaseUnixTime;
     }
 
     public String toTextDB() {
-        return "" + id + '\n' + price + '\n' + date + '\n';
+        return "" + id + '\n' + price + '\n' + purchaseUnixTime + '\n';
     }
 
     public String toString() {
-        return "Item ID: " + id + "\nItem Price: " + price + "\nDate: " + System.currentTimeMillis();
+        Calendar myDate = Calendar.getInstance();
+        myDate.setTimeInMillis( purchaseUnixTime );
+        return "Item ID: " + id + "\nItem Price: " + price + "\nDate: " + myDate.get( Calendar.DAY_OF_MONTH ) + "." + myDate.get( Calendar.MONTH ) + "." + myDate.get( Calendar.YEAR );
     }
 }
