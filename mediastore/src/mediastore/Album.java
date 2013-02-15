@@ -22,9 +22,9 @@ public class Album extends Media {
      * @param price price of the album
      * @param numSold number of albums sold (initialized to 0)
      */
-    public Album( String author, String title, int duration, String genre, int rating, int totalReviews, double price, int numSold ) {
+    public Album( int id, String author, String title, int duration, String genre, int rating, int totalReviews, double price, int numSold ) {
 
-        super( author, title, duration, genre, rating, totalReviews, price, numSold );
+        super( id, author, title, duration, genre, rating, totalReviews, price, numSold );
 
     }
 

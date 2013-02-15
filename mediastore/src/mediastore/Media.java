@@ -55,9 +55,10 @@ public abstract class Media {
      * @param price
      * @param numSold 
      */
-    public Media( String author, String title, int duration, String genre, int rating, int totalReviews, double price, int numSold ) {
+    public Media( int id, String author, String title, int duration, String genre, int rating, int totalReviews, double price, int numSold ) {
         // initializes all data member to their respective parameters
         this();
+        this.id = id;
         this.author = author;
         this.title = title;
         this.duration = duration;
@@ -186,6 +187,14 @@ public abstract class Media {
      */
     public int getID() {
         return id;
+    }
+    
+    /**
+     * Returns the number of items sold.
+     * @return The number of items sold
+     */
+    public int getNumSold() {
+        return numSold;
     }
     //*****************************************************************************  
 }

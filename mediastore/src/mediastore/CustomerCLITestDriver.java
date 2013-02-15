@@ -25,6 +25,8 @@ public class CustomerCLITestDriver {
             System.out.println( "An exception occured while parsing the database. (" + e.toString() + ")" );
             e.printStackTrace(); // this is what the @SupressWarnings is for
         }
+        Customer cus = db.getCustomerFromID( 1 );
+        cus.buy( 1 );
         System.exit( 0 );
 
         // List customers
@@ -44,8 +46,10 @@ public class CustomerCLITestDriver {
 
         // ask what the user what he wants to test
         System.out.println( "Choose an action to prefom: " );
-        
+
         // list
-        
+        for ( Media m : db.media ) {
+            // list everything
+        }
     }
 }

@@ -1,5 +1,7 @@
 package mediastore;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 /**
@@ -36,7 +38,7 @@ public class Customer {
         this.purchaseHistory = purchaseHistory;
     }
 
-    public void Buy( int id ) {
+    public void buy( int id ) {
         Media object = db.getMediaFromID( id );
         double price = object.getPrice();
         if ( credits < price ) {
@@ -49,12 +51,33 @@ public class Customer {
         db.writeCustomerPurchase( this, purchase );
         purchaseHistory.add( purchase );
 
-        // recalculate ranking
-        for ( Media m : db.media ) {
+        class RankingComparator implements Comparator<Media> {
+
+            @Override
+            public int compare( Media m1, Media m2 ) {
+
+                if ( m1.getNumSold() < m2.getNumSold() ) {
+                    return -1;
+                }
+                if ( m1.getNumSold() == m2.getNumSold() ) {
+                    return 0;
+                }
+                if ( m1.getNumSold() > m2.getNumSold() ) {
+                    return 1;
+                }
+                return 0;
+            }
         }
+        Collections.sort( db.media, new RankingComparator() );
+        // recalculate ranking
+        int i = 1;
+        for ( Media m : db.media ) {
+            m.setRanking( i++ );
+        }
+        i = 0;
     }
 
-    public Media Search( String query ) {
+    public Media search( String query ) {
         Media media = null;
         for ( Media m : db.media ) {
             if ( m.title.equals( query ) ) {

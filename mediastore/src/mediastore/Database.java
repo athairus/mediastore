@@ -27,9 +27,7 @@ public abstract class Database {
         for ( Media m : media ) {
             if ( id == m.getID() ) {
                 return m;
-            } else {
-                return null;
-            }
+            } 
         }
         return null;
     }
@@ -38,9 +36,6 @@ public abstract class Database {
         for ( Customer c : customers ) {
             if ( id == c.getID() ) {
                 return c;
-            }
-            else {
-                return null;
             }
         }
         return null;

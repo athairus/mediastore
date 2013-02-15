@@ -58,7 +58,7 @@ public class TextDatabase extends Database {
         for ( File f : filesInCustomerFolder ) {
 
             // strip the '.txt' from the filename to get the customer id
-            int id = Integer.parseInt( f.getName().substring( 0, f.getName().lastIndexOf( '.' ) ) );
+            int id = Integer.parseInt( getFilename( f ) );
 
             checkCustomerID( id );
 
@@ -143,7 +143,7 @@ public class TextDatabase extends Database {
             int numSold = Integer.parseInt( in.readLine() );
             int releaseYear = Integer.parseInt( in.readLine() );
 
-            media.add( new Movie( author, title, duration, genre, rating, totalReviews, price, numSold, releaseYear ) );
+            media.add( new Movie( id, author, title, duration, genre, rating, totalReviews, price, numSold, releaseYear ) );
 
             // check for presence of cover, background, and trailer
             // warn if missing
@@ -212,7 +212,7 @@ public class TextDatabase extends Database {
             double price = Double.parseDouble( in.readLine() );
             int numSold = Integer.parseInt( in.readLine() );
 
-            media.add( new Album( author, title, duration, genre, rating, totalReviews, price, numSold ) );
+            media.add( new Album( id, author, title, duration, genre, rating, totalReviews, price, numSold ) );
 
             // check for presence of cover, background, and preview
             // warn if missing
@@ -276,7 +276,7 @@ public class TextDatabase extends Database {
             double price = Double.parseDouble( in.readLine() );
             int numSold = Integer.parseInt( in.readLine() );
 
-            media.add( new Audiobook( author, title, duration, genre, rating, totalReviews, price, numSold ) );
+            media.add( new Audiobook( id, author, title, duration, genre, rating, totalReviews, price, numSold ) );
 
             // check for presence of cover, background, and preview
             // warn if missing
@@ -337,7 +337,7 @@ public class TextDatabase extends Database {
         mediaCount++;
 
         // generate a new ID
-        maxMediaID++;
+        m.id = maxMediaID++;
 
         if ( m instanceof Movie ) {
             // increment movie count
@@ -470,5 +470,9 @@ public class TextDatabase extends Database {
             return "Audiobooks";
         }
         return null;
+    }
+    
+    private String getFilename( File f ) {
+        return f.getName().substring( 0, f.getName().lastIndexOf( '.' ) );
     }
 }

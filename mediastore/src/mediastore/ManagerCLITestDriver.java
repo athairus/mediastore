@@ -35,7 +35,6 @@ public class ManagerCLITestDriver {
             //db.manager.addContent();
             db.customers.add( 0,c);
             c.listText();
-            
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing the Manager class. (" + e.toString() + ")" );
             e.printStackTrace();

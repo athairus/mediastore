@@ -45,7 +45,7 @@ public class Manager {
                 int totalAlbumReviews = Integer.parseInt( input.nextLine() );
                 System.out.print( "Enter the album's price: " );
                 double albumPrice = Double.parseDouble( input.nextLine() );
-                Media newAlbum = new Album( artist, albumTitle, albumDuration, albumGenre, albumRating, totalAlbumReviews, albumPrice, 0 );
+                Media newAlbum = new Album( 0, artist, albumTitle, albumDuration, albumGenre, albumRating, totalAlbumReviews, albumPrice, 0 );
                 db.writeNewMediaItem( newAlbum );
 
                 break;
@@ -66,7 +66,7 @@ public class Manager {
                 double moviePrice = Double.parseDouble( input.nextLine() );
                 System.out.print( "Enter the movie release year: " );
                 int movieYear = Integer.parseInt( input.nextLine() );
-                Media newMovie = new Movie( director, movieTitle, movieDuration, movieGenre, movieRating, totalMovieReviews, moviePrice, movieYear, 0 );
+                Media newMovie = new Movie( 0, director, movieTitle, movieDuration, movieGenre, movieRating, totalMovieReviews, moviePrice, movieYear, 0 );
                 db.writeNewMediaItem( newMovie );
 
                 break;
@@ -85,7 +85,7 @@ public class Manager {
                 int totalBookReviews = Integer.parseInt( input.nextLine() );
                 System.out.print( "Enter the book's price: " );
                 double bookPrice = Double.parseDouble( input.nextLine() );
-                Media newAudiobook = new Audiobook( author, bookTitle, bookDuration, bookGenre, bookRating, totalBookReviews, bookPrice, 0 );
+                Media newAudiobook = new Audiobook( 0, author, bookTitle, bookDuration, bookGenre, bookRating, totalBookReviews, bookPrice, 0 );
                 db.writeNewMediaItem( newAudiobook );
 
                 break;
@@ -117,6 +117,6 @@ public class Manager {
 
     public String getCustomerInfo( int id ) {
         Customer person = db.getCustomerFromID( id );
-        return person.toTextDB();
+        return person.toString();
     }
 }
