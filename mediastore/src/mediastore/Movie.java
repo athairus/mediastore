@@ -26,7 +26,7 @@ public class Movie extends Media {
      * @param releaseYear year movie was released
      * @param numSold numbers sold (initialized to 0)
      */
-    public Movie( int id, String author, String title, int duration, String genre, int rating, int totalReviews, double price, int numSold, int releaseYear ) {
+    public Movie( int id, String author, String title, int duration, String genre, double rating, int totalReviews, double price, int numSold, int releaseYear ) {
         //PRE: Takes an author (director), title, duration, genre, ranking, price ( > 0 ), and release year ( > 0 )
         //POST: Sets data members to respective values
         super( id, author, title, duration, genre, rating, totalReviews, price, numSold );

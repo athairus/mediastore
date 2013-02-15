@@ -1,5 +1,6 @@
 package mediastore;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -39,12 +40,12 @@ public class Customer {
         this.purchaseHistory = purchaseHistory;
     }
 
-    public void buy( int id ) throws java.io.IOException {
+    public int buy( int id ) throws java.io.IOException {
         Media object = db.getMediaFromID( id );
         double price = object.getPrice();
         if ( credits < price ) {
             // not enough money
-            return;
+            return -1;
         }
         credits -= price;
 
@@ -79,8 +80,9 @@ public class Customer {
             m.setRanking( i++ );
             db.writeModifiedMediaItem( m );
         }
-        i = 0;
         //</editor-fold>
+
+        return purchase.getID();
     }
 
     public Media search( String query ) {
@@ -97,6 +99,11 @@ public class Customer {
         for ( Media m : db.media ) {
             System.out.println( m.id + "." + m.title );
         }
+    }
+
+    public void displayInfoCLI( int id ) throws java.io.IOException {
+        Media m = db.getMediaFromID( id );
+        System.out.println( ( (TextDatabase) db ).generateCoverASCII( m, 50, (int)( 50 * ( 7.0 / 12.0 ) ) ) );
     }
 
     public String getName() {
@@ -128,5 +135,19 @@ public class Customer {
             s += p.toString() + '\n';
         }
         return s;
+    }
+
+    public void rate( int id, int rating ) throws java.io.IOException {
+        // clamp rating from 1 to 5
+        if ( rating < 1 ) {
+            rating = 1;
+        }
+        if ( rating > 5 ) {
+            rating = 5;
+        }
+        Media m = db.getMediaFromID( id );
+        m.rating = ( ( ( m.rating * (double) m.totalReviews ) + (double) rating ) / ( (double) m.totalReviews + 1.0 ) );
+        m.totalReviews++;
+        db.writeModifiedMediaItem( m );
     }
 }

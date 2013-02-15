@@ -26,12 +26,12 @@ public class ManagerCLITestDriver {
             System.out.println( "An exception occured while parsing the database. (" + e.toString() + ")" );
             e.printStackTrace(); // this is what the @SupressWarnings is for
         }
-        
-        
+
+
         Customer cus = db.getCustomerFromID( 1 );
-        try {                
+        try {
             cus.listCLI();
-            db.manager.remove( 7 );
+            cus.displayInfoCLI( 1 );
             cus.listCLI();
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing the Manager class. (" + e.toString() + ")" );

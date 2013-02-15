@@ -43,11 +43,17 @@ public abstract class Database {
     }
 
     // checks the given id, if it is larger than the maxID, set maxID to it
-    protected abstract void checkCustomerID( int id );
-    
-    protected abstract void checkMediaID( int id );
-    
-    protected abstract void checkPurchaseID( int id );
+    protected void checkCustomerID( int id ) {
+        maxCustomerID = Math.max( id, maxCustomerID );
+    }
+
+    protected void checkMediaID( int id ) {
+        maxMediaID = Math.max( id, maxMediaID );
+    }
+
+    protected void checkPurchaseID( int id ) {
+        maxPurchaseID = Math.max( id, maxPurchaseID );
+    }
     
     public abstract void writeCustomerPurchase( Customer customer, Purchase purchase ) throws java.io.IOException;
     

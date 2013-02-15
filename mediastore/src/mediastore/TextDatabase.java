@@ -1,5 +1,10 @@
 package mediastore;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.color.ColorSpace;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
@@ -10,6 +15,7 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.OutputStreamWriter;
 import java.util.LinkedList;
+import javax.imageio.ImageIO;
 
 /**
  * A class that interacts with a text-based database.
@@ -88,7 +94,7 @@ public class TextDatabase extends Database {
             }
 
             customers.add( new Customer( id, name, address, credit, purchaseHistory, this ) );
-            
+
             in.close();
 
         }
@@ -141,7 +147,7 @@ public class TextDatabase extends Database {
             String title = in.readLine();
             int duration = Integer.parseInt( in.readLine() );
             String genre = in.readLine();
-            int rating = Integer.parseInt( in.readLine() );
+            double rating = Double.parseDouble( in.readLine() );
             int totalReviews = Integer.parseInt( in.readLine() );
             double price = Double.parseDouble( in.readLine() );
             int numSold = Integer.parseInt( in.readLine() );
@@ -212,7 +218,7 @@ public class TextDatabase extends Database {
             String title = in.readLine();
             int duration = Integer.parseInt( in.readLine() );
             String genre = in.readLine();
-            int rating = Integer.parseInt( in.readLine() );
+            double rating = Double.parseDouble( in.readLine() );
             int totalReviews = Integer.parseInt( in.readLine() );
             double price = Double.parseDouble( in.readLine() );
             int numSold = Integer.parseInt( in.readLine() );
@@ -277,7 +283,7 @@ public class TextDatabase extends Database {
             String title = in.readLine();
             int duration = Integer.parseInt( in.readLine() );
             String genre = in.readLine();
-            int rating = Integer.parseInt( in.readLine() );
+            double rating = Double.parseDouble( in.readLine() );
             int totalReviews = Integer.parseInt( in.readLine() );
             double price = Double.parseDouble( in.readLine() );
             int numSold = Integer.parseInt( in.readLine() );
@@ -457,27 +463,12 @@ public class TextDatabase extends Database {
         victim.delete();
     }
 
-    @Override
-    protected void checkCustomerID( int id ) {
-        maxCustomerID = Math.max( id, maxCustomerID );
-    }
-
-    @Override
-    protected void checkMediaID( int id ) {
-        maxMediaID = Math.max( id, maxMediaID );
-    }
-
-    @Override
-    protected void checkPurchaseID( int id ) {
-        maxPurchaseID = Math.max( id, maxPurchaseID );
-    }
-
     private String getFolderString( Media m ) {
         if ( m instanceof Movie ) {
             return "Movies";
         }
         if ( m instanceof Album ) {
-            return "Movies";
+            return "Music";
         }
         if ( m instanceof Audiobook ) {
             return "Audiobooks";
@@ -487,5 +478,148 @@ public class TextDatabase extends Database {
 
     private String getFilename( File f ) {
         return f.getName().substring( 0, f.getName().lastIndexOf( '.' ) );
+    }
+
+    public String generateCoverASCII( Media m, int width, int height ) throws java.io.IOException {
+        File image = new File( rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + "cover.png" );
+        BufferedImage inputImage = ImageIO.read( image );
+        ColorSpace greyscale = ColorSpace.getInstance( ColorSpace.CS_GRAY );
+        ColorConvertOp cco = new ColorConvertOp( greyscale, null );
+        BufferedImage greyscaleImage = cco.filter( inputImage, null );
+        boolean border = true;
+        // preserve width and aspect ratio, shrink height as necessary
+        height *= (double) greyscaleImage.getHeight()
+                / (double) greyscaleImage.getWidth();
+
+        if ( border ) {
+            width -= 2;
+            height -= 2;
+        }
+
+        if ( width < 0 ) {
+            width = 0;
+        }
+        if ( height < 0 ) {
+            height = 0;
+        }
+
+        String outputString = "";
+
+        // rescale image
+        BufferedImage temp = new BufferedImage( width, height,
+                BufferedImage.TYPE_INT_RGB );
+        Graphics2D g = temp.createGraphics();
+        g.setRenderingHint( RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BILINEAR );
+        g.drawImage( greyscaleImage, 0, 0, width, height, 0, 0, greyscaleImage
+                .getWidth(), greyscaleImage.getHeight(), null );
+        g.dispose();
+        greyscaleImage = temp;
+
+        if ( border ) {
+            if ( ( 80 - width ) > 0 ) {
+                for ( int j = 0; j < ( ( 80 - width ) / 2 ); j++ ) {
+                    outputString += ' ';
+                }
+            }
+            outputString += " ";
+            for ( int j = 1; j <= width; j++ ) {
+                outputString += "_";
+            }
+            outputString += " \n";
+
+        }
+
+        for ( int i = 0; i < height; i++ ) {
+            if ( ( 80 - width ) > 0 ) {
+                for ( int j = 0; j < ( ( 80 - width ) / 2 ); j++ ) {
+                    outputString += ' ';
+                }
+            }
+            outputString += '|';
+            for ( int j = 0; j < width; j++ ) {
+
+                char character = ' ';
+                int pixel = greyscaleImage.getRGB( j, i );
+                int grey = pixel & 0xFF;
+
+                if ( grey > 0 ) {
+                    character = ' ';
+                }
+                if ( grey >= 8 ) {
+                    character = '\'';
+                }
+                if ( grey >= 16 ) {
+                    character = '.';
+                }
+                if ( grey >= 32 ) {
+                    character = '-';
+                }
+                if ( grey >= 48 ) {
+                    character = ':';
+                }
+                if ( grey >= 64 ) {
+                    character = '+';
+                }
+                if ( grey >= 80 ) {
+                    character = ( Math.random() > 0.5 ) ? '/' : '\\';
+                }
+                if ( grey >= 96 ) {
+                    character = 'o';
+                }
+                if ( grey >= 112 ) {
+                    character = 's';
+                }
+                if ( grey >= 128 ) {
+                    character = '*';
+                }
+                if ( grey >= 144 ) {
+                    character = 'y';
+                }
+                if ( grey >= 160 ) {
+                    character = 'h';
+                }
+                if ( grey >= 176 ) {
+                    character = 'd';
+                }
+                if ( grey >= 192 ) {
+                    character = 'm';
+                }
+                if ( grey >= 208 ) {
+                    character = 'V';
+                }
+                if ( grey >= 224 ) {
+                    character = 'Q';
+                }
+                if ( grey >= 240 ) {
+                    character = 'M';
+                }
+
+                outputString += character;
+
+            }
+
+            if ( border ) {
+                outputString += "|\n";
+            } else {
+                outputString += "\n";
+            }
+
+        }
+
+        if ( border ) {
+            if ( ( 80 - width ) > 0 ) {
+                for ( int j = 0; j < ( ( 80 - width ) / 2 ); j++ ) {
+                    outputString += ' ';
+                }
+            }
+            outputString += '|';
+            for ( int j = 1; j <= width; j++ ) {
+                outputString += "_";
+            }
+            outputString += "|";
+
+        }
+        return outputString;
     }
 }

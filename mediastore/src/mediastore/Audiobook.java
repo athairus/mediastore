@@ -7,7 +7,7 @@ package mediastore;
  */
 public class Audiobook extends Media {
 
-    public Audiobook( int id, String author, String title, int duration, String genre, int rating, int totalReviews, double price, int numSold ) {
+    public Audiobook( int id, String author, String title, int duration, String genre, double rating, int totalReviews, double price, int numSold ) {
 
         super( id, author, title, duration, genre, rating, totalReviews, price, numSold );
 

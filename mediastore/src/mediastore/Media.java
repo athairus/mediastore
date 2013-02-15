@@ -12,7 +12,7 @@ public abstract class Media {
     protected String title;         // the title of the work
     protected int duration;         // in seconds
     protected String genre;         // genre the object belongs to
-    protected int rating;           // the item's rating (out of 5 stars)
+    protected double rating;        // the item's rating (out of 5 stars)
     // a rating of 0 indicates it was not
     // reviewed yet
     protected int totalReviews;     // the total number of customers who have
@@ -31,7 +31,7 @@ public abstract class Media {
         title = "";
         duration = 0;
         genre = "";
-        rating = 0;
+        rating = 0.0;
         totalReviews = 0;
         price = 0.0;
         numSold = 0;
@@ -48,7 +48,7 @@ public abstract class Media {
      * @param price
      * @param numSold
      */
-    public Media( int id, String author, String title, int duration, String genre, int rating, int totalReviews, double price, int numSold ) {
+    public Media( int id, String author, String title, int duration, String genre, double rating, int totalReviews, double price, int numSold ) {
         // initializes all data member to their respective parameters
         this();
         this.id = id;
