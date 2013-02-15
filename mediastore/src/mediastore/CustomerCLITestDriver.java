@@ -29,7 +29,7 @@ public class CustomerCLITestDriver {
 
         // List customers
         if ( db.customers.isEmpty() ) {
-            System.out.println( "Error: Customer database is empty." );
+            System.out.println( "ERROR: Customer database is empty." );
             System.exit( -1 );
         }
         for ( Customer c : db.customers ) {
@@ -46,8 +46,6 @@ public class CustomerCLITestDriver {
         System.out.println( "Choose an action to prefom: " );
         
         // list
-        for( Media m : db.media ) {
-            // list everything
-        }
+        
     }
 }
