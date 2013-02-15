@@ -93,7 +93,7 @@ public class Customer {
         return media;
     }
 
-    public void listText() {
+    public void listCLI() {
         for ( Media m : db.media ) {
             System.out.println( m.id + "." + m.title );
         }

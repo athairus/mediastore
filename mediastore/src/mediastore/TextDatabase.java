@@ -136,7 +136,6 @@ public class TextDatabase extends Database {
                 System.out.println( "Error parsing database: Movie id " + id + " is missing metadata.txt" );
                 throw new java.io.FileNotFoundException();
             }
-            //String author, String title, int duration, String genre, int rating, int totalReviews, double price, int numSold, int releaseYear
             LineNumberReader in = new LineNumberReader( new FileReader( f ) );
             String author = in.readLine();
             String title = in.readLine();

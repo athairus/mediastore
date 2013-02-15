@@ -19,7 +19,7 @@ public class Manager {
 
     }
 
-    public void addContent() throws java.io.IOException {
+    public void addCLI() throws java.io.IOException {
 
         //Command Line prompt for manager to add desired item to Media store
         System.out.println( "What media type do you want to add? (0 to exit)" );
@@ -96,20 +96,20 @@ public class Manager {
 
     }
 
-    public void removeContent( int id ) throws java.io.IOException {
+    public void remove( int id ) throws java.io.IOException {
         Media object = db.getMediaFromID( id ); //stores desired media item in temporary object
         db.media.remove( object );              //deletes media object from RAM
         db.deleteMediaItem( object );           //deletes media object from disk
 
     }
 
-    public int checkItemSales( int id ) {
+    public int getNumSales( int id ) {
 
         Media object = db.getMediaFromID( id );
         return object.numSold;
     }
 
-    public int checkTotalSales() {
+    public int getTotalNumSales() {
 
         int sum = 0;
         for ( Media m : db.media ) {
