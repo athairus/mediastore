@@ -27,7 +27,6 @@ public class TextDatabase extends Database {
      *
      * @param rootDir Location in the file system of the database
      */
-    //<editor-fold defaultstate="collapsed" desc="public TextDatabase( String rootDir )">
     public TextDatabase( String rootDir ) throws java.io.IOException, java.io.FileNotFoundException, java.util.InputMismatchException, java.util.InputMismatchException {
         this.rootDir = rootDir;
 
@@ -212,7 +211,7 @@ public class TextDatabase extends Database {
             int totalReviews = Integer.parseInt( in.readLine() );
             double price = Double.parseDouble( in.readLine() );
             int numSold = Integer.parseInt( in.readLine() );
-            
+
             media.add( new Album( author, title, duration, genre, rating, totalReviews, price, numSold ) );
 
             // check for presence of cover, background, and preview
@@ -276,7 +275,7 @@ public class TextDatabase extends Database {
             int totalReviews = Integer.parseInt( in.readLine() );
             double price = Double.parseDouble( in.readLine() );
             int numSold = Integer.parseInt( in.readLine() );
-            
+
             media.add( new Audiobook( author, title, duration, genre, rating, totalReviews, price, numSold ) );
 
             // check for presence of cover, background, and preview
@@ -322,18 +321,14 @@ public class TextDatabase extends Database {
         // </editor-fold>
 
     }
-    //</editor-fold>
 
     @Override
-    //<editor-fold defaultstate="collapsed" desc="public void writeCustomerPurchase( Customer customer, Purchase purchase )">
     public void writeCustomerPurchase( Customer customer, Purchase purchase ) {
         // search for filename in customer folder with given id
         // append the purchase to the customer file
     }
-    //</editor-fold>
 
     @Override
-    //<editor-fold defaultstate="collapsed" desc="public void writeNewMediaItem( Media m )">
     public void writeNewMediaItem( Media m ) throws java.io.IOException {
         File newFile;
         File newDir;
@@ -355,7 +350,7 @@ public class TextDatabase extends Database {
             newFile.createNewFile();
             FileWriter fw = new FileWriter( newFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
-            out.write( ( (Movie) m ).toTextDBRepresentation() );
+            out.write( ( (Movie) m ).toTextDB() );
             out.close();
 
             return;
@@ -372,7 +367,7 @@ public class TextDatabase extends Database {
             newFile.createNewFile();
             FileWriter fw = new FileWriter( newFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
-            out.write( ( (Album) m ).toTextDBRepresentation() );
+            out.write( ( (Album) m ).toTextDB() );
             out.close();
 
             return;
@@ -389,14 +384,12 @@ public class TextDatabase extends Database {
             newFile.createNewFile();
             FileWriter fw = new FileWriter( newFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
-            out.write( ( (Audiobook) m ).toTextDBRepresentation() );
+            out.write( ( (Audiobook) m ).toTextDB() );
             out.close();
         }
     }
-    //</editor-fold>
 
     @Override
-    //<editor-fold defaultstate="collapsed" desc="public void writeModifiedMediaItem( Media m )">
     public void writeModifiedMediaItem( Media m ) throws java.io.IOException {
         File newFile;
 
@@ -408,7 +401,7 @@ public class TextDatabase extends Database {
             newFile.createNewFile();
             FileWriter fw = new FileWriter( newFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
-            out.write( ( (Movie) m ).toTextDBRepresentation() );
+            out.write( ( (Movie) m ).toTextDB() );
             out.close();
 
             return;
@@ -422,7 +415,7 @@ public class TextDatabase extends Database {
             newFile.createNewFile();
             FileWriter fw = new FileWriter( newFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
-            out.write( ( (Album) m ).toTextDBRepresentation() );
+            out.write( ( (Album) m ).toTextDB() );
             out.close();
 
             return;
@@ -436,36 +429,46 @@ public class TextDatabase extends Database {
             newFile.createNewFile();
             FileWriter fw = new FileWriter( newFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( newFile ), "UTF-8" ) );
-            out.write( ( (Audiobook) m ).toTextDBRepresentation() );
+            out.write( ( (Audiobook) m ).toTextDB() );
             out.close();
         }
     }
-    //</editor-fold>
 
     @Override
-    //<editor-fold defaultstate="collapsed" desc="public void deleteMediaItem( Media m )">
-    public void deleteMediaItem( Media m ) {
+    public void deleteMediaItem( Media m ) throws java.io.IOException {
+        int id = m.id;
+        File victim = new File( rootDir + File.separator + getFolderString( m ) + File.separator + id + File.separator );
+        for ( File f : victim.listFiles() ) {
+            f.delete();
+        }
+        victim.delete();
     }
-    //</editor-fold>
 
     @Override
-    //<editor-fold defaultstate="collapsed" desc="protected void checkCustomerID( int id )">
     protected void checkCustomerID( int id ) {
         maxCustomerID = Math.max( id, maxCustomerID );
     }
-    //</editor-fold>
 
     @Override
-    //<editor-fold defaultstate="collapsed" desc="protected void checkMediaID( int id )">
     protected void checkMediaID( int id ) {
         maxMediaID = Math.max( id, maxMediaID );
     }
-    //</editor-fold>
 
     @Override
-    //<editor-fold defaultstate="collapsed" desc="protected void checkPurchaseID( int id )">
     protected void checkPurchaseID( int id ) {
         maxPurchaseID = Math.max( id, maxPurchaseID );
     }
-    //</editor-fold>
+
+    private String getFolderString( Media m ) {
+        if ( m instanceof Movie ) {
+            return "Movies";
+        }
+        if ( m instanceof Album ) {
+            return "Movies";
+        }
+        if ( m instanceof Audiobook ) {
+            return "Audiobooks";
+        }
+        return null;
+    }
 }

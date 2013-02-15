@@ -75,8 +75,13 @@ public class Customer {
     public void setDB( Database db ) {
         this.db = db;
     }
+<<<<<<< HEAD
     //iterate through linked list and append each to the end of the string
     public String textToDBRepresentation() {
+=======
+    
+    public String toTextDB() {
+>>>>>>> A bit of refactoring, finished TextDatabase.deleteMediaItem()
         return name + '\n' + address + '\n' + credits + '\n' + purchaseHistory;
     }
     //also iterate through linked list and append each at end of string

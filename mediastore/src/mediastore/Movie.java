@@ -71,7 +71,7 @@ public class Movie extends Media {
      *
      * @return toString
      */
-    public String toTextDBRepresentation() {
-        return author + '\n' + title + '\n' + duration + '\n' + genre + '\n' + rating + '\n' + totalReviews + '\n' + price + '\n' + numSold + '\n' + releaseYear;
+    public String toTextDB() {
+        return author + "\n " + title + "\n " + duration + "\n " + genre + "\n " + rating + "\n " + totalReviews + "\n " + price + "\n " + numSold + "\n" + releaseYear;
     }
 }

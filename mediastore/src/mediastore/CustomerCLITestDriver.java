@@ -44,5 +44,10 @@ public class CustomerCLITestDriver {
 
         // ask what the user what he wants to test
         System.out.println( "Choose an action to prefom: " );
+        
+        // list
+        for( Media m : db.media ) {
+            // list everything
+        }
     }
 }

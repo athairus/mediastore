@@ -1,5 +1,6 @@
 package mediastore;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -92,7 +93,7 @@ public class Manager {
 
     }
 
-    public void removeContent( int id ) {
+    public void removeContent( int id ) throws java.io.IOException {
         Media object = db.getMediaFromID( id ); //stores desired media item in temporary object
         db.media.remove( object );              //deletes media object from RAM
         db.deleteMediaItem( object );           //deletes media object from disc
@@ -116,7 +117,6 @@ public class Manager {
 
     public String getCustomerInfo( int id ) {
         Customer person = db.getCustomerFromID( id );
-
-        return person.toString();
+        return person.toTextDB();
     }
 }

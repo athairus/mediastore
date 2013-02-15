@@ -30,13 +30,12 @@ public class ManagerCLITestDriver {
 
         try {
             db.manager.addContent();
-            db.manager.checkItemSales(  );
-
+            db.manager.checkItemSales();
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing the Manager class. (" + e.toString() + ")" );
             e.printStackTrace();
         }
-        
+
 
     }
 }
