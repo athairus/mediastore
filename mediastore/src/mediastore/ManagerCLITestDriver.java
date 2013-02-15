@@ -1,7 +1,6 @@
 package mediastore;
 
 import java.io.File;
-import java.util.LinkedList;
 
 /**
  * Name: Milton John
@@ -37,10 +36,9 @@ public class ManagerCLITestDriver {
            // c.listText();
             //db.manager.addContent();
             c.listText();
-           // db.manager.getCustomerInfo( 1);
+            System.out.println("Customer 1 info: \n" + db.manager.getCustomerInfo( 1));
             c.buy( 1 );
-            System.out.println("Item sales for media id: 1 is " + db.manager.checkItemSales( 2 ));
-            System.exit( 0);
+            System.out.println("Item sales for media id: 1 is " + db.manager.checkItemSales( 1 ));
             
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing the Manager class. (" + e.toString() + ")" );
