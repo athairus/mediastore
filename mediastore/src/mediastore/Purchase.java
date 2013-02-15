@@ -31,6 +31,10 @@ public class Purchase {
         return id;
     }
 
+    public void setID( int id ) {
+        this.id = id;
+    }
+
     public double getPrice() {
         return price;
     }

@@ -19,9 +19,6 @@ import java.io.File;
 public class ManagerCLITestDriver {
 
     public static void main( String[] args ) {
-        
-
-        System.out.println( "test" );
         TextDatabase db = null;
         try {
             db = new TextDatabase( System.getProperty( "user.dir" ).concat( File.separator + ".." + File.separator + ".." + File.separator + "db" + File.separator ) );
@@ -30,16 +27,12 @@ public class ManagerCLITestDriver {
             e.printStackTrace(); // this is what the @SupressWarnings is for
         }
         
-       
-        try {
-            Customer c = db.getCustomerFromID( 1 );
-           // c.listText();
-            //db.manager.addContent();
-            c.listText();
-            System.out.println("Customer 1 info: \n" + db.manager.getCustomerInfo( 1));
-            c.buy( 1 );
-            System.out.println("Item sales for media id: 1 is " + db.manager.checkItemSales( 1 ));
-            
+        
+        Customer cus = db.getCustomerFromID( 1 );
+        try {                
+            cus.listText();
+            db.manager.removeContent( 7 );
+            cus.listText();
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing the Manager class. (" + e.toString() + ")" );
             e.printStackTrace();

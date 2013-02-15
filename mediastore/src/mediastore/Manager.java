@@ -99,7 +99,7 @@ public class Manager {
     public void removeContent( int id ) throws java.io.IOException {
         Media object = db.getMediaFromID( id ); //stores desired media item in temporary object
         db.media.remove( object );              //deletes media object from RAM
-        db.deleteMediaItem( object );           //deletes media object from disc
+        db.deleteMediaItem( object );           //deletes media object from disk
 
     }
 

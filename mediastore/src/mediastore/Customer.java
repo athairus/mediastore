@@ -24,12 +24,13 @@ public class Customer {
         name = "";
         address = "";
         id = 0; // Not sure how long each Id should be. Correct later to correct length
-        purchaseHistory = null;
+        purchaseHistory = new LinkedList();
         db = null;
 
     }
 
     public Customer( int id, String name, String address, double credits, LinkedList purchaseHistory, Database db ) {
+        this();
         this.id = id;
         this.name = name;
         this.address = address;
@@ -38,7 +39,7 @@ public class Customer {
         this.purchaseHistory = purchaseHistory;
     }
 
-    public void buy( int id ) {
+    public void buy( int id ) throws java.io.IOException {
         Media object = db.getMediaFromID( id );
         double price = object.getPrice();
         if ( credits < price ) {
@@ -47,34 +48,39 @@ public class Customer {
         }
         credits -= price;
 
-        Purchase purchase = new Purchase( id, price, System.currentTimeMillis() );
+        Purchase purchase = new Purchase( 0, price, System.currentTimeMillis() );
         db.writeCustomerPurchase( this, purchase );
         purchaseHistory.add( purchase );
 
+        object.numSold++;
+
+        //<editor-fold defaultstate="collapsed" desc="recalculate ranking">
         class RankingComparator implements Comparator<Media> {
 
             @Override
             public int compare( Media m1, Media m2 ) {
 
                 if ( m1.getNumSold() < m2.getNumSold() ) {
-                    return -1;
+                    return 1;
                 }
                 if ( m1.getNumSold() == m2.getNumSold() ) {
                     return 0;
                 }
                 if ( m1.getNumSold() > m2.getNumSold() ) {
-                    return 1;
+                    return -1;
                 }
                 return 0;
             }
         }
         Collections.sort( db.media, new RankingComparator() );
-        // recalculate ranking
+
         int i = 1;
         for ( Media m : db.media ) {
             m.setRanking( i++ );
+            db.writeModifiedMediaItem( m );
         }
         i = 0;
+        //</editor-fold>
     }
 
     public Media search( String query ) {

@@ -49,7 +49,7 @@ public abstract class Database {
     
     protected abstract void checkPurchaseID( int id );
     
-    public abstract void writeCustomerPurchase( Customer customer, Purchase purchase );
+    public abstract void writeCustomerPurchase( Customer customer, Purchase purchase ) throws java.io.IOException;
     
     public abstract void writeNewMediaItem( Media m ) throws java.io.IOException;
     

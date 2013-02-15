@@ -27,8 +27,11 @@ public class TextDatabase extends Database {
      *
      * @param rootDir Location in the file system of the database
      */
-    public TextDatabase( String rootDir ) throws java.io.IOException, java.io.FileNotFoundException, java.util.InputMismatchException, java.util.InputMismatchException {
+    public TextDatabase( String rootDir ) throws java.lang.Exception {
         this.rootDir = rootDir;
+        maxMediaID = 1;
+        maxCustomerID = 1;
+        maxPurchaseID = 1;
 
         // check that the root dir exists
         File rootDirFile = new File( rootDir );
@@ -85,6 +88,8 @@ public class TextDatabase extends Database {
             }
 
             customers.add( new Customer( id, name, address, credit, purchaseHistory, this ) );
+            
+            in.close();
 
         }
         // </editor-fold>
@@ -117,16 +122,16 @@ public class TextDatabase extends Database {
 
 
         // parse movie database
-        for ( File fdir : filesInMovieFolder ) {
+        for ( File fDir : filesInMovieFolder ) {
             // strip the '.txt' from the filename to get the id
-            int id = Integer.parseInt( fdir.getName() );
+            int id = Integer.parseInt( fDir.getName() );
 
             checkMediaID( id );
 
             File f = null;
 
             // parse metadata
-            f = new File( fdir.getCanonicalPath().concat( File.separator + "metadata.txt" ) );
+            f = new File( fDir.getCanonicalPath().concat( File.separator + "metadata.txt" ) );
             if ( !f.exists() ) {
                 System.out.println( "Error parsing database: Movie id " + id + " is missing metadata.txt" );
                 throw new java.io.FileNotFoundException();
@@ -147,20 +152,21 @@ public class TextDatabase extends Database {
 
             // check for presence of cover, background, and trailer
             // warn if missing
-            f = new File( fdir.getCanonicalPath().concat( File.separator + "cover.png" ) );
+            f = new File( fDir.getCanonicalPath().concat( File.separator + "cover.png" ) );
             if ( !f.exists() ) {
                 System.out.println( "WARNING: Movie id " + id + " is missing cover.png" );
             }
 
-            f = new File( fdir.getCanonicalPath().concat( File.separator + "background.png" ) );
+            f = new File( fDir.getCanonicalPath().concat( File.separator + "background.png" ) );
             if ( !f.exists() ) {
                 System.out.println( "WARNING: Movie id " + id + " is missing background.png" );
             }
 
-            f = new File( fdir.getCanonicalPath().concat( File.separator + "trailer.mp4" ) );
+            f = new File( fDir.getCanonicalPath().concat( File.separator + "trailer.mp4" ) );
             if ( !f.exists() ) {
                 System.out.println( "WARNING: Movie id " + id + " is missing trailer.mp4" );
             }
+            in.close();
 
         }
 
@@ -188,16 +194,16 @@ public class TextDatabase extends Database {
 
 
         // parse music albums database
-        for ( File fdir : filesInAlbumFolder ) {
+        for ( File fDir : filesInAlbumFolder ) {
             // strip the '.txt' from the filename to get the id
-            int id = Integer.parseInt( fdir.getName() );
+            int id = Integer.parseInt( fDir.getName() );
 
             checkMediaID( id );
 
             File f = null;
 
             // parse metadata
-            f = new File( fdir.getCanonicalPath().concat( File.separator + "metadata.txt" ) );
+            f = new File( fDir.getCanonicalPath().concat( File.separator + "metadata.txt" ) );
             if ( !f.exists() ) {
                 System.out.println( "Error parsing database: Album id " + id + " is missing metadata.txt" );
                 throw new java.io.FileNotFoundException();
@@ -216,20 +222,21 @@ public class TextDatabase extends Database {
 
             // check for presence of cover, background, and preview
             // warn if missing
-            f = new File( fdir.getCanonicalPath().concat( File.separator + "cover.png" ) );
+            f = new File( fDir.getCanonicalPath().concat( File.separator + "cover.png" ) );
             if ( !f.exists() ) {
                 System.out.println( "WARNING: Album id " + id + " is missing cover.png" );
             }
 
-            f = new File( fdir.getCanonicalPath().concat( File.separator + "background.png" ) );
+            f = new File( fDir.getCanonicalPath().concat( File.separator + "background.png" ) );
             if ( !f.exists() ) {
                 System.out.println( "WARNING: Album id " + id + " is missing background.png" );
             }
 
-            f = new File( fdir.getCanonicalPath().concat( File.separator + "preview.mp3" ) );
+            f = new File( fDir.getCanonicalPath().concat( File.separator + "preview.mp3" ) );
             if ( !f.exists() ) {
                 System.out.println( "WARNING: Album id " + id + " is missing preview.mp3" );
             }
+            in.close();
 
         }
 
@@ -252,16 +259,16 @@ public class TextDatabase extends Database {
 
 
         // parse audiobooks database
-        for ( File fdir : filesInAudiobookFolder ) {
+        for ( File fDir : filesInAudiobookFolder ) {
             // strip the '.txt' from the filename to get the id
-            int id = Integer.parseInt( fdir.getName() );
+            int id = Integer.parseInt( fDir.getName() );
 
 
 
             File f = null;
 
             // parse metadata
-            f = new File( fdir.getCanonicalPath().concat( File.separator + "metadata.txt" ) );
+            f = new File( fDir.getCanonicalPath().concat( File.separator + "metadata.txt" ) );
             if ( !f.exists() ) {
                 System.out.println( "Error parsing database: Audiobook id " + id + " is missing metadata.txt" );
                 throw new java.io.FileNotFoundException();
@@ -280,20 +287,21 @@ public class TextDatabase extends Database {
 
             // check for presence of cover, background, and preview
             // warn if missing
-            f = new File( fdir.getCanonicalPath().concat( File.separator + "cover.png" ) );
+            f = new File( fDir.getCanonicalPath().concat( File.separator + "cover.png" ) );
             if ( !f.exists() ) {
                 System.out.println( "WARNING: Audiobook id " + id + " is missing cover.png" );
             }
 
-            f = new File( fdir.getCanonicalPath().concat( File.separator + "background.png" ) );
+            f = new File( fDir.getCanonicalPath().concat( File.separator + "background.png" ) );
             if ( !f.exists() ) {
                 System.out.println( "WARNING: Audiobook id " + id + " is missing background.png" );
             }
 
-            f = new File( fdir.getCanonicalPath().concat( File.separator + "preview.mp3" ) );
+            f = new File( fDir.getCanonicalPath().concat( File.separator + "preview.mp3" ) );
             if ( !f.exists() ) {
                 System.out.println( "WARNING: Audiobook id " + id + " is missing preview.mp3" );
             }
+            in.close();
 
         }
 
@@ -317,15 +325,20 @@ public class TextDatabase extends Database {
         LineNumberReader in = new LineNumberReader( new FileReader( managerFile ) );
         String password = in.readLine();
         manager = new Manager( password, this );
+        in.close();
 
         // </editor-fold>
 
     }
 
     @Override
-    public void writeCustomerPurchase( Customer customer, Purchase purchase ) {
-        // search for filename in customer folder with given id
-        // append the purchase to the customer file
+    public void writeCustomerPurchase( Customer customer, Purchase purchase ) throws java.io.IOException {
+        purchase.setID( ++maxPurchaseID );
+        File customerToModify = new File( rootDir.concat( "Customers" ) + File.separator + customer.getID() + ".txt" );
+        FileWriter fw = new FileWriter( customerToModify, true );
+        //BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( customerToModify ), "UTF-8" ) );
+        fw.write( purchase.toTextDB() );
+        fw.close();
     }
 
     @Override
@@ -438,7 +451,8 @@ public class TextDatabase extends Database {
     public void deleteMediaItem( Media m ) throws java.io.IOException {
         int id = m.id;
         File victim = new File( rootDir + File.separator + getFolderString( m ) + File.separator + id + File.separator );
-        for ( File f : victim.listFiles() ) {
+        File[] victims = victim.listFiles();
+        for ( File f : victims ) {
             f.delete();
         }
         victim.delete();

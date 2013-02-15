@@ -25,31 +25,36 @@ public class CustomerCLITestDriver {
             System.out.println( "An exception occured while parsing the database. (" + e.toString() + ")" );
             e.printStackTrace(); // this is what the @SupressWarnings is for
         }
-        Customer cus = db.getCustomerFromID( 1 );
-        cus.buy( 1 );
-        System.exit( 0 );
+        try {
+            Customer cus = db.getCustomerFromID( 1 );
+            cus.buy( 1 );
+            System.exit( 0 );
 
-        // List customers
-        if ( db.customers.isEmpty() ) {
-            System.out.println( "ERROR: Customer database is empty." );
-            System.exit( -1 );
-        }
-        for ( Customer c : db.customers ) {
-            System.out.println( c.getID() + ". " + c.getName() );
-            // while we're here, pass the db reference to each Customer
-            c.setDB( db );
-            // list customers
-        }
-        // choose what customer to act as
-        System.out.println( "Choose as customer to act as for this test: " );
+            // List customers
+            if ( db.customers.isEmpty() ) {
+                System.out.println( "ERROR: Customer database is empty." );
+                System.exit( -1 );
+            }
+            for ( Customer c : db.customers ) {
+                System.out.println( c.getID() + ". " + c.getName() );
+                // while we're here, pass the db reference to each Customer
+                c.setDB( db );
+                // list customers
+            }
+            // choose what customer to act as
+            System.out.println( "Choose as customer to act as for this test: " );
 
 
-        // ask what the user what he wants to test
-        System.out.println( "Choose an action to prefom: " );
+            // ask what the user what he wants to test
+            System.out.println( "Choose an action to prefom: " );
 
-        // list
-        for ( Media m : db.media ) {
-            // list everything
+            // list
+            for ( Media m : db.media ) {
+                // list everything
+            }
+        } catch ( Exception e ) {
+            System.out.println( "An exception occured testing customer functionality. (" + e.toString() + ")" );
+            e.printStackTrace(); // this is what the @SupressWarnings is for
         }
     }
 }
