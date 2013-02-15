@@ -103,7 +103,7 @@ public class Customer {
 
     public void displayInfoCLI( int id ) throws java.io.IOException {
         Media m = db.getMediaFromID( id );
-        System.out.println( ( (TextDatabase) db ).generateCoverASCII( m, 50, (int)( 50 * ( 7.0 / 12.0 ) ) ) );
+        System.out.println( ( (TextDatabase) db ).generateCoverASCII( m, 100, (int)( 100 * ( 7.0 / 15.0 ) ) ) );
     }
 
     public String getName() {

@@ -4,7 +4,10 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import java.awt.image.ColorConvertOp;
+import java.awt.image.LookupOp;
+import java.awt.image.ShortLookupTable;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
@@ -481,11 +484,22 @@ public class TextDatabase extends Database {
     }
 
     public String generateCoverASCII( Media m, int width, int height ) throws java.io.IOException {
+        // thanks to https://github.com/Thelleo/Image2ASCII
+        // this code is from my personal fork, https://github.com/o0whiplash0o/Image2ASCII
         File image = new File( rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + "cover.png" );
         BufferedImage inputImage = ImageIO.read( image );
         ColorSpace greyscale = ColorSpace.getInstance( ColorSpace.CS_GRAY );
         ColorConvertOp cco = new ColorConvertOp( greyscale, null );
+        // thanks to http://jonathangiles.net/blog/?p=702
+        short[] invertTable;
+        invertTable = new short[ 256 ];
+        for ( int i = 0; i < 256; i++ ) {
+            invertTable[i] = (short) ( 255 - i );
+        }
+        BufferedImageOp invertOp = new LookupOp( new ShortLookupTable( 0, invertTable ), null );
         BufferedImage greyscaleImage = cco.filter( inputImage, null );
+        invertOp.filter( greyscaleImage, greyscaleImage );
+        // end http://jonathangiles.net/blog/?p=702
         boolean border = true;
         // preserve width and aspect ratio, shrink height as necessary
         height *= (double) greyscaleImage.getHeight()
@@ -536,7 +550,9 @@ public class TextDatabase extends Database {
                     outputString += ' ';
                 }
             }
-            outputString += '|';
+            if ( border ) {
+                outputString += '|';
+            }
             for ( int j = 0; j < width; j++ ) {
 
                 char character = ' ';
