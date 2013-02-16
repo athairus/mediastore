@@ -1,5 +1,6 @@
 package mediastore;
 
+import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.color.ColorSpace;
@@ -491,9 +492,8 @@ public class TextDatabase extends Database {
         if ( !image.exists() ) {
             String unknown = "images/unknown.png";
             inputImage = ImageIO.read( getClass().getResource( unknown ) );
-        }
-        else{
-             inputImage = ImageIO.read( image );
+        } else {
+            inputImage = ImageIO.read( image );
         }
         ColorSpace greyscale = ColorSpace.getInstance( ColorSpace.CS_GRAY );
         ColorConvertOp cco = new ColorConvertOp( greyscale, null );
@@ -645,5 +645,23 @@ public class TextDatabase extends Database {
 
         }
         return outputString;
+    }
+
+    public Media preview( Media m ) throws java.io.IOException {
+        File previewFile = new File( rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + ( ( m instanceof Movie ) ? "trailer.mp4" : "preview.mp3" ) );
+        if ( !previewFile.exists() ) {
+            return null;
+        }
+        String previewFilePath = previewFile.getCanonicalPath();
+        String OS = System.getProperty( "os.name" );
+        String cmd = "";
+        Runtime runtime = Runtime.getRuntime();
+        if ( OS.charAt( 0 ) == 'W' ) { // windows
+            cmd = "cmd.exe /c \"" + previewFilePath + "\"";
+            runtime.exec( cmd );
+            return m;
+        } else {
+            return null;
+        }
     }
 }

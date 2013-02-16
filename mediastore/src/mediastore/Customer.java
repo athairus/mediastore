@@ -1,5 +1,7 @@
 package mediastore;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
@@ -195,7 +197,7 @@ public class Customer {
                 return 0;
             }
         }
-        
+
         // segregate database into 3 different lists
         LinkedList<Media> movies = new LinkedList();
         LinkedList<Media> albums = new LinkedList();
@@ -211,7 +213,7 @@ public class Customer {
                 audiobooks.add( m );
             }
         }
-        
+
         // sort these lists
         Collections.sort( movies, new RankingComparator() );
         Collections.sort( albums, new RankingComparator() );
@@ -222,17 +224,25 @@ public class Customer {
             m.setRanking( i++ );
             db.writeModifiedMediaItem( m );
         }
-        
+
         i = 1;
         for ( Media m : albums ) {
             m.setRanking( i++ );
             db.writeModifiedMediaItem( m );
         }
-        
+
         i = 1;
         for ( Media m : audiobooks ) {
             m.setRanking( i++ );
             db.writeModifiedMediaItem( m );
+        }
+    }
+
+    public void preview( int id ) throws IOException {
+        Media m = db.getMediaFromID( id );
+        Media result = db.preview( m );
+        if( result == null ){
+            System.out.println( "ERROR: Preview/trailer missing or OS not supported!" );
         }
     }
 }

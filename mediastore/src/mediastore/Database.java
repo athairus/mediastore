@@ -62,4 +62,6 @@ public abstract class Database {
     public abstract void writeModifiedMediaItem( Media m ) throws java.io.IOException;
     
     public abstract void deleteMediaItem( Media m ) throws java.io.IOException;
+    
+    public abstract Media preview( Media m ) throws java.io.IOException;
 }

@@ -42,6 +42,7 @@ public class ManagerCLITestDriver {
             db.manager.getNumSales( 1 );
             db.manager.getTotalNumSales();
             db.manager.remove( 3 );
+            cus.preview( 1 );
             cus.listCLI();
                
         } catch ( Exception e ) {
