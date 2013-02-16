@@ -216,6 +216,7 @@ public class Customer {
      * Returns a string that has information of all of customers data members 
      *@return toString
      */
+    @Override
     public String toString() {
 
         String s = "Customer ID: " + id + '\n' + "Name: " + name + '\n' + "Address: " + address + '\n' + "Credit Balance: " + credits + '\n';

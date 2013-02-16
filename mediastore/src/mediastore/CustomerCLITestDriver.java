@@ -30,13 +30,19 @@ public class CustomerCLITestDriver {
             if ( db.customers.isEmpty() ) {
                 db.writeNewCustomer( new Customer( 1, "test", "123 Fake St.", 200, new LinkedList(), db ) );
             }
-            db.manager.add( new Movie( 1, "asdf", "title", 300, "genre", 5, 3234, 20, 50, 2013), 1 );
-            db.getCustomerFromID( 1 ).listCLI();
-            db.getCustomerFromID( 1 ).displayInfoCLI( 1 );
-            db.getCustomerFromID( 1 ).buy( 1 );
-            System.out.print("Customer purchased: \n" + db.getCustomerFromID( 1 ).getPurchaseHistory() );
-            
-            
+            Customer c = db.getCustomerFromID( 1 );
+            db.manager.add( new Movie( 1, "asdf", "title", 300, "genre", 5, 3234, 20, 50, 2013 ), 1 );
+            c.listCLI();
+            c.displayInfoCLI( 1 );
+            c.buy( 1 );
+            System.out.println( "Customer purchased: " ); //displays purchased item
+            for ( Purchase p : c.getPurchaseHistory() ) {
+                System.out.println( p.toString() );
+            }
+            c.rate( 1, 4 ); //rates purchased item
+            c.preview( 1 ); //previews the item
+
+
 
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing customer functionality. (" + e.toString() + ")" );

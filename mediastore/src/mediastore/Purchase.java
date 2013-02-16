@@ -82,6 +82,6 @@ public class Purchase {
     public String toString() {
         Calendar myDate = Calendar.getInstance();
         myDate.setTimeInMillis( purchaseUnixTime );
-        return "Item ID: " + id + "\nItem Price: " + price + "\nDate: " + myDate.get( Calendar.DAY_OF_MONTH ) + "." + myDate.get( Calendar.MONTH ) + "." + myDate.get( Calendar.YEAR );
+        return "Item ID: " + id + " Item Price: " + price + " Date: " + myDate.get( Calendar.MONTH ) + "." + myDate.get( Calendar.DAY_OF_MONTH ) + "." + myDate.get( Calendar.YEAR );
     }
 }
