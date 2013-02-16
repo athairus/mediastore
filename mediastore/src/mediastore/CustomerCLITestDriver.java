@@ -30,7 +30,8 @@ public class CustomerCLITestDriver {
              if ( db.customers.isEmpty() ) {
                 db.writeNewCustomer( new Customer( 1, "test", "123 Fake St.", 200, new LinkedList(), db ) );
             }
-            db.getCustomerFromID( 1 ).listCLI(); //doesnt recognize existing DB 
+            db.getCustomerFromID( 1 ).listCLI();
+            db.getCustomerFromID( 1 ).displayInfoCLI( 2 );
             
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing customer functionality. (" + e.toString() + ")" );
