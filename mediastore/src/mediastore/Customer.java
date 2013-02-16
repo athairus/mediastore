@@ -201,6 +201,10 @@ public class Customer {
         return purchaseHistory;
     }
 
+    /**
+     * Returns information about the customer
+     * @return toTextDB
+     */
     public String toTextDB() {
 
         String customerInfo = name + '\n' + address + '\n' + credits + '\n';
@@ -211,8 +215,8 @@ public class Customer {
     }
 
     /**
-     * 
-     * @return 
+     * Returns a string that has information of all of customers data members 
+     *@return toString
      */
     public String toString() {
 
@@ -222,11 +226,21 @@ public class Customer {
         }
         return s;
     }
-
+    
+    /**
+     * Returns the current amount of credit the customer has
+     * @return credits
+     */
     public double getBalance(){
         return credits;
     }
     
+    /**
+     * Has the Customer rate the media item on 1 through 5 scale
+     * @param id id of item being rated
+     * @param rating rating the customer gives the item
+     * @throws java.io.IOException 
+     */
     public void rate( int id, int rating ) throws java.io.IOException {
         // clamp rating from 1 to 5
         if ( rating < 1 ) {
@@ -241,6 +255,11 @@ public class Customer {
         db.writeModifiedMediaItem( m );
     }
 
+    /**
+     * Recalculates the current ranking of an item after it's been purchased and
+     * changes the ranking of the other items accordingly
+     * @throws java.io.IOException 
+     */
     private void recalculateRanking() throws java.io.IOException {
         class RankingComparator implements Comparator<Media> {
 
