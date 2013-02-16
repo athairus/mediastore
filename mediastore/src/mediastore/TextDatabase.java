@@ -1,6 +1,5 @@
 package mediastore;
 
-import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.color.ColorSpace;
@@ -340,6 +339,13 @@ public class TextDatabase extends Database {
 
     }
 
+    /**
+     * Appends a customer Purchase to the database entry for the given Customer.
+     *
+     * @param customer
+     * @param purchase
+     * @throws java.io.IOException
+     */
     @Override
     public void writeCustomerPurchase( Customer customer, Purchase purchase ) throws java.io.IOException {
         purchase.setID( ++maxPurchaseID );
@@ -350,6 +356,12 @@ public class TextDatabase extends Database {
         fw.close();
     }
 
+    /**
+     * Writes a Customer to the database.
+     *
+     * @param customer The customer to commit to the database
+     * @throws java.io.IOException
+     */
     @Override
     public void writeNewCustomer( Customer customer ) throws java.io.IOException {
         customers.add( customer );
@@ -362,6 +374,13 @@ public class TextDatabase extends Database {
         fw.close();
     }
 
+    /**
+     * Writes a new Media item to the database, generating a new id in the
+     * process.
+     *
+     * @param m The Media item to commit to the database
+     * @throws java.io.IOException
+     */
     @Override
     public void writeNewMediaItem( Media m ) throws java.io.IOException {
         File newFile;
@@ -420,6 +439,13 @@ public class TextDatabase extends Database {
         }
     }
 
+    /**
+     * Writes a new Media item to the database.
+     *
+     * @param m The Media item to commit to the database
+     * @param id The id of this new Media item
+     * @throws java.io.IOException
+     */
     @Override
     public void writeNewMediaItem( Media m, int id ) throws java.io.IOException {
 
@@ -476,6 +502,13 @@ public class TextDatabase extends Database {
         }
     }
 
+    /**
+     * Overwrites an existing Media entry in the database with a modified copy
+     * of it.
+     *
+     * @param m The Media item to commit to the database
+     * @throws java.io.IOException
+     */
     @Override
     public void writeModifiedMediaItem( Media m ) throws java.io.IOException {
         File newFile;
@@ -521,6 +554,12 @@ public class TextDatabase extends Database {
         }
     }
 
+    /**
+     * Removes a Media item from the database.
+     *
+     * @param m The Media item to remove from the database
+     * @throws java.io.IOException
+     */
     @Override
     public void deleteMediaItem( Media m ) throws java.io.IOException {
         int id = m.id;
@@ -532,6 +571,12 @@ public class TextDatabase extends Database {
         victim.delete();
     }
 
+    /**
+     * Get the database folder name a given Media object should be stored in.
+     *
+     * @param m The Media object to check
+     * @return The folder name
+     */
     private String getFolderString( Media m ) {
         if ( m instanceof Movie ) {
             return "Movies";
@@ -545,10 +590,25 @@ public class TextDatabase extends Database {
         return null;
     }
 
+    /**
+     * Returns the file name, minus the extension.
+     *
+     * @param f The File to process
+     * @return The file name, minus the extension
+     */
     private String getFilename( File f ) {
         return f.getName().substring( 0, f.getName().lastIndexOf( '.' ) );
     }
 
+    /**
+     * Generates an ASCII art representation of a Media object's cover image.
+     *
+     * @param m The Media object to generate ASCII art from
+     * @param width The width of the ASCII art, in characters
+     * @param height The height of the ASCII art, in characters
+     * @return An ASCII art representation of the cover art
+     * @throws java.io.IOException
+     */
     public String generateCoverASCII( Media m, int width, int height ) throws java.io.IOException {
         // thanks to https://github.com/Thelleo/Image2ASCII
         // this code is from my personal fork, https://github.com/o0whiplash0o/Image2ASCII
@@ -712,6 +772,13 @@ public class TextDatabase extends Database {
         return outputString;
     }
 
+    /**
+     * Preview a Media item.
+     *
+     * @param m The item to preview
+     * @return m is returned if the operation was successful, null otherwise
+     * @throws java.io.IOException
+     */
     public Media preview( Media m ) throws java.io.IOException {
         File previewFile = new File( rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + ( ( m instanceof Movie ) ? "trailer.mp4" : "preview.mp3" ) );
         if ( !previewFile.exists() ) {
