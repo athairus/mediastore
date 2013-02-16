@@ -33,10 +33,9 @@ public class CustomerCLITestDriver {
             db.manager.add( new Movie( 1, "asdf", "title", 300, "genre", 5, 3234, 20, 50, 2013), 1 );
             db.getCustomerFromID( 1 ).listCLI();
             db.getCustomerFromID( 1 ).displayInfoCLI( 1 );
-            
-           
             db.getCustomerFromID( 1 ).buy( 1 );
-            System.out.print("Customer purchased: " + db.getCustomerFromID( 1 ).getPurchaseHistory() );
+            System.out.print("Customer purchased: \n" + db.getCustomerFromID( 1 ).getPurchaseHistory() );
+            
             
 
         } catch ( Exception e ) {
