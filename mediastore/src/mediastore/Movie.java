@@ -11,24 +11,24 @@ public class Movie extends Media {
 
     //Default constructor
     public Movie() {
-        //POST: Initializes data members to "" or 0
         super();
     }
 
     /**
      * Initializer constructor
      *
+     * @param id id of the movie
      * @param author director of the movie
      * @param title title of the movie
      * @param duration length of the movie (in seconds)
      * @param genre genre of the movie
+     * @param rating rating of the movie
+     * @param totalReviews total number of reviews of the movie
      * @param price price (in dollars) of the movie
      * @param releaseYear year movie was released
      * @param numSold numbers sold (initialized to 0)
      */
     public Movie( int id, String author, String title, int duration, String genre, double rating, int totalReviews, double price, int numSold, int releaseYear ) {
-        //PRE: Takes an author (director), title, duration, genre, ranking, price ( > 0 ), and release year ( > 0 )
-        //POST: Sets data members to respective values
         super( id, author, title, duration, genre, rating, totalReviews, price, numSold );
         this.releaseYear = releaseYear;
     }
@@ -42,8 +42,6 @@ public class Movie extends Media {
      * @param releaseYear year of release
      */
     public void setReleaseYear( int releaseYear ) {
-        //PRE: Parameter takes in year of movie release
-        //POST: Release year is set to given value
         this.releaseYear = releaseYear;
     }
 
@@ -53,7 +51,6 @@ public class Movie extends Media {
      * @return releaseYear
      */
     public int getReleaseYear() {
-        //POST: returns movie's release year
         return releaseYear;
     }
 
@@ -67,9 +64,9 @@ public class Movie extends Media {
     }
 
     /**
-     * toString method to properly display in a text file
+     * Returns a string with all information of the movie
      *
-     * @return toString
+     * @return toTextDB
      */
     public String toTextDB() {
         return author + "\n" + title + "\n" + duration + "\n" + genre + "\n" + rating + "\n" + totalReviews + "\n" + price + "\n" + numSold + "\n" + releaseYear;
