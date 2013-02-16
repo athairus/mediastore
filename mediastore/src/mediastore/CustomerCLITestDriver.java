@@ -36,7 +36,8 @@ public class CustomerCLITestDriver {
             
 =======
             db.getCustomerFromID( 1 ).buy( 1 );
-            System.out.print( db.getCustomerFromID( 1 ).getPurchaseHistory() );
+            System.out.print("Customer purchased: " + db.getCustomerFromID( 1 ).getPurchaseHistory() );
+            
 
 >>>>>>> Edited Customer Test Driver
         } catch ( Exception e ) {
