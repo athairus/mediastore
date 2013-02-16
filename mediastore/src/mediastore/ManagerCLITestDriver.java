@@ -29,10 +29,21 @@ public class ManagerCLITestDriver {
 
 
         Customer cus = db.getCustomerFromID( 1 );
+        Customer cusTwo = db.getCustomerFromID( 2 );
         try {
+            db.manager.addCLI();
             cus.listCLI();
             cus.displayInfoCLI( 2 );
+            cus.buy( 1 );
+            cus.buy( 2 );
+            cus.buy( 3 );
+            cusTwo.buy( 1 );
+            db.manager.getCustomerInfo( 1 ); // get info on customer
+            db.manager.getNumSales( 1 );
+            db.manager.getTotalNumSales();
+            db.manager.remove( 3 );
             cus.listCLI();
+               
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing the Manager class. (" + e.toString() + ")" );
             e.printStackTrace();
