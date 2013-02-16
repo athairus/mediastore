@@ -55,9 +55,13 @@ public abstract class Database {
         maxPurchaseID = Math.max( id, maxPurchaseID );
     }
     
+    public abstract void writeNewCustomer( Customer customer ) throws java.io.IOException ;
+    
     public abstract void writeCustomerPurchase( Customer customer, Purchase purchase ) throws java.io.IOException;
     
     public abstract void writeNewMediaItem( Media m ) throws java.io.IOException;
+    
+    public abstract void writeNewMediaItem( Media m, int id ) throws java.io.IOException;
     
     public abstract void writeModifiedMediaItem( Media m ) throws java.io.IOException;
     

@@ -145,6 +145,10 @@ public class Customer {
     public void setDB( Database db ) {
         this.db = db;
     }
+    
+    public LinkedList<Purchase> getPurchaseHistory() {
+        return purchaseHistory;
+    }
 
     public String toTextDB() {
 
