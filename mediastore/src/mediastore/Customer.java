@@ -21,17 +21,27 @@ public class Customer {
     private LinkedList<Purchase> purchaseHistory;
     private Database db; // the Database this instance is a member of
 
+    //Default Constructor
     public Customer() {
-        // TODO: Unsure of default values check for validity.
         credits = 0;
         name = "";
         address = "";
-        id = 0; // Not sure how long each Id should be. Correct later to correct length
+        id = 0; 
         purchaseHistory = new LinkedList();
         db = null;
 
     }
 
+    /**
+     * Initializer Constructor
+     * 
+     * @param id id of the Customer
+     * @param name name of the Customer
+     * @param address address of the Customer
+     * @param credits amount of credit the Customer has
+     * @param purchaseHistory Linked list of purchases from Customer
+     * @param db Database that the Customer is stored in
+     */
     public Customer( int id, String name, String address, double credits, LinkedList purchaseHistory, Database db ) {
         this();
         this.id = id;
@@ -42,6 +52,14 @@ public class Customer {
         this.purchaseHistory = purchaseHistory;
     }
 
+    /**
+     * Buys an item from the media store if the user has enough credits
+     * then it creates a purchase history and recalculates Ranking of all the
+     * items of that type 
+     * @param id id of the item being bought
+     * @return id of the purchase
+     * @throws java.io.IOException 
+     */
     public int buy( int id ) throws java.io.IOException {
         Media object = db.getMediaFromID( id );
         double price = object.getPrice();
@@ -62,6 +80,12 @@ public class Customer {
         return purchase.getID();
     }
 
+    /**
+     * Search the media database for a specific item base of the title
+     * 
+     * @param query the title of item your searching for
+     * @return media
+     */
     public Media search( String query ) {
         Media media = null;
         for ( Media m : db.media ) {
@@ -72,6 +96,10 @@ public class Customer {
         return media;
     }
 
+    /**
+     * Lists all media items in the store
+     * 
+     */
     public void listCLI() {
         System.out.println( "Movies: " );
         for ( Media m : db.media ) {
@@ -93,6 +121,13 @@ public class Customer {
         }
     }
 
+    /**
+     * Displays detail information of a particular media item
+     * including ACSII art if it is available
+     * 
+     * @param id id of the media item
+     * @throws java.io.IOException 
+     */
     public void displayInfoCLI( int id ) throws java.io.IOException {
         int maxWidth = 100;
         int padding = 0;
@@ -134,18 +169,34 @@ public class Customer {
         System.out.println( info );
     }
 
+    /**
+     * Returns the name of the customer
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the ID of the customer
+     * @return id
+     */
     public int getID() {
         return id;
     }
 
+    /**
+     * Sets the database to the database in the parameter
+     * @param db database we want customer to use
+     */
     public void setDB( Database db ) {
         this.db = db;
     }
     
+    /**
+     * Returns the customers purchase history
+     * @return purchaseHistory
+     */
     public LinkedList<Purchase> getPurchaseHistory() {
         return purchaseHistory;
     }
@@ -159,7 +210,10 @@ public class Customer {
         return customerInfo;
     }
 
-    //also iterate through linked list and append each at end of string
+    /**
+     * 
+     * @return 
+     */
     public String toString() {
 
         String s = "Customer ID: " + id + '\n' + "Name: " + name + '\n' + "Address: " + address + '\n' + "Credit Balance: " + credits + '\n';
@@ -169,6 +223,10 @@ public class Customer {
         return s;
     }
 
+    public double getBalance(){
+        return credits;
+    }
+    
     public void rate( int id, int rating ) throws java.io.IOException {
         // clamp rating from 1 to 5
         if ( rating < 1 ) {
