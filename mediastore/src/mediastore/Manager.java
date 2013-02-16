@@ -12,6 +12,11 @@ public class Manager {
     private String password; //managers password
     private Database db; //the database this instance is a member of
 
+    /**
+     * Constructor with password and db parameters.
+     * @param password The manager password
+     * @param db The database this instance belongs to
+     */
     Manager( String password, Database db ) {
 
         this.password = password;
@@ -19,6 +24,10 @@ public class Manager {
 
     }
 
+    /**
+     * Creates a new Media object with a CLI interface.
+     * @throws java.io.IOException 
+     */
     public void addCLI() throws java.io.IOException {
 
         //Command Line prompt for manager to add desired item to Media store
@@ -96,18 +105,34 @@ public class Manager {
 
     }
 
+    /**
+     * Adds the specified Media object to the database, generating a new id in the process.
+     * @param m The Media object to add to the database
+     * @throws java.io.IOException 
+     */
     public void add( Media m ) throws java.io.IOException {
 
         db.media.add( m );
         db.writeNewMediaItem( m );
     }
     
+    /**
+     * Adds the specified Media object to the database.
+     * @param m The Media object to add to the database
+     * @param id The id of the new object
+     * @throws java.io.IOException 
+     */
     public void add( Media m, int id ) throws java.io.IOException {
         m.id = id;
         db.media.add( m );
         db.writeNewMediaItem( m, id );
     }
 
+    /**
+     * Removes the specified id from the database.
+     * @param id The id of the item to remove
+     * @throws java.io.IOException 
+     */
     public void remove( int id ) throws java.io.IOException {
         Media object = db.getMediaFromID( id ); //stores desired media item in temporary object
         db.media.remove( object );              //deletes media object from RAM
@@ -115,12 +140,21 @@ public class Manager {
 
     }
 
+    /**
+     * Gets the number sold for the given id.
+     * @param id The id to check
+     * @return The number sold for the given id
+     */
     public int getNumSales( int id ) {
 
         Media object = db.getMediaFromID( id );
         return object.numSold;
     }
 
+    /**
+     * Gets the total sales numbers for the entire music store.
+     * @return The total sales for the entire music store
+     */
     public int getTotalNumSales() {
 
         int sum = 0;
@@ -130,6 +164,11 @@ public class Manager {
         return sum;
     }
 
+    /**
+     * Returns information about a particular Customer by id
+     * @param id The id to check
+     * @return A string representation of the customer
+     */
     public String getCustomerInfo( int id ) {
         Customer person = db.getCustomerFromID( id );
         return person.toString();

@@ -31,7 +31,7 @@ public class CustomerCLITestDriver {
                 db.writeNewCustomer( new Customer( 1, "test", "123 Fake St.", 200, new LinkedList(), db ) );
             }
             db.getCustomerFromID( 1 ).listCLI();
-            db.getCustomerFromID( 1 ).displayInfoCLI( 2 );
+            db.getCustomerFromID( 1 ).displayInfoCLI( 1 );
             
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing customer functionality. (" + e.toString() + ")" );
