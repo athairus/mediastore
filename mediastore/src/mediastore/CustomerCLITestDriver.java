@@ -30,16 +30,15 @@ public class CustomerCLITestDriver {
             if ( db.customers.isEmpty() ) {
                 db.writeNewCustomer( new Customer( 1, "test", "123 Fake St.", 200, new LinkedList(), db ) );
             }
+            db.manager.add( new Movie( 1, "asdf", "title", 300, "genre", 5, 3234, 20, 50, 2013), 1 );
             db.getCustomerFromID( 1 ).listCLI();
             db.getCustomerFromID( 1 ).displayInfoCLI( 1 );
-<<<<<<< HEAD
             
-=======
+           
             db.getCustomerFromID( 1 ).buy( 1 );
             System.out.print("Customer purchased: " + db.getCustomerFromID( 1 ).getPurchaseHistory() );
             
 
->>>>>>> Edited Customer Test Driver
         } catch ( Exception e ) {
             System.out.println( "An exception occured testing customer functionality. (" + e.toString() + ")" );
             e.printStackTrace(); // this is what the @SupressWarnings is for
