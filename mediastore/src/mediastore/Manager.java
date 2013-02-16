@@ -96,6 +96,12 @@ public class Manager {
 
     }
 
+    public void add( Media m ) throws java.io.IOException {
+
+        db.media.add( m );
+        db.writeNewMediaItem( m );
+    }
+
     public void remove( int id ) throws java.io.IOException {
         Media object = db.getMediaFromID( id ); //stores desired media item in temporary object
         db.media.remove( object );              //deletes media object from RAM
