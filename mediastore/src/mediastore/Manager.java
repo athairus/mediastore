@@ -173,4 +173,8 @@ public class Manager {
         Customer person = db.getCustomerFromID( id );
         return person.toString();
     }
+    
+    public boolean checkPassword(String password){
+        return this.password.equals( password );
+    }
 }
