@@ -8,25 +8,27 @@ import java.util.Scanner;
  * @author Milton John, Ryan Smith and Cole Arnold
  */
 public class Manager {
-
+    
     private String password; //managers password
     private Database db; //the database this instance is a member of
 
     /**
      * Constructor with password and db parameters.
+     *
      * @param password The manager password
      * @param db The database this instance belongs to
      */
     Manager( String password, Database db ) {
-
+        
         this.password = password;
         this.db = db;
-
+        
     }
 
     /**
      * Creates a new Media object with a CLI interface.
-     * @throws java.io.IOException 
+     *
+     * @throws java.io.IOException
      */
     public void addCLI() throws java.io.IOException {
 
@@ -57,7 +59,7 @@ public class Manager {
                 Media newAlbum = new Album( 0, artist, albumTitle, albumDuration, albumGenre, albumRating, totalAlbumReviews, albumPrice, 0 );
                 db.media.add( newAlbum );
                 db.writeNewMediaItem( newAlbum );
-
+                
                 break;
             case 2:
                 System.out.print( "Enter the movie director: " );
@@ -79,7 +81,7 @@ public class Manager {
                 Media newMovie = new Movie( 0, director, movieTitle, movieDuration, movieGenre, movieRating, totalMovieReviews, moviePrice, movieYear, 0 );
                 db.media.add( newMovie );
                 db.writeNewMediaItem( newMovie );
-
+                
                 break;
             case 3:
                 System.out.print( "Enter the book's author: " );
@@ -99,28 +101,31 @@ public class Manager {
                 Media newAudiobook = new Audiobook( 0, author, bookTitle, bookDuration, bookGenre, bookRating, totalBookReviews, bookPrice, 0 );
                 db.media.add( newAudiobook );
                 db.writeNewMediaItem( newAudiobook );
-
+                
                 break;
         }
-
+        
     }
 
     /**
-     * Adds the specified Media object to the database, generating a new id in the process.
+     * Adds the specified Media object to the database, generating a new id in
+     * the process.
+     *
      * @param m The Media object to add to the database
-     * @throws java.io.IOException 
+     * @throws java.io.IOException
      */
     public void add( Media m ) throws java.io.IOException {
-
+        
         db.media.add( m );
         db.writeNewMediaItem( m );
     }
-    
+
     /**
      * Adds the specified Media object to the database.
+     *
      * @param m The Media object to add to the database
      * @param id The id of the new object
-     * @throws java.io.IOException 
+     * @throws java.io.IOException
      */
     public void add( Media m, int id ) throws java.io.IOException {
         m.id = id;
@@ -130,8 +135,9 @@ public class Manager {
 
     /**
      * Removes the specified id from the database.
+     *
      * @param id The id of the item to remove
-     * @throws java.io.IOException 
+     * @throws java.io.IOException
      */
     public void remove( int id ) throws java.io.IOException {
         Media object = db.getMediaFromID( id ); //stores desired media item in temporary object
@@ -142,21 +148,23 @@ public class Manager {
 
     /**
      * Gets the number sold for the given id.
+     *
      * @param id The id to check
      * @return The number sold for the given id
      */
     public int getNumSales( int id ) {
-
+        
         Media object = db.getMediaFromID( id );
         return object.numSold;
     }
 
     /**
      * Gets the total sales numbers for the entire music store.
+     *
      * @return The total sales for the entire music store
      */
     public int getTotalNumSales() {
-
+        
         int sum = 0;
         for ( Media m : db.media ) {
             sum += m.numSold;
@@ -166,6 +174,7 @@ public class Manager {
 
     /**
      * Returns information about a particular Customer by id
+     *
      * @param id The id to check
      * @return A string representation of the customer
      */
@@ -174,7 +183,7 @@ public class Manager {
         return person.toString();
     }
     
-    public boolean checkPassword(String password){
+    public boolean checkPassword( String password ) {
         return this.password.equals( password );
     }
 }
