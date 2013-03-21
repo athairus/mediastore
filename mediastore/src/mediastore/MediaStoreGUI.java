@@ -20,11 +20,12 @@ public class MediaStoreGUI {
     private static final int defaultWidth = 800;                      //width of JFrame
     private static final int defaultHeight = 480;                     //height of JFrame
     private static JFrame frame;
+    public static TextDatabase db;
 
     public static void main( String[] args ) {
 
         // initialize the DB
-        TextDatabase db = null;
+        db = null;
         try {
             // the path to the db when running from NetBeans (an assumption is made about the db location relative to the .class files)
             String path = System.getProperty( "user.dir" ).concat( File.separator + ".." + File.separator + ".." + File.separator + "db" + File.separator );
@@ -41,7 +42,7 @@ public class MediaStoreGUI {
         }
 
         // initalize the substance theme and the welcome screen
-        Runnable r = new Runnable() {
+        SwingUtilities.invokeLater( new Runnable() {
             @Override
             public void run() { // Substance (the look and feel theme this program uses) refuses to run unless the frame is created in this manner
                 GraphiteAquaSkin skin;
@@ -51,10 +52,10 @@ public class MediaStoreGUI {
                 } catch ( Exception e ) {
                     e.printStackTrace();
                 }
+
                 welcomeScreen();
             }
-        };
-        EventQueue.invokeLater( r );
+        } );
     }
 
     public static void loginScreen() {
@@ -63,6 +64,7 @@ public class MediaStoreGUI {
         }
         //((WelcomeWindowGUI)frame).active = false;
         frame = new ManagerPasswordGUI();
+
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frame.setSize( defaultWidth / 2, defaultHeight / 2 );
         frame.setMinimumSize( new Dimension( defaultWidth / 2, defaultHeight / 2 ) );
@@ -77,24 +79,29 @@ public class MediaStoreGUI {
             frame.dispose();
         }
         frame = new WelcomeWindowGUI();
+
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        frameDefaults();
+    }
+
+    public static void customerScreen() {
+        if ( frame != null ) {
+            frame.dispose();
+        }
+        frame = new CustomerGUI();
+
+        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+        frameDefaults();
+    }
+
+    public static void frameDefaults() {
         frame.setSize( defaultWidth, defaultHeight );
         frame.setMinimumSize( new Dimension( defaultWidth, defaultHeight ) );
         frame.pack();
         frame.setVisible( true );
         frame.setLocationRelativeTo( null );
     }
-    
-    public static void customerScreen() {
-        if ( frame != null ) {
-            frame.dispose();
-        }
-        frame = new CustomerGUI();
-        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.setSize( defaultWidth, defaultHeight );
-        frame.setMinimumSize( new Dimension( defaultWidth, defaultHeight ) );
-        frame.pack();
-        frame.setVisible( true );
-        frame.setLocationRelativeTo( null );
+
+    public static void frameHalfSize() {
     }
 }

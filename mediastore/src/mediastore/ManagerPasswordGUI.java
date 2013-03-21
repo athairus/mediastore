@@ -4,6 +4,7 @@ import mediastore.helpers.GBC;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 
 /*
  * @author Milton John, Cole Arnold, Ryan Smith
@@ -21,10 +22,12 @@ public class ManagerPasswordGUI extends JFrame implements ActionListener {
 
         setLayout( new GridLayout( 3, 0 ) );
 
+        addWindowListener( new ManagerPasswordGUIExitHandler() );
+
         passwordField = new JPasswordField();
         passwordField.addActionListener( this );
 
-        backButton = new JButton( "Back");
+        backButton = new JButton( "Back" );
         backButton.addActionListener( this );
 
         enterPasswordLabel = new JLabel( "Please enter the Manager password: " );
@@ -64,9 +67,22 @@ public class ManagerPasswordGUI extends JFrame implements ActionListener {
     public void actionPerformed( ActionEvent e ) {
         if ( e.getSource() == passwordField ) {
             // check password
+            boolean result = MediaStoreGUI.db.manager.checkPassword( passwordField.getText() );
             // if ok, move on to manager interface
+            if ( result ) {
+                System.out.println( "success" );
+            } else {
+                JOptionPane.showMessageDialog(null, "Incorrect password", "", JOptionPane.ERROR_MESSAGE);
+            }
         }
         if ( e.getSource() == backButton ) {
+            MediaStoreGUI.welcomeScreen();
+        }
+    }
+
+    private class ManagerPasswordGUIExitHandler extends WindowAdapter {
+
+        public void windowClosing( WindowEvent e ) {
             MediaStoreGUI.welcomeScreen();
         }
     }

@@ -23,7 +23,9 @@ public class WelcomeWindowGUI extends JFrame implements ActionListener {
 
     public WelcomeWindowGUI() {
         super( "Mediastore" );
-        
+
+        addWindowListener( new WelcomeWindowGUIExitHandler() );
+
         active = true;
 
         setLayout( new GridLayout( 3, 0 ) );
@@ -42,13 +44,14 @@ public class WelcomeWindowGUI extends JFrame implements ActionListener {
         enterPanel.setLayout( new GridBagLayout() );
         enterPanel.add( welcomeLabel,
                 new GBC( 0, 0 )
-                .setWeight( 1, 1 )
+                .setWeight( 1, 0 )
                 .setAnchor( GBC.PAGE_START ) );
+
         enterPanel.add( enterButton,
                 new GBC( 0, 0 )
-                .setWeight( 1, 1 )
+                .setWeight( 1, 0 )
                 .setAnchor( GBC.CENTER )
-                .setInsets( 20, 0, 0, 0 )
+                .setInsets( 75, 0, 0, 0 )
                 .setIpad( 10, 10 )
                 .setFill( GBC.HORIZONTAL ) );
 
@@ -72,9 +75,15 @@ public class WelcomeWindowGUI extends JFrame implements ActionListener {
         if ( e.getSource() == managerLoginButton ) {
             MediaStoreGUI.loginScreen();
         }
-        if( e.getSource() == enterButton){
+        if ( e.getSource() == enterButton ) {
             MediaStoreGUI.customerScreen();
         }
     }
-    
+
+    private class WelcomeWindowGUIExitHandler extends WindowAdapter {
+
+        public void windowClosing( WindowEvent e ) {
+            // do nothing
+        }
+    }
 }

@@ -78,10 +78,10 @@
     <target name="-post-jar">
         <jar jarfile="dist/mediastore_full.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
-            <zipfileset src="dist/lib/laf-plugin-6.3.jar" excludes="META-INF/*" />
-            <zipfileset src="dist/lib/laf-widget-6.3.jar" excludes="META-INF/*" />
-            <zipfileset src="dist/lib/substance-6.3.jar" excludes="META-INF/*" />
-            <zipfileset src="dist/lib/trident-6.3.jar" excludes="META-INF/*" />
+            <zipfileset src="dist/lib/laf-plugin-7.2.1.jar" excludes="META-INF/*" />
+            <zipfileset src="dist/lib/laf-widget-7.2.1.jar" excludes="META-INF/*" />
+            <zipfileset src="dist/lib/substance-7.2.1.jar" excludes="META-INF/*" />
+            <zipfileset src="dist/lib/trident-7.2.1.jar" excludes="META-INF/*" />
             <manifest>
                 <attribute name="Main-Class" value="mediastore.MediaStoreGUI"/>
             </manifest>
