@@ -24,7 +24,7 @@ public class ManagerPasswordGUI extends JFrame implements ActionListener {
 
         addWindowListener( new ManagerPasswordGUIExitHandler() );
 
-        passwordField = new JPasswordField();
+        passwordField = new JPasswordField(5);
         passwordField.addActionListener( this );
 
         backButton = new JButton( "Back" );
@@ -34,17 +34,10 @@ public class ManagerPasswordGUI extends JFrame implements ActionListener {
         enterPasswordLabel.setHorizontalAlignment( JLabel.CENTER );
 
         JPanel promptPanel = new JPanel();
-        promptPanel.setLayout( new GridBagLayout() );
-        promptPanel.add( enterPasswordLabel,
-                new GBC( 0, 0 )
-                .setWeight( 1, 1 )
-                .setAnchor( GBC.PAGE_START ) );
+        promptPanel.setLayout( new GridLayout(2,0) );
+        promptPanel.add( enterPasswordLabel);
 
-        promptPanel.add( passwordField,
-                new GBC( 0, 0 )
-                .setWeight( 1, 1 )
-                .setAnchor( GBC.CENTER )
-                .setIpad( 120, 0 ) );
+        promptPanel.add( passwordField);
 
         JPanel backPanel = new JPanel();
         backPanel.setLayout( new GridBagLayout() );

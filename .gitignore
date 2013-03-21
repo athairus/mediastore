@@ -11,6 +11,7 @@
   + build.xml
 /mediastore/build/
 /mediastore/dist/
+/mediastore/store/
 
 *private.properties
 *private.xml
