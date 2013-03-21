@@ -1,6 +1,8 @@
 package mediastore;
 
+import java.io.IOException;
 import java.util.LinkedList;
+import javax.swing.ImageIcon;
 
 /**
  * A class that represents a generic database.
@@ -128,4 +130,13 @@ public abstract class Database {
      * @throws java.io.IOException 
      */
     public abstract Media preview( Media m ) throws java.io.IOException;
+    
+    /**
+     * View the cover art in the a JFrame
+     * @param m the item to view
+     * @return an image is returned to view in GUI
+     * @throws java.io.IOException
+     */
+    public abstract ImageIcon viewCoverImage ( Media m ) throws java.io.IOException;
 }
+

@@ -19,6 +19,7 @@ import java.io.LineNumberReader;
 import java.io.OutputStreamWriter;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  * A class that interacts with a text-based database.
@@ -795,5 +796,10 @@ public class TextDatabase extends Database {
         } else {
             return null;
         }
+    }
+    
+    public ImageIcon viewCoverImage ( Media m ) throws java.io.IOException{
+        ImageIcon image = new ImageIcon( rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + "cover.png" );
+        return image;
     }
 }
