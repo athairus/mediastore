@@ -19,6 +19,9 @@ public class CustomerGUI extends JFrame {
     private JLabel searchLabel;             //label for search bar
     private JTextField searchField;         //search bar text field
     private Font headerFont;                //font for headers
+    private JList musicList;                //list of music items for sale
+    private JList movieList;                //list of movie items for sale
+    private JList audiobookList;            //list of audiobooks
     
     
     public CustomerGUI() {
@@ -53,12 +56,22 @@ public class CustomerGUI extends JFrame {
         
         
         JPanel searchPanel = new JPanel();            //set up search panel
-        searchPanel.add(searchLabel);
-        searchPanel.add(searchField);
+        searchPanel.setLayout( new GridBagLayout() );
+        searchPanel.add( searchLabel,
+                new GBC( 0, 0 )
+                .setWeight( 1, 1 )
+                .setAnchor( GBC.PAGE_START ) );
         
-        add(new JPanel());                            //add panels to GUI
-        add(new JPanel());
-        add(searchPanel);;
+        
+        searchPanel.add(searchField);
+        searchPanel.add( audiobookLabel );
+
+        
+        
+        
+        add( musicLabel );                            //add panels to GUI
+        add( movieLabel );
+        add( searchPanel );
         
         add(new JPanel());
         add(new JPanel());
