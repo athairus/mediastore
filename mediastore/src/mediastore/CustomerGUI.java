@@ -52,15 +52,24 @@ public class CustomerGUI extends JFrame {
 
         searchField = new JTextField( 10 );
 
+        
+        
+        
         tabs = new JTabbedPane();
 
-        musicTabPanel = new JPanel();
+        musicTabPanel = new JPanel();                       //set up music tab panel
         musicTabPanel.setLayout( new BorderLayout() );
-
-        movieTabPanel = new JPanel();
+        
+        
+        
+        
+        movieTabPanel = new JPanel();                       //set up movie tab panel
         movieTabPanel.setLayout( new BorderLayout() );
 
-        audiobookTabPanel = new JPanel();
+        
+        
+        
+        audiobookTabPanel = new JPanel();                   //set up audiobook tab panel
         audiobookTabPanel.setLayout( new BorderLayout() );
 
         tabs.addTab( "<html><body><table width='150'>Music</table></body></html>", musicTabPanel );
@@ -89,9 +98,11 @@ public class CustomerGUI extends JFrame {
                 .setWeight( 0, 0 )
                 .setAnchor( GBC.NORTHEAST ) );
 
+        
+        add( topPanel, BorderLayout.NORTH );                //add top panel to GUI
 
-
-        add( topPanel, BorderLayout.NORTH );                //add panels to GUI
-
+        
+        
+        
     }
 }
