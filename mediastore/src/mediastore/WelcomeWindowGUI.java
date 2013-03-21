@@ -29,6 +29,7 @@ public class WelcomeWindowGUI extends JFrame implements ActionListener {
         setLayout( new GridLayout( 3, 0 ) );
 
         enterButton = new JButton( "Enter the store" );
+        enterButton.addActionListener( this );
 
         managerLoginButton = new JButton( "Manager login" );
         managerLoginButton.addActionListener( this );
@@ -70,6 +71,9 @@ public class WelcomeWindowGUI extends JFrame implements ActionListener {
     public void actionPerformed( ActionEvent e ) {
         if ( e.getSource() == managerLoginButton ) {
             MediaStoreGUI.loginScreen();
+        }
+        if( e.getSource() == enterButton){
+            MediaStoreGUI.customerScreen();
         }
     }
     

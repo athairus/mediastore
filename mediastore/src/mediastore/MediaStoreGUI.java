@@ -6,6 +6,7 @@ import javax.swing.*;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.GraphiteAquaSkin;
 
+@SuppressWarnings( "CallToThreadDumpStack" )
 /**
  * A class that serves as an entry point for the Mediastore's UI.
  *
@@ -22,7 +23,7 @@ public class MediaStoreGUI {
 
     public static void main( String[] args ) {
 
-        // initialize DB
+        // initialize the DB
         TextDatabase db = null;
         try {
             // the path to the db when running from NetBeans (an assumption is made about the db location relative to the .class files)
@@ -39,12 +40,9 @@ public class MediaStoreGUI {
             e.printStackTrace(); // this is what the @SupressWarnings is for
         }
 
-
-
-
+        // initalize the substance theme and the welcome screen
         Runnable r = new Runnable() {
             @Override
-            @SuppressWarnings( "CallToThreadDumpStack" )
             public void run() { // Substance (the look and feel theme this program uses) refuses to run unless the frame is created in this manner
                 GraphiteAquaSkin skin;
                 try {
@@ -53,19 +51,16 @@ public class MediaStoreGUI {
                 } catch ( Exception e ) {
                     e.printStackTrace();
                 }
-                frame = new WelcomeWindowGUI();
-                frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-                frame.setSize( defaultWidth, defaultHeight );
-                frame.setMinimumSize( new Dimension( defaultWidth, defaultHeight ) );
-                frame.pack();
-                frame.setVisible( true );
+                welcomeScreen();
             }
         };
         EventQueue.invokeLater( r );
     }
 
     public static void loginScreen() {
-        frame.dispose();
+        if ( frame != null ) {
+            frame.dispose();
+        }
         //((WelcomeWindowGUI)frame).active = false;
         frame = new ManagerPasswordGUI();
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
@@ -74,15 +69,32 @@ public class MediaStoreGUI {
         frame.setResizable( false );
         frame.pack();
         frame.setVisible( true );
+        frame.setLocationRelativeTo( null );
     }
 
     public static void welcomeScreen() {
-        frame.dispose();
+        if ( frame != null ) {
+            frame.dispose();
+        }
         frame = new WelcomeWindowGUI();
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         frame.setSize( defaultWidth, defaultHeight );
         frame.setMinimumSize( new Dimension( defaultWidth, defaultHeight ) );
         frame.pack();
         frame.setVisible( true );
+        frame.setLocationRelativeTo( null );
+    }
+    
+    public static void customerScreen() {
+        if ( frame != null ) {
+            frame.dispose();
+        }
+        frame = new CustomerGUI();
+        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        frame.setSize( defaultWidth, defaultHeight );
+        frame.setMinimumSize( new Dimension( defaultWidth, defaultHeight ) );
+        frame.pack();
+        frame.setVisible( true );
+        frame.setLocationRelativeTo( null );
     }
 }

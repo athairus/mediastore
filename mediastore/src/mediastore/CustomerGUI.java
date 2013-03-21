@@ -8,6 +8,7 @@ package mediastore;
 
 import java.awt.*;
 import javax.swing.*;
+import mediastore.helpers.GBC;
 
 
 
