@@ -48,6 +48,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
         if ( e.getSource() == listContentButton ) {
         }
         if ( e.getSource() == addContentButton ) {
+            MediaStoreGUI.managerAddContentScreen();
         }
         if ( e.getSource() == removeContentButton ) {
         }
