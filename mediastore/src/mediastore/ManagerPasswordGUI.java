@@ -24,7 +24,7 @@ public class ManagerPasswordGUI extends JFrame implements ActionListener {
 
         addWindowListener( new ManagerPasswordGUIExitHandler() );
 
-        passwordField = new JPasswordField(5);
+        passwordField = new JPasswordField( 5 );
         passwordField.addActionListener( this );
 
         backButton = new JButton( "Back" );
@@ -34,10 +34,10 @@ public class ManagerPasswordGUI extends JFrame implements ActionListener {
         enterPasswordLabel.setHorizontalAlignment( JLabel.CENTER );
 
         JPanel promptPanel = new JPanel();
-        promptPanel.setLayout( new GridLayout(2,0) );
-        promptPanel.add( enterPasswordLabel);
+        promptPanel.setLayout( new GridLayout( 2, 0 ) );
+        promptPanel.add( enterPasswordLabel );
 
-        promptPanel.add( passwordField);
+        promptPanel.add( passwordField );
 
         JPanel backPanel = new JPanel();
         backPanel.setLayout( new GridBagLayout() );
@@ -63,9 +63,9 @@ public class ManagerPasswordGUI extends JFrame implements ActionListener {
             boolean result = MediaStoreGUI.db.manager.checkPassword( passwordField.getText() );
             // if ok, move on to manager interface
             if ( result ) {
-                System.out.println( "success" );
+                MediaStoreGUI.managerScreen();
             } else {
-                JOptionPane.showMessageDialog(null, "Incorrect password", "", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog( null, "Incorrect password", "", JOptionPane.ERROR_MESSAGE );
             }
         }
         if ( e.getSource() == backButton ) {

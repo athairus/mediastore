@@ -58,22 +58,6 @@ public class MediaStoreGUI {
         } );
     }
 
-    public static void loginScreen() {
-        if ( frame != null ) {
-            frame.dispose();
-        }
-        //((WelcomeWindowGUI)frame).active = false;
-        frame = new ManagerPasswordGUI();
-
-        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-        frame.setSize( defaultWidth / 2, defaultHeight / 2 );
-        frame.setMinimumSize( new Dimension( defaultWidth / 2, defaultHeight / 2 ) );
-        frame.setResizable( false );
-        frame.pack();
-        frame.setVisible( true );
-        frame.setLocationRelativeTo( null );
-    }
-
     public static void welcomeScreen() {
         if ( frame != null ) {
             frame.dispose();
@@ -82,6 +66,27 @@ public class MediaStoreGUI {
 
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         frameDefaults();
+    }
+
+    public static void loginScreen() {
+        if ( frame != null ) {
+            frame.dispose();
+        }
+        //((WelcomeWindowGUI)frame).active = false;
+        frame = new ManagerPasswordGUI();
+
+        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+        frameHalfSize();
+    }
+
+    public static void managerScreen() {
+        if ( frame != null ) {
+            frame.dispose();
+        }
+        frame = new ManagerGUI();
+
+        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        frameHalfSize();
     }
 
     public static void customerScreen() {
@@ -103,5 +108,11 @@ public class MediaStoreGUI {
     }
 
     public static void frameHalfSize() {
+        frame.setSize( defaultWidth / 2, defaultHeight / 2 );
+        frame.setMinimumSize( new Dimension( defaultWidth / 2, defaultHeight / 2 ) );
+        frame.setResizable( false );
+        frame.pack();
+        frame.setVisible( true );
+        frame.setLocationRelativeTo( null );
     }
 }
