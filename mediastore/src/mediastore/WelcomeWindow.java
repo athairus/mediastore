@@ -41,7 +41,8 @@ public class WelcomeWindow extends JFrame {
                 .setWeight( 1, 1 )
                 .setAnchor( GBC.CENTER )
                 .setInsets( 20, 0, 0, 0 )
-                .setIpad( 10, 10 ) );
+                .setIpad( 10, 10 ) 
+                .setFill( GBC.HORIZONTAL ));
 
         JPanel loginPanel = new JPanel();
         loginPanel.setLayout( new GridBagLayout() );
