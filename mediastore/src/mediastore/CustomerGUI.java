@@ -11,7 +11,6 @@ import javax.swing.*;
 import mediastore.helpers.GBC;
 
 
-
 public class CustomerGUI extends JFrame {
 
     private JLabel musicLabel;              //label for music listing
@@ -23,7 +22,7 @@ public class CustomerGUI extends JFrame {
     private JList musicList;                //list of music items for sale
     private JList movieList;                //list of movie items for sale
     private JList audiobookList;            //list of audiobooks
-    
+    private JTabbedPane tabs;               //tabs object
     
     public CustomerGUI() {
         
