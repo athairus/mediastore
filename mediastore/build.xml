@@ -83,7 +83,7 @@
             <zipfileset src="dist/lib/substance-6.3.jar" excludes="META-INF/*" />
             <zipfileset src="dist/lib/trident-6.3.jar" excludes="META-INF/*" />
             <manifest>
-                <attribute name="Main-Class" value="mediastore.MediaStoreUI"/>
+                <attribute name="Main-Class" value="mediastore.MediaStoreGUI"/>
             </manifest>
         </jar>
     </target>
