@@ -7,6 +7,7 @@ package mediastore;
 import java.awt.*;
 import javax.swing.*;
 import mediastore.helpers.GBC;
+import java.util.LinkedList;
 
 public class CustomerGUI extends JFrame {
 
@@ -16,15 +17,22 @@ public class CustomerGUI extends JFrame {
     private JLabel searchLabel;             //label for search bar
     private JTextField searchField;         //search bar text field
     private Font headerFont;                //font for headers
-    private JList musicList;                //list of music items for sale
-    private JList movieList;                //list of movie items for sale
-    private JList audiobookList;            //list of audiobooks
+    private JTable musicTable;              //table of music items for sale
+    private JTable movieList;               //table of movie items for sale
+    private JTable audiobookList;           //table of audiobooks
     private JTabbedPane tabs;               //tabs object
     private JPanel musicTabPanel;           //panel for music tab
     private JPanel movieTabPanel;           //panel for movie tab
-    private JPanel audiobookTabPanel;      //panel for audiobook tab
+    private JPanel audiobookTabPanel;       //panel for audiobook tab
+    private LinkedList<Media> music;        //list for music
+    private LinkedList<Media> movies;       //list for movies
+    private LinkedList<Media> audiobooks;   //list for audiobooks
 
     public CustomerGUI() {
+        this( false, 1 );
+    }
+
+    public CustomerGUI( boolean managerMode, int id ) {
 
         super( "Mediastore" );
 
@@ -48,27 +56,26 @@ public class CustomerGUI extends JFrame {
 
         searchLabel = new JLabel( "Search: " );
         searchLabel.setHorizontalAlignment( JLabel.LEADING );
-        searchLabel.setFont( new Font( "Sans", Font.ITALIC, 12 ) );
 
         searchField = new JTextField( 10 );
 
-        
-        
-        
+
+
+
         tabs = new JTabbedPane();
 
         musicTabPanel = new JPanel();                       //set up music tab panel
         musicTabPanel.setLayout( new BorderLayout() );
-        
-        
-        
-        
+
+
+
+
         movieTabPanel = new JPanel();                       //set up movie tab panel
         movieTabPanel.setLayout( new BorderLayout() );
 
-        
-        
-        
+
+
+
         audiobookTabPanel = new JPanel();                   //set up audiobook tab panel
         audiobookTabPanel.setLayout( new BorderLayout() );
 
@@ -77,16 +84,28 @@ public class CustomerGUI extends JFrame {
         tabs.addTab( "<html><body><table width='150'>Audiobooks</table></body></html>", audiobookTabPanel );
 
 
+        Object[] musicColumns = { "Title", "Artist", "Duration", "Genre", "Ranking" };
+        for ( Media m : MediaStoreGUI.db.media ) {
+            if ( m instanceof Album ) {
+                //music.add( m );
+            }
+        }
 
 
-        JPanel searchPanel = new JPanel();              //set up search panel
+        //musicTable = new JTable( music., musicColumns );
+
+
+
+
+
+                                                           //set up search panel
+        JPanel searchPanel = new JPanel();
+        searchPanel.add( new JLabel( String.format( "$%.2f  |  ", MediaStoreGUI.db.getCustomerFromID( id ).getBalance() ) ) );
         searchPanel.add( searchLabel );
         searchPanel.add( searchField );
-        searchPanel.setBorder( BorderFactory.createLineBorder( Color.BLACK ) );
 
 
-
-        JPanel topPanel = new JPanel();                 //set up top panel
+        JPanel topPanel = new JPanel();                     //set up top panel
         topPanel.setLayout( new GridBagLayout() );
 
         topPanel.add( tabs, new GBC( 0, 1 )
@@ -98,11 +117,13 @@ public class CustomerGUI extends JFrame {
                 .setWeight( 0, 0 )
                 .setAnchor( GBC.NORTHEAST ) );
 
-        
+
         add( topPanel, BorderLayout.NORTH );                //add top panel to GUI
 
-        
-        
-        
+        if ( managerMode ) {
+            //TODO: add panel to south with total sales and sales
+        }
+
+
     }
 }
