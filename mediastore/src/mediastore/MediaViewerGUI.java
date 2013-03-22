@@ -35,14 +35,14 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
 
         image = db.viewCoverImage(m);
         imageLabel = new JLabel(image);
-        author = new JLabel("Author");
-        title = new JLabel("Title");
-        duration = new JLabel("Duration");
-        genre = new JLabel("Genre");
-        rating = new JLabel("Rating");
-        totalReviews = new JLabel("Total Reviews");
-        price = new JLabel("Price");
-        ranking = new JLabel("Ranking");
+        author = new JLabel("Author: " + m.getAuthor());
+        title = new JLabel("Title: " + m.getTitle());
+        duration = new JLabel("Duration: " + m.getDuration());
+        genre = new JLabel("Genre: " + m.getGenre());
+        rating = new JLabel("Rating: " + m.getRating());
+        totalReviews = new JLabel("Total Reviews: " + m.getTotalReviews());
+        price = new JLabel("Price: " + m.getPrice());
+        ranking = new JLabel("Ranking: " + m.getRanking());
         preview = new JButton("Preview");
         buy = new JButton("Buy");
 

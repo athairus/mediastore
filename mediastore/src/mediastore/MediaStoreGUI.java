@@ -99,10 +99,20 @@ public class MediaStoreGUI {
         frameDefaults();
     }
 
+    public static void managerAddContentScreen() {
+        if ( frame != null ) {
+            frame.dispose();
+        }
+        frame = new ManagerAddContentGUI();
+
+        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+        frameTall();
+    }
+
     public static void frameDefaults() {
         frame.setSize( defaultWidth, defaultHeight );
         frame.setMinimumSize( new Dimension( defaultWidth, defaultHeight ) );
-        frame.pack();
+        //frame.pack();
         frame.setVisible( true );
         frame.setLocationRelativeTo( null );
     }
@@ -111,7 +121,16 @@ public class MediaStoreGUI {
         frame.setSize( defaultWidth / 2, defaultHeight / 2 );
         frame.setMinimumSize( new Dimension( defaultWidth / 2, defaultHeight / 2 ) );
         frame.setResizable( false );
-        frame.pack();
+        //frame.pack();
+        frame.setVisible( true );
+        frame.setLocationRelativeTo( null );
+    }
+
+    public static void frameTall() {
+        frame.setSize( defaultWidth / 2, defaultHeight );
+        frame.setMinimumSize( new Dimension( defaultWidth / 2, defaultHeight ) );
+        frame.setResizable( false );
+        //frame.pack();
         frame.setVisible( true );
         frame.setLocationRelativeTo( null );
     }
