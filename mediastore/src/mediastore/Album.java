@@ -31,4 +31,10 @@ public class Album extends Media {
     public String toTextDB() {
         return author + '\n' + title + '\n' + duration + '\n' + genre + '\n' + rating + '\n' + totalReviews + '\n' + price + "\n" + numSold;
     }
+    @Override                       //had to add this so I could override it in movie.java
+    public int getReleaseYear() {
+        return 0;
+    }
+    
+
 }

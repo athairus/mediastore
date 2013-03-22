@@ -50,6 +50,7 @@ public class Movie extends Media {
      *
      * @return releaseYear
      */
+    @Override
     public int getReleaseYear() {
         return releaseYear;
     }

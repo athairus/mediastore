@@ -215,5 +215,7 @@ public abstract class Media {
     public int getTotalReviews(){
         return totalReviews;
     }
+    
+    public abstract int getReleaseYear();
     //*****************************************************************************  
 }

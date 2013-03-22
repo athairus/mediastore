@@ -10,19 +10,16 @@ import java.awt.event.*;
 import mediastore.helpers.GBC;
 import java.util.LinkedList;
 
-public class CustomerGUI extends JFrame implements ActionListener{
+public class CustomerGUI extends JFrame implements ActionListener {
 
-    
     private JLabel searchLabel;                 //label for search bar
     private JTextField searchField;             //search bar text field
     private MediaTabbedPaneGUI tabs;            //tabs object
     private JPanel searchPanel;                 //panel for search bar
     private JPanel managerPanel;                //panel that displays only in manager mode
     private JLabel managerLabel;                //label for displaying total sales
-    
-    
-    
-    
+    private JButton purchaseHistoryButton;      //button allowing customer to view purchase history
+
     public CustomerGUI() {
         this( false, 1 );
     }
@@ -38,15 +35,15 @@ public class CustomerGUI extends JFrame implements ActionListener{
         searchLabel.setHorizontalAlignment( JLabel.LEADING );
 
         searchField = new JTextField( 10 );
-        searchField.addActionListener(this);
+        searchField.addActionListener( this );
 
 
-        tabs = new MediaTabbedPaneGUI();      
-        
-        
-        
+        tabs = new MediaTabbedPaneGUI();
 
-                                                           //set up search panel
+        purchaseHistoryButton = new JButton( "View Purchase History" );
+        add( purchaseHistoryButton, BorderLayout.SOUTH );
+
+        //set up search panel
         searchPanel = new JPanel();
         searchPanel.add( new JLabel( String.format( "$%.2f  |  ", MediaStoreGUI.db.getCustomerFromID( id ).getBalance() ) ) );
         searchPanel.add( searchLabel );
@@ -69,11 +66,11 @@ public class CustomerGUI extends JFrame implements ActionListener{
         add( topPanel, BorderLayout.NORTH );                //add top panel to GUI
 
         if ( managerMode ) {                                //added when manager is logged in
-            
+
             managerPanel = new JPanel();
-            managerLabel = new JLabel("Total sales in entire store: " + MediaStoreGUI.db.manager.getTotalNumSales() );
+            managerLabel = new JLabel( "Total sales in entire store: " + MediaStoreGUI.db.manager.getTotalNumSales() );
             managerPanel.add( managerLabel );
-            add( managerPanel, BorderLayout.SOUTH);
+            add( managerPanel, BorderLayout.SOUTH );
         }
 
 
@@ -81,9 +78,11 @@ public class CustomerGUI extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed( ActionEvent ae ) {
-        
-        if(ae.getSource() == searchField) {
-            JOptionPane.showMessageDialog( this, "Search functionality is not implemented yet." );
+
+        if ( ae.getSource() == searchField ) {
+            JOptionPane.showMessageDialog( this, "Search functionality is not implemented yet.", "", JOptionPane.ERROR_MESSAGE );
+        }
+        if ( ae.getSource() == purchaseHistoryButton ) {
         }
     }
 }
