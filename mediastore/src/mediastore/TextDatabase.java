@@ -802,4 +802,9 @@ public class TextDatabase extends Database {
         ImageIcon image = new ImageIcon( rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + "cover.png" );
         return image;
     }
+        public String bgFileLocation ( Media m ) throws java.io.IOException{
+            return (rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + "background.png" );
+        
+        
+    }
 }

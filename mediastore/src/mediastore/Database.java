@@ -138,5 +138,6 @@ public abstract class Database {
      * @throws java.io.IOException
      */
     public abstract ImageIcon viewCoverImage ( Media m ) throws java.io.IOException;
+    public abstract String bgFileLocation ( Media m ) throws java.io.IOException;
 }
 
