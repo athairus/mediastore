@@ -25,12 +25,14 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
     private JButton rateButton;
     private JTable purchaseTable;
     private Vector<Vector> purchaseHistoryVector;
+    private boolean managerMode;
 
-    public PurchaseHistoryGUI() {
+    public PurchaseHistoryGUI( boolean managerMode ) {
+        this.managerMode = managerMode;
 
         setLayout( new BorderLayout() );
         setVisible( true );
-        addWindowListener( new PurchaseHistoryGUIExitHandler() );
+        addWindowListener( new PurchaseHistoryGUIExitHandler( managerMode ) );
 
         headerFont = new Font( "Sans", Font.PLAIN, 36 );
         headerLabel = new JLabel( "Customer Purchase History" );
@@ -40,13 +42,15 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
         backButton.addActionListener( this );
         rateButton = new JButton( "Rate Item" );
         rateButton.addActionListener( this );
-        
+
 
         topPanel = new JPanel();
         topPanel.add( headerLabel );
 
         bottomPanel = new JPanel();
-        bottomPanel.add( rateButton );
+        if ( !managerMode ) {
+            bottomPanel.add( rateButton );
+        }
         bottomPanel.add( backButton );
 
         Vector<String> purchaseHistoryColumns = new Vector<String>();
@@ -80,19 +84,32 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed( ActionEvent ae ) {
         if ( ae.getSource() == backButton ) {
-            MediaStoreGUI.customerScreen();
+            if ( managerMode ) {
+                MediaStoreGUI.managerCustomerListScreen();
+            } else {
+                MediaStoreGUI.customerScreen();
+            }
         }
-        if( ae.getSource() == rateButton ) {
+        if ( ae.getSource() == rateButton ) {
             //MediaStoreGUI.customerRateScreen();
         }
     }
 
-    
     private class PurchaseHistoryGUIExitHandler extends WindowAdapter {
+
+        private boolean managerMode;
+
+        public PurchaseHistoryGUIExitHandler( boolean managerMode ) {
+            this.managerMode = managerMode;
+        }
 
         @Override
         public void windowClosing( WindowEvent e ) {
-            MediaStoreGUI.customerScreen();
+            if ( managerMode ) {
+                MediaStoreGUI.managerCustomerListScreen();
+            } else {
+                MediaStoreGUI.customerScreen();
+            }
         }
     }
 }

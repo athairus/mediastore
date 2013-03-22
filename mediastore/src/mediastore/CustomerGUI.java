@@ -19,6 +19,7 @@ public class CustomerGUI extends JFrame implements ActionListener {
     private JLabel managerLabel;                //label for displaying total sales
     private JButton purchaseHistoryButton;      //button allowing customer to view purchase history
     private JPanel bottomPanel;                 //panel for bottom of GUI
+    private boolean managerMode;
 
     public CustomerGUI() {
         this( false, 1 );
@@ -28,6 +29,7 @@ public class CustomerGUI extends JFrame implements ActionListener {
 
         super( "Mediastore" );
 
+        this.managerMode = managerMode;
 
         addWindowListener( new CustomerGUIExitHandler( managerMode ) );
 
@@ -96,7 +98,7 @@ public class CustomerGUI extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog( this, "Search functionality is not implemented yet.", "", JOptionPane.ERROR_MESSAGE );
         }
         if ( ae.getSource() == purchaseHistoryButton ) {
-            MediaStoreGUI.customerPurchaseHistoryScreen();
+            MediaStoreGUI.customerPurchaseHistoryScreen( managerMode );
         }
     }
 

@@ -57,7 +57,11 @@ public class CustomerListGUI extends JFrame implements ActionListener {
     public void actionPerformed( ActionEvent e ) {
 
         if ( e.getSource() == cancelButton ) {
-            MediaStoreGUI.welcomeScreen();
+            if ( !managerMode ) {
+                MediaStoreGUI.welcomeScreen();
+            } else {
+                MediaStoreGUI.managerScreen();
+            }
         }
 
         if ( e.getSource() == okButton ) {
@@ -69,7 +73,7 @@ public class CustomerListGUI extends JFrame implements ActionListener {
             if ( !managerMode ) {
                 MediaStoreGUI.customerScreen();
             } else {
-                MediaStoreGUI.customerPurchaseHistoryScreen();
+                MediaStoreGUI.customerPurchaseHistoryScreen( true );
             }
         }
     }
@@ -87,7 +91,7 @@ public class CustomerListGUI extends JFrame implements ActionListener {
             if ( !managerMode ) {
                 MediaStoreGUI.welcomeScreen();
             } else {
-                MediaStoreGUI.customerPurchaseHistoryScreen();
+                MediaStoreGUI.managerScreen();
             }
         }
     }

@@ -133,11 +133,11 @@ public class MediaStoreGUI {
         frameTall();
     }
 
-    public static void customerPurchaseHistoryScreen() {
+    public static void customerPurchaseHistoryScreen( boolean managerMode ) {
         if ( frame != null ) {
             frame.dispose();
         }
-        frame = new PurchaseHistoryGUI();
+        frame = new PurchaseHistoryGUI( managerMode );
 
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameDefaults();
@@ -147,16 +147,17 @@ public class MediaStoreGUI {
         if ( frame != null ) {
             frame.dispose();
         }
-        frame = new CustomerListGUI(false);
+        frame = new CustomerListGUI( false );
 
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameHalfSize();
     }
+
     public static void managerCustomerListScreen() {
         if ( frame != null ) {
             frame.dispose();
         }
-        frame = new CustomerListGUI(true);
+        frame = new CustomerListGUI( true );
 
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameHalfSize();
