@@ -30,7 +30,7 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
 
         setLayout( new BorderLayout() );
         setVisible( true );
-
+        addWindowListener( new PurchaseHistoryGUIExitHandler() );
 
         headerFont = new Font( "Sans", Font.PLAIN, 36 );
         headerLabel = new JLabel( "Customer Purchase History" );
@@ -84,6 +84,15 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
         }
         if( ae.getSource() == rateButton ) {
             //MediaStoreGUI.customerRateScreen();
+        }
+    }
+
+    
+    private class PurchaseHistoryGUIExitHandler extends WindowAdapter {
+
+        @Override
+        public void windowClosing( WindowEvent e ) {
+            MediaStoreGUI.customerScreen();
         }
     }
 }

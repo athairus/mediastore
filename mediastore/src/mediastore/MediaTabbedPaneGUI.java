@@ -119,7 +119,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
                 tempVector.addElement( m.genre );
                 tempVector.addElement( Double.toString( m.rating ) );
                 tempVector.addElement( Integer.toString( m.totalReviews ) );
-                tempVector.addElement( Double.toString( m.price ) );
+                tempVector.addElement( String.format( "$%.2f", m.price  ) );
                 tempVector.addElement( Integer.toString( m.numSold ) );
 
                 musicVector.addElement( tempVector );
@@ -136,7 +136,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
                 tempVector.addElement( m.genre );
                 tempVector.addElement( Double.toString( m.rating ) );
                 tempVector.addElement( Integer.toString( m.totalReviews ) );
-                tempVector.addElement( Double.toString( m.price ) );
+                tempVector.addElement( String.format( "$%.2f", m.price  ) );
                 tempVector.addElement( Integer.toString( m.numSold ) );
                 tempVector.addElement( Integer.toString( m.getReleaseYear() ) );
 
@@ -153,7 +153,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
                 tempVector.addElement( m.genre );
                 tempVector.addElement( Double.toString( m.rating ) );
                 tempVector.addElement( Integer.toString( m.totalReviews ) );
-                tempVector.addElement( Double.toString( m.price ) );
+                tempVector.addElement( String.format( "$%.2f", m.price ) );
                 tempVector.addElement( Integer.toString( m.numSold ) );
 
                 audiobookVector.addElement( tempVector );
@@ -170,6 +170,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
         musicTable.setFillsViewportHeight( true );
         musicTable.setAutoCreateRowSorter( true );
         musicTable.getTableHeader().setReorderingAllowed( false );
+        musicTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         musicTable.setShowGrid( false );
         musicTable.setIntercellSpacing( new Dimension( 0, 0 ) );
 
@@ -186,6 +187,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
         movieTable.setFillsViewportHeight( true );
         movieTable.setAutoCreateRowSorter( true );
         movieTable.getTableHeader().setReorderingAllowed( false );
+        movieTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         movieTable.setShowGrid( false );
         movieTable.setIntercellSpacing( new Dimension( 0, 0 ) );
 
@@ -202,6 +204,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
         audiobookTable.setFillsViewportHeight( true );
         audiobookTable.setAutoCreateRowSorter( true );
         audiobookTable.getTableHeader().setReorderingAllowed( false );
+        audiobookTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         audiobookTable.setShowGrid( false );
         audiobookTable.setIntercellSpacing( new Dimension( 0, 0 ) );
 
