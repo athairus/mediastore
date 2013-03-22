@@ -4,6 +4,7 @@ import mediastore.helpers.GBC;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
 
 /*
@@ -16,11 +17,17 @@ public class ManagerPasswordGUI extends JFrame implements ActionListener {
     private JPasswordField passwordField;
     private JLabel enterPasswordLabel;
     private JButton backButton;
+    private JPanel mainPanel;
+    final int PADDING = 16;
 
     public ManagerPasswordGUI() {
         super( "Mediastore" );
 
-        setLayout( new GridLayout( 3, 0 ) );
+        mainPanel = new JPanel();
+
+
+        mainPanel.setBorder( new EmptyBorder( new Insets( PADDING, PADDING, PADDING, PADDING ) ) );
+        mainPanel.setLayout( new GridLayout( 3, 0 ) );
 
         addWindowListener( new ManagerPasswordGUIExitHandler() );
 
@@ -48,9 +55,11 @@ public class ManagerPasswordGUI extends JFrame implements ActionListener {
                 .setInsets( 5, 5, 5, 5 )
                 .setIpad( 10, 10 ) );
 
-        add( new JPanel() );
-        add( promptPanel );
-        add( backPanel );
+        mainPanel.add( new JPanel() );
+        mainPanel.add( promptPanel );
+        mainPanel.add( backPanel );
+
+        add( mainPanel );
 
 
 
