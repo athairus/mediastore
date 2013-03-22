@@ -57,7 +57,7 @@ public class MediaStoreGUI {
                     e.printStackTrace();
                 }
 
-                welcomeScreen();
+               welcomeScreen();
             }
         } );
     }

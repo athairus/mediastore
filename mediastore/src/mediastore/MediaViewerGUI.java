@@ -43,14 +43,14 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
 
         cover = db.viewCoverImage( m );
         coverLabel = new JLabel( cover );
-        author = new JLabel( "Author: " + m.getAuthor() );
-        title = new JLabel( "Title: " + m.getTitle() );
-        duration = new JLabel( "Duration: " + m.getDuration() );
-        genre = new JLabel( "Genre: " + m.getGenre() );
-        rating = new JLabel( "Rating: " + m.getRating() );
-        totalReviews = new JLabel( "Total Reviews: " + m.getTotalReviews() );
-        price = new JLabel( "Price: " + m.getPrice() );
-        ranking = new JLabel( "Ranking: " + m.getRanking() );
+        author = new JLabel( "Author: " + m.getAuthor() + " | " );
+        title = new JLabel( "| Title: " + m.getTitle() + " | " );
+        duration = new JLabel( "Duration: " + m.getDuration() + " | " );
+        genre = new JLabel( "Genre: " + m.getGenre()  + " | " );
+        rating = new JLabel( "Rating: " + m.getRating() + " | " );
+        totalReviews = new JLabel( "Total Reviews: " + m.getTotalReviews() + " | " );
+        price = new JLabel( "Price: $" + m.getPrice() + " | " );
+        ranking = new JLabel( "Ranking: " + m.getRanking() + " | " );
         preview = new JButton( "Preview" );
         buy = new JButton( "Buy" );
 
@@ -58,22 +58,44 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
         buttonPanel.add( buy );
         buttonPanel.add( preview );
 
-        infoPanel = new JPanel();    
-        infoPanel.add( author);
+        
+        infoPanel = new JPanel(); 
+       
+        JPanel titlePanel = new JPanel();
+        title.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
+        author.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
+        duration.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
+        genre.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
+        rating.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
+        price.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
+        ranking.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
+        totalReviews.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
+        title.setForeground(Color.red);
+        author.setForeground(Color.red);
+        duration.setForeground(Color.red);
+        genre.setForeground(Color.red);
+        rating.setForeground(Color.red);
+        price.setForeground(Color.red);
+        ranking.setForeground(Color.red);       
+        totalReviews.setForeground(Color.red);
+        
         infoPanel.add( title );
+        infoPanel.add( author );
         infoPanel.add( duration );
         infoPanel.add( genre );
         infoPanel.add( rating );
         infoPanel.add( totalReviews );
         infoPanel.add( price );
         infoPanel.add( ranking );       
-        
         imagePanel = new JPanel();
         imagePanel.add( coverLabel );
 
-        add( buttonPanel, BorderLayout.NORTH );
-        add( infoPanel, BorderLayout.WEST);
+
         add( imagePanel, BorderLayout.CENTER);
+        add( buttonPanel, BorderLayout.NORTH ); 
+        add( infoPanel, BorderLayout.SOUTH );
+         
+        
 
     }
 
