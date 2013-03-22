@@ -12,6 +12,7 @@
 /mediastore/build/
 /mediastore/dist/
 /mediastore/store/
+/mediastore/nbproject/private/
 
 *private.properties
 *private.xml
