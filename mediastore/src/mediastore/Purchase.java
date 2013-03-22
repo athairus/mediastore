@@ -13,7 +13,7 @@ public class Purchase {
 
     private int id; // id of the product purchased.
     private double price;
-    private long purchaseUnixTime;
+    protected long purchaseUnixTime;
 
     //Default Constructor
     Purchase() {

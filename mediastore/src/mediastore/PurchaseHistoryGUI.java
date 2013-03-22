@@ -22,8 +22,9 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
     private JPanel topPanel;
     private JPanel bottomPanel;
     private JButton backButton;
+    private JButton rateButton;
     private JTable purchaseTable;
-    private Vector<Vector> purchaseVector;
+    private Vector<Vector> purchaseHistoryVector;
 
     public PurchaseHistoryGUI() {
 
@@ -37,19 +38,42 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
 
         backButton = new JButton( "Back" );
         backButton.addActionListener( this );
+        rateButton = new JButton( "Rate Item" );
+        rateButton.addActionListener( this );
+        
 
         topPanel = new JPanel();
         topPanel.add( headerLabel );
 
         bottomPanel = new JPanel();
+        bottomPanel.add( rateButton );
         bottomPanel.add( backButton );
 
+        Vector<String> purchaseHistoryColumns = new Vector<String>();
+        purchaseHistoryColumns.addElement( "Date" );
+        purchaseHistoryColumns.addElement( "Title" );
+        purchaseHistoryColumns.addElement( "Author/Director" );
+        purchaseHistoryColumns.addElement( "Price" );
 
-        //for( Media m :)
+        purchaseTable = new JTable( purchaseHistoryVector, purchaseHistoryColumns );
+
+        purchaseHistoryVector = new Vector<Vector>();
+
+        /*  for( Purchase p : MediaStoreGUI.loggedInCustomer.getPurchaseHistory() ){
+            
+         Vector<String> tempVector = new Vector<String>();
+         tempVector.addElement( Long.toString( p.purchaseUnixTime ));
+         tempVector.addElement( p.id.getMediaFromID().title );
+         tempVector.addElement( p.id.getMediaFromID().author );
+         tempVector.addElement( Double.toString( p.id.getMediaFromID().price) );
+            
+         purchaseHistoryVector.add( tempVector );
+         }*/
 
 
         add( topPanel, BorderLayout.NORTH );
-        add( bottomPanel, BorderLayout.SOUTH);
+        add( purchaseTable, BorderLayout.CENTER );
+        add( bottomPanel, BorderLayout.SOUTH );
 
     }
 
@@ -57,6 +81,9 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
     public void actionPerformed( ActionEvent ae ) {
         if ( ae.getSource() == backButton ) {
             MediaStoreGUI.customerScreen();
+        }
+        if( ae.getSource() == rateButton ) {
+            //MediaStoreGUI.customerRateScreen();
         }
     }
 }

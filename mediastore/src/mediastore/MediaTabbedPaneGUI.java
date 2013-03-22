@@ -30,7 +30,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
     private Vector<Vector> musicVector;        //vector of music
     private Vector<Vector> movieVector;        //vector of movies
     private Vector<Vector> audiobookVector;    //vector of audiobooks
-    private int tabSize = getHeight();
+    //private int tabSize = (int) ( MediaStoreGUI.getDefaultFrameHeight() * 0.729 ); //TODO: add method to MediaStoreGUI so I can get the height of the JFrame
 
     public MediaTabbedPaneGUI() {
 
