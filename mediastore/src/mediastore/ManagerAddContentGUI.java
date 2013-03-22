@@ -4,100 +4,110 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ManagerAddContentGUI extends JFrame implements ActionListener {
+public class ManagerAddContentGUI extends JFrame implements ItemListener {
 
-    final String[] mediaTypeChoices = { "Movie", "Music Album", "Audiobook" };
     JPanel mainPanel;
+    JPanel topPanel;
+    JPanel moviePanel;
+    JPanel albumPanel;
+    JPanel audiobookPanel;
+    String MOVIE = "Movie";
+    String ALBUM = "Music Album";
+    String AUDIOBOOK = "Audiobook";
+    String[] mediaTypeChoices = { MOVIE, ALBUM, AUDIOBOOK };
+    //
     JLabel mediaTypeLabel;
     JComboBox mediaTypeComboBox;
-    JLabel mediaAuthorLabel;
-    JTextField mediaAuthorTextField;
-    JLabel mediaTitleLabel;
-    JTextField mediaTitleTextField;
-    JLabel mediaDurationLabel;
-    JTextField mediaDurationTextField;
-    JLabel mediaRatingLabel;
-    JTextField mediaRatingTextField;
-    JLabel mediaTotalReviewsLabel;
-    JTextField mediaTotalReviewsTextField;
-    JLabel mediaPriceLabel;
-    JTextField mediaPriceTextField;
-    JLabel mediaReleaseYearLabel;
-    JTextField mediaReleaseYearTextField;
+    //
+    JLabel movieDirectorLabel;
+    JTextField movieDirectorTextField;
+    JLabel movieTitleLabel;
+    JTextField movieTitleTextField;
+    JLabel movieDurationLabel;
+    JTextField movieDurationTextField;
+    JLabel movieRatingLabel;
+    JTextField movieRatingTextField;
+    JLabel movieTotalReviewsLabel;
+    JTextField movieTotalReviewsTextField;
+    JLabel moviePriceLabel;
+    JTextField moviePriceTextField;
+    JLabel movieReleaseYearLabel;
+    JTextField movieReleaseYearTextField;
+    //
+    JLabel albumAuthorLabel;
+    JTextField albumAuthorTextField;
+    JLabel albumTitleLabel;
+    JTextField albumTitleTextField;
+    JLabel albumDurationLabel;
+    JTextField albumDurationTextField;
+    JLabel albumRatingLabel;
+    JTextField albumRatingTextField;
+    JLabel albumTotalReviewsLabel;
+    JTextField albumTotalReviewsTextField;
+    JLabel albumPriceLabel;
+    JTextField albumPriceTextField;
+    //
+    JLabel audiobookAuthorLabel;
+    JTextField audiobookAuthorTextField;
+    JLabel audiobookTitleLabel;
+    JTextField audiobookTitleTextField;
+    JLabel audiobookDurationLabel;
+    JTextField audiobookDurationTextField;
+    JLabel audiobookRatingLabel;
+    JTextField audiobookRatingTextField;
+    JLabel audiobookTotalReviewsLabel;
+    JTextField audiobookTotalReviewsTextField;
+    JLabel audiobookPriceLabel;
+    JTextField audiobookPriceTextField;
+    //
     JButton okButton;
     JButton cancelButton;
 
     public ManagerAddContentGUI() {
         addWindowListener( new ManagerAddContentGUIExitHandler() );
+        //mainPanel = new JPanel();
+        //movieMode();
+
+        setLayout( new BorderLayout() );
         mainPanel = new JPanel();
-        movieMode();
-    }
+        mainPanel.setLayout( new CardLayout() );
 
-    private void movieMode() {
-        baseSetup();
-        titlePrompt( "Director:" );
-        add( mainPanel );
-    }
-
-    private void albumMode() {
-
-        baseSetup();
-        titlePrompt( "Album Artist:" );
-        add( mainPanel );
-    }
-
-    private void audiobookMode() {
-
-        baseSetup();
-        titlePrompt( "Author:" );
-        add( mainPanel );
-    }
-
-    // set up the layout and row 1
-    private void baseSetup() {
-        remove( mainPanel );
-        mainPanel = new JPanel();
-        mainPanel.setLayout( new GridLayout( 9, 0 ) );
+        topPanel = new JPanel();
         mediaTypeLabel = new JLabel( "Media type: " );
-        int saved = 0;
-        if ( mediaTypeComboBox != null ) {
-            saved = mediaTypeComboBox.getSelectedIndex();
-        }
-        mediaTypeComboBox = new JComboBox( mediaTypeChoices );
-        mediaTypeComboBox.removeActionListener( this );
-        mediaTypeComboBox.setSelectedIndex( saved );
-        mediaTypeComboBox.addActionListener( this );
-        JPanel row1 = new JPanel();
-        row1.add( mediaTypeLabel );
-        row1.add( mediaTypeComboBox );
-        mainPanel.add( row1 );
-    }
+        topPanel.add( mediaTypeLabel );
 
-    private void titlePrompt( String query ) {
-        mediaAuthorLabel = new JLabel( query );
-        mediaAuthorTextField = new JTextField( 15 );
-        JPanel row2 = new JPanel();
-        row2.add( mediaAuthorLabel );
-        row2.add( mediaAuthorTextField );
-        mainPanel.add( row2 );
+        mediaTypeComboBox = new JComboBox( mediaTypeChoices );
+        mediaTypeComboBox.setSelectedIndex( 0 );
+        mediaTypeComboBox.addItemListener( this );
+        topPanel.add( mediaTypeComboBox );
+
+        add( topPanel, BorderLayout.NORTH );
+
+        //<editor-fold defaultstate="collapsed" desc="set up the movie GUI">
+        moviePanel = new JPanel();
+        moviePanel.setLayout( new GridLayout( 9, 1, 10, 10 ) );
+
+        movieDirectorLabel = new JLabel( "Director: " );
+        movieDirectorTextField = new JTextField( 15 );
+        movieTitleLabel = new JLabel( "Title: " );
+        movieTitleTextField = new JTextField( 15 );
+
+        //</editor-fold>
+
+        mainPanel.add( moviePanel, MOVIE );
+        mainPanel.add( new JPanel(), ALBUM );
+        mainPanel.add( new JPanel(), AUDIOBOOK );
+
+        add( mainPanel, BorderLayout.SOUTH );
+
+
     }
 
     @Override
-    public void actionPerformed( ActionEvent e ) {
+    public void itemStateChanged( ItemEvent e ) {
         if ( e.getSource() == mediaTypeComboBox ) {
-            switch ( mediaTypeComboBox.getSelectedIndex() ) {
-                case 0: // movie
-                    movieMode();
-                    break;
-                case 1:
-                    albumMode();
-                    break;
-                case 2:
-                    audiobookMode();
-                    break;
-                default:
-                    break;
-            }
+            CardLayout cl = (CardLayout) ( mainPanel.getLayout() );
+            cl.show( mainPanel, (String) e.getItem() );
         }
     }
 
