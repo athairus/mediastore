@@ -30,10 +30,11 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
     private Vector<Vector> musicVector;        //vector of music
     private Vector<Vector> movieVector;        //vector of movies
     private Vector<Vector> audiobookVector;    //vector of audiobooks
+    private int tabSize = getHeight();
 
     public MediaTabbedPaneGUI() {
 
-        setPreferredSize( new Dimension( 500, 500 ) );
+        setPreferredSize( new Dimension( 350, 350) );
 
 
         headerFont = new Font( "Sans", Font.PLAIN, 36 );

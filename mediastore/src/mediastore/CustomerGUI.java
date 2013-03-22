@@ -16,9 +16,9 @@ public class CustomerGUI extends JFrame implements ActionListener {
     private JTextField searchField;             //search bar text field
     private MediaTabbedPaneGUI tabs;            //tabs object
     private JPanel searchPanel;                 //panel for search bar
-    private JPanel managerPanel;                //panel that displays only in manager mode
     private JLabel managerLabel;                //label for displaying total sales
     private JButton purchaseHistoryButton;      //button allowing customer to view purchase history
+    private JPanel bottomPanel;                 //panel for bottom of GUI
 
     public CustomerGUI() {
         this( false, 1 );
@@ -40,8 +40,6 @@ public class CustomerGUI extends JFrame implements ActionListener {
 
         tabs = new MediaTabbedPaneGUI();
 
-        purchaseHistoryButton = new JButton( "View Purchase History" );
-        add( purchaseHistoryButton, BorderLayout.SOUTH );
 
         //set up search panel
         searchPanel = new JPanel();
@@ -62,17 +60,26 @@ public class CustomerGUI extends JFrame implements ActionListener {
                 .setWeight( 0, 0 )
                 .setAnchor( GBC.NORTHEAST ) );
 
-
-        add( topPanel, BorderLayout.NORTH );                //add top panel to GUI
-
+        purchaseHistoryButton = new JButton( "View Purchase History" );
+        purchaseHistoryButton.addActionListener( this );
+        
+        
+        bottomPanel = new JPanel();                                     //set up bottom panel
+        bottomPanel.setLayout( new BorderLayout());
+        bottomPanel.add( purchaseHistoryButton, BorderLayout.WEST );
+        
+        
+        
+        
+        
         if ( managerMode ) {                                //added when manager is logged in
 
-            managerPanel = new JPanel();
             managerLabel = new JLabel( "Total sales in entire store: " + MediaStoreGUI.db.manager.getTotalNumSales() );
-            managerPanel.add( managerLabel );
-            add( managerPanel, BorderLayout.SOUTH );
+            bottomPanel.add( managerLabel, BorderLayout.WEST );
         }
 
+        add( topPanel, BorderLayout.NORTH );                //add top panel to GUI
+        add( bottomPanel, BorderLayout.SOUTH );             //add bottom panel to GUI
 
     }
 
@@ -83,6 +90,7 @@ public class CustomerGUI extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog( this, "Search functionality is not implemented yet.", "", JOptionPane.ERROR_MESSAGE );
         }
         if ( ae.getSource() == purchaseHistoryButton ) {
+            MediaStoreGUI.customerPurchaseHistoryScreen();
         }
     }
 }

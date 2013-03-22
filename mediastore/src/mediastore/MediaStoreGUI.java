@@ -125,6 +125,18 @@ public class MediaStoreGUI {
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameTall();
     }
+    
+    public static void customerPurchaseHistoryScreen() {
+        if ( frame != null ) {
+            frame.dispose();
+        }
+        frame = new PurchaseHistoryGUI();
+
+        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+        frameDefaults();
+    }
+    
+    
 
     public static void frameDefaults() {
         frame.setSize( defaultWidth, defaultHeight );
