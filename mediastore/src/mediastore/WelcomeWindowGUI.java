@@ -76,7 +76,7 @@ public class WelcomeWindowGUI extends JFrame implements ActionListener {
             MediaStoreGUI.loginScreen();
         }
         if ( e.getSource() == enterButton ) {
-            MediaStoreGUI.customerScreen();
+            MediaStoreGUI.customerListScreen();
         }
     }
 

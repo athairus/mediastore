@@ -3,6 +3,7 @@ package mediastore;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -24,6 +25,7 @@ public class MediaStoreGUI {
     private static final int defaultHeight = 480;                     //height of JFrame
     private static JFrame frame;
     public static TextDatabase db;
+    public static Customer loggedInCustomer;
 
     public static void main( String[] args ) {
 
@@ -39,6 +41,11 @@ public class MediaStoreGUI {
             }
             //System.out.println( "DB Path = " + path );
             db = new TextDatabase( path );
+
+            if ( db.getCustomerFromID( 1 ) == null ) {
+                System.out.println( "WARNING: Missing customer #1, creating a default customer in this slot..." );
+                db.writeNewCustomer( new Customer( 1, "Default", "Default", 100, new LinkedList(), db ) );
+            }
         } catch ( Exception e ) {
             System.out.println( "An exception occured while parsing the database. (" + e.toString() + ")" );
             e.printStackTrace(); // this is what the @SupressWarnings is for
@@ -52,12 +59,12 @@ public class MediaStoreGUI {
                 try {
                     skin = new GraphiteAquaSkin();
                     SubstanceLookAndFeel.setSkin( skin );
-                    
+
                 } catch ( Exception e ) {
                     e.printStackTrace();
                 }
 
-               welcomeScreen();
+                welcomeScreen();
             }
         } );
     }
@@ -103,17 +110,17 @@ public class MediaStoreGUI {
         frameDefaults();
     }
 
-    public static void mediaViewerScreen() {
-        if ( frame != null ) {
-            frame.dispose();
-        }
-        try {
-            frame = new MediaViewerGUI( db.getMediaFromID( 1 ), db.getCustomerFromID( 1 ) );
-            frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        } catch ( IOException ex ) {
-            Logger.getLogger( MediaStoreGUI.class.getName() ).log( Level.SEVERE, null, ex );
-        }
-        frameDefaults();
+    public static void mediaViewerScreen( Media m, Customer c ) {
+        /*if ( frame != null ) {
+         frame.dispose();
+         }
+         try {
+         frame = new MediaViewerGUI( m, c );
+         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+         } catch ( IOException ex ) {
+         Logger.getLogger( MediaStoreGUI.class.getName() ).log( Level.SEVERE, null, ex );
+         }
+         frameDefaults();*/
     }
 
     public static void managerAddContentScreen() {
@@ -125,7 +132,7 @@ public class MediaStoreGUI {
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameTall();
     }
-    
+
     public static void customerPurchaseHistoryScreen() {
         if ( frame != null ) {
             frame.dispose();
@@ -136,7 +143,15 @@ public class MediaStoreGUI {
         frameDefaults();
     }
     
-    
+    public static void customerListScreen(){
+        if ( frame != null ) {
+            frame.dispose();
+        }
+        frame = new CustomerListGUI();
+
+        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+        frameHalfSize();
+    }
 
     public static void frameDefaults() {
         frame.setSize( defaultWidth, defaultHeight );
