@@ -16,19 +16,25 @@ public class CustomerListGUI extends JFrame implements ActionListener {
     JList customerList;
     JButton okButton;
     JButton cancelButton;
+    boolean managerMode;
 
-    public CustomerListGUI() {
+    public CustomerListGUI( boolean managerMode ) {
+        this.managerMode = managerMode;
         customerArrayList = new ArrayList<String>();
         for ( Customer c : MediaStoreGUI.db.customers ) {
             customerArrayList.add( c.getName() );
         }
-        addWindowListener( new CustomerListGUIExitHandler() );
+        addWindowListener( new CustomerListGUIExitHandler( managerMode ) );
 
         mainPanel = new JPanel();
         mainPanel.setBorder( new EmptyBorder( PADDING, PADDING, PADDING, PADDING ) );
         mainPanel.setLayout( new BorderLayout() );
 
-        mainPanel.add( new JLabel( "Choose a customer to log in as:" ), BorderLayout.NORTH );
+        String message = "Choose a customer to log in as:";
+        if ( managerMode ) {
+            message = "Choose a customer to view:";
+        }
+        mainPanel.add( new JLabel( message ), BorderLayout.NORTH );
         customerList = new JList( customerArrayList.toArray() );
         mainPanel.add( customerList, BorderLayout.CENTER );
 
@@ -55,16 +61,34 @@ public class CustomerListGUI extends JFrame implements ActionListener {
         }
 
         if ( e.getSource() == okButton ) {
+            if ( customerList.getSelectedIndex() == -1 ) {
+                JOptionPane.showMessageDialog( null, "Please choose a customer.", "", JOptionPane.ERROR_MESSAGE );
+                return;
+            }
             MediaStoreGUI.loggedInCustomer = (Customer) MediaStoreGUI.db.customers.toArray()[customerList.getSelectedIndex()];
-            MediaStoreGUI.customerScreen();
+            if ( !managerMode ) {
+                MediaStoreGUI.customerScreen();
+            } else {
+                MediaStoreGUI.customerPurchaseHistoryScreen();
+            }
         }
     }
 
     private class CustomerListGUIExitHandler extends WindowAdapter {
 
+        boolean managerMode;
+
+        public CustomerListGUIExitHandler( boolean managerMode ) {
+            this.managerMode = managerMode;
+        }
+
         @Override
         public void windowClosing( WindowEvent e ) {
-            MediaStoreGUI.welcomeScreen();
+            if ( !managerMode ) {
+                MediaStoreGUI.welcomeScreen();
+            } else {
+                MediaStoreGUI.customerPurchaseHistoryScreen();
+            }
         }
     }
 }

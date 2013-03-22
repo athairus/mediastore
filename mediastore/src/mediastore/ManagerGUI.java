@@ -55,6 +55,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed( ActionEvent e ) {
         if ( e.getSource() == listContentButton ) {
+            MediaStoreGUI.managerCustomerScreen();
         }
         if ( e.getSource() == addContentButton ) {
             MediaStoreGUI.managerAddContentScreen();
@@ -62,6 +63,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
         if ( e.getSource() == removeContentButton ) {
         }
         if ( e.getSource() == viewCustomerButton ) {
+            MediaStoreGUI.managerCustomerListScreen();
         }
     }
 }

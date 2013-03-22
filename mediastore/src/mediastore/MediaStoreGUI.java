@@ -104,7 +104,7 @@ public class MediaStoreGUI {
         if ( frame != null ) {
             frame.dispose();
         }
-        frame = new CustomerGUI();
+        frame = new CustomerGUI( false, loggedInCustomer.getID() );
 
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameDefaults();
@@ -142,15 +142,34 @@ public class MediaStoreGUI {
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameDefaults();
     }
-    
-    public static void customerListScreen(){
+
+    public static void customerListScreen() {
         if ( frame != null ) {
             frame.dispose();
         }
-        frame = new CustomerListGUI();
+        frame = new CustomerListGUI(false);
 
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameHalfSize();
+    }
+    public static void managerCustomerListScreen() {
+        if ( frame != null ) {
+            frame.dispose();
+        }
+        frame = new CustomerListGUI(true);
+
+        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+        frameHalfSize();
+    }
+
+    public static void managerCustomerScreen() {
+        if ( frame != null ) {
+            frame.dispose();
+        }
+        frame = new CustomerGUI( true, 0 );
+
+        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+        frameDefaults();
     }
 
     public static void frameDefaults() {

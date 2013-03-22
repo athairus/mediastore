@@ -28,6 +28,9 @@ public class CustomerGUI extends JFrame implements ActionListener {
 
         super( "Mediastore" );
 
+
+        addWindowListener( new CustomerGUIExitHandler( managerMode ) );
+
         setLayout( new BorderLayout() );                //set up layout
 
 
@@ -42,10 +45,12 @@ public class CustomerGUI extends JFrame implements ActionListener {
 
 
         //set up search panel
-        searchPanel = new JPanel();
-        searchPanel.add( new JLabel( String.format( "$%.2f  |  ", MediaStoreGUI.db.getCustomerFromID( id ).getBalance() ) ) );
-        searchPanel.add( searchLabel );
-        searchPanel.add( searchField );
+        if ( !managerMode ) {
+            searchPanel = new JPanel();
+            searchPanel.add( new JLabel( String.format( "$%.2f  |  ", MediaStoreGUI.db.getCustomerFromID( id ).getBalance() ) ) );
+            searchPanel.add( searchLabel );
+            searchPanel.add( searchField );
+        }
 
 
         JPanel topPanel = new JPanel();                     //set up top panel
@@ -54,27 +59,28 @@ public class CustomerGUI extends JFrame implements ActionListener {
         topPanel.add( tabs, new GBC( 0, 1 )
                 .setWeight( 1, 1 )
                 .setFill( GBC.BOTH ) );
-
-        topPanel.add( searchPanel,
-                new GBC( 0, 0 )
-                .setWeight( 0, 0 )
-                .setAnchor( GBC.NORTHEAST ) );
+        if ( !managerMode ) {
+            topPanel.add( searchPanel,
+                    new GBC( 0, 0 )
+                    .setWeight( 0, 0 )
+                    .setAnchor( GBC.NORTHEAST ) );
+        }
 
         purchaseHistoryButton = new JButton( "View Purchase History" );
         purchaseHistoryButton.addActionListener( this );
-        
-        
+
+
         bottomPanel = new JPanel();                                     //set up bottom panel
-        bottomPanel.setLayout( new BorderLayout());
+        bottomPanel.setLayout( new BorderLayout() );
         bottomPanel.add( purchaseHistoryButton, BorderLayout.WEST );
-        
-        
-        
-        
-        
+
+
+
+
+
         if ( managerMode ) {                                //added when manager is logged in
 
-            managerLabel = new JLabel( "Total sales in entire store: " + MediaStoreGUI.db.manager.getTotalNumSales() );
+            managerLabel = new JLabel( "Manager mode | Total sales in entire store: " + MediaStoreGUI.db.manager.getTotalNumSales() );
             bottomPanel.add( managerLabel, BorderLayout.WEST );
         }
 
@@ -91,6 +97,22 @@ public class CustomerGUI extends JFrame implements ActionListener {
         }
         if ( ae.getSource() == purchaseHistoryButton ) {
             MediaStoreGUI.customerPurchaseHistoryScreen();
+        }
+    }
+
+    private class CustomerGUIExitHandler extends WindowAdapter {
+
+        private boolean managerMode;
+
+        public CustomerGUIExitHandler( boolean managerMode ) {
+            this.managerMode = managerMode;
+        }
+
+        @Override
+        public void windowClosing( WindowEvent e ) {
+            if ( managerMode ) {
+                MediaStoreGUI.managerScreen();
+            }
         }
     }
 }
