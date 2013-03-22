@@ -2,6 +2,9 @@ package mediastore;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.GraphiteAquaSkin;
@@ -49,6 +52,7 @@ public class MediaStoreGUI {
                 try {
                     skin = new GraphiteAquaSkin();
                     SubstanceLookAndFeel.setSkin( skin );
+                    
                 } catch ( Exception e ) {
                     e.printStackTrace();
                 }
@@ -96,6 +100,19 @@ public class MediaStoreGUI {
         frame = new CustomerGUI();
 
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+        frameDefaults();
+    }
+
+    public static void mediaViewerScreen() {
+        if ( frame != null ) {
+            frame.dispose();
+        }
+        try {
+            frame = new MediaViewerGUI( db.getMediaFromID( 1 ), db.getCustomerFromID( 1 ) );
+            frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        } catch ( IOException ex ) {
+            Logger.getLogger( MediaStoreGUI.class.getName() ).log( Level.SEVERE, null, ex );
+        }
         frameDefaults();
     }
 
