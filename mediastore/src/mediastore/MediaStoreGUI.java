@@ -146,7 +146,7 @@ public class MediaStoreGUI {
         }
             //          MediaViewerGUI( Media m, Customer c 
             frame = new MediaViewerGUI( m, c );
-            frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+            frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameDefaults();
     }
 

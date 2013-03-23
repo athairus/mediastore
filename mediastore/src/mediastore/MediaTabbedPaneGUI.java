@@ -86,6 +86,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
         musicColumns.addElement( "No. Reviews" );
         musicColumns.addElement( "Price" );
         musicColumns.addElement( "No. Sold" );
+        musicColumns.addElement( "ID" );
 
         Vector<String> movieColumns = new Vector<String>();
         movieColumns.addElement( "Title" );
@@ -97,6 +98,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
         movieColumns.addElement( "Price" );
         movieColumns.addElement( "No. Sold" );
         movieColumns.addElement( "Release Year" );
+        movieColumns.addElement( "ID" );
 
 
         Vector<String> audiobookColumns = new Vector<String>();
@@ -109,6 +111,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
         audiobookColumns.addElement( "Reviews" );
         audiobookColumns.addElement( "Price" );
         audiobookColumns.addElement( "No. Sold" );
+        audiobookColumns.addElement( "ID" );
 
 
         musicVector = new Vector<Vector>();
@@ -128,6 +131,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
                 tempVector.addElement( Integer.toString( m.totalReviews ) );
                 tempVector.addElement( String.format( "$%.2f", m.price ) );
                 tempVector.addElement( Integer.toString( m.numSold ) );
+                tempVector.addElement( Integer.toString( m.getID() ) );
 
                 musicVector.addElement( tempVector );
 
@@ -146,6 +150,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
                 tempVector.addElement( String.format( "$%.2f", m.price ) );
                 tempVector.addElement( Integer.toString( m.numSold ) );
                 tempVector.addElement( Integer.toString( m.getReleaseYear() ) );
+                tempVector.addElement( Integer.toString( m.getID() ) );
 
                 movieVector.addElement( tempVector );
             }
@@ -162,6 +167,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
                 tempVector.addElement( Integer.toString( m.totalReviews ) );
                 tempVector.addElement( String.format( "$%.2f", m.price ) );
                 tempVector.addElement( Integer.toString( m.numSold ) );
+                tempVector.addElement( Integer.toString( m.getID() ) );
 
                 audiobookVector.addElement( tempVector );
             }
@@ -273,24 +279,13 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
             if ( row == -1 ) {
                 return;
             }
-            Media media = null;
-            int i = 0;
-            for ( Media m : MediaStoreGUI.db.media ) {
-                media = m;
-
-                if ( i == row ) {
-                    break;
-                }
-                if ( ( target == musicTable ) && ( m instanceof Album ) ) {
-                    i++;
-                }
-                if ( ( target == movieTable ) && ( m instanceof Movie ) ) {
-                    i++;
-                }
-                if ( ( target == audiobookTable ) && ( m instanceof Audiobook ) ) {
-                    i++;
-                }
+            int col = 8;
+            if ( getSelectedIndex() == 1 ) {
+                col = 9;
             }
+            Object valueAt = target.getValueAt( row, col );
+            Media media = MediaStoreGUI.db.getMediaFromID( Integer.parseInt( (String) target.getValueAt( row, col ) ) );
+
             try {
                 MediaStoreGUI.mediaViewerScreen( media, MediaStoreGUI.loggedInCustomer );
             } catch ( IOException ex ) {

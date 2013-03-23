@@ -1,11 +1,9 @@
 package mediastore;
 
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import javax.swing.*;
-
 
 public class MediaViewerGUI extends JFrame implements ActionListener {
 
@@ -32,21 +30,23 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
 
         super( "Mediastore" );
 
+        addWindowListener( new MediaViewerGUIExitHandler() );
+
         JPanel contentPane = new JPanel();
-        
+
         setContentPane( contentPane );
         contentPane.setLayout( null );
         db = MediaStoreGUI.db;
         media = m;
         customer = c;
-        setLayout( new BorderLayout(10,10));
+        setLayout( new BorderLayout( 10, 10 ) );
 
         cover = db.viewCoverImage( m );
         coverLabel = new JLabel( cover );
         author = new JLabel( "Author: " + m.getAuthor() + " | " );
         title = new JLabel( "| Title: " + m.getTitle() + " | " );
         duration = new JLabel( "Duration: " + m.getDuration() + " | " );
-        genre = new JLabel( "Genre: " + m.getGenre()  + " | " );
+        genre = new JLabel( "Genre: " + m.getGenre() + " | " );
         rating = new JLabel( "Rating: " + m.getRating() + " | " );
         totalReviews = new JLabel( "Total Reviews: " + m.getTotalReviews() + " | " );
         price = new JLabel( "Price: $" + m.getPrice() + " | " );
@@ -58,9 +58,9 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
         buttonPanel.add( buy );
         buttonPanel.add( preview );
 
-        
-        infoPanel = new JPanel(); 
-       
+
+        infoPanel = new JPanel();
+
         JPanel titlePanel = new JPanel();
         title.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
         author.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
@@ -70,15 +70,15 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
         price.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
         ranking.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
         totalReviews.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
-        title.setForeground(Color.red);
-        author.setForeground(Color.red);
-        duration.setForeground(Color.red);
-        genre.setForeground(Color.red);
-        rating.setForeground(Color.red);
-        price.setForeground(Color.red);
-        ranking.setForeground(Color.red);       
-        totalReviews.setForeground(Color.red);
-        
+        title.setForeground( Color.red );
+        author.setForeground( Color.red );
+        duration.setForeground( Color.red );
+        genre.setForeground( Color.red );
+        rating.setForeground( Color.red );
+        price.setForeground( Color.red );
+        ranking.setForeground( Color.red );
+        totalReviews.setForeground( Color.red );
+
         infoPanel.add( title );
         infoPanel.add( author );
         infoPanel.add( duration );
@@ -86,16 +86,16 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
         infoPanel.add( rating );
         infoPanel.add( totalReviews );
         infoPanel.add( price );
-        infoPanel.add( ranking );       
+        infoPanel.add( ranking );
         imagePanel = new JPanel();
         imagePanel.add( coverLabel );
 
 
-        add( imagePanel, BorderLayout.CENTER);
-        add( buttonPanel, BorderLayout.NORTH ); 
+        add( imagePanel, BorderLayout.CENTER );
+        add( buttonPanel, BorderLayout.NORTH );
         add( infoPanel, BorderLayout.SOUTH );
-         
-        
+
+
 
     }
 
@@ -109,6 +109,14 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
                 customer.buy( media.id );
             }
         } catch ( IOException ex ) {
+        }
+    }
+
+    private class MediaViewerGUIExitHandler extends WindowAdapter {
+
+        @Override
+        public void windowClosing( WindowEvent e ) {
+            MediaStoreGUI.customerScreen();
         }
     }
 }
