@@ -27,6 +27,7 @@ public class CustomerRatingGUI extends JFrame implements ActionListener, ItemLis
     private JPanel topPanel;
     private JPanel mainPanel;
     private JPanel bottomPanel;
+    private boolean rate;
 
     public CustomerRatingGUI() {
 
@@ -34,16 +35,16 @@ public class CustomerRatingGUI extends JFrame implements ActionListener, ItemLis
         setLayout( new BorderLayout() );
 
         headerFont = new Font( "Sans", Font.PLAIN, 20 );
-        
+
         headerLabel = new JLabel( "Rating (Out of 5 stars)" );
         headerLabel.setFont( headerFont );
-        
+
         rateButton = new JButton( "Rate it!" );
         rateButton.addActionListener( this );
         backButton = new JButton( "Back" );
         backButton.addActionListener( this );
-        
-        
+
+
         oneStarButton = new JRadioButton( "1", false );
         oneStarButton.addItemListener( this );
         twoStarButton = new JRadioButton( "2", false );
@@ -68,7 +69,7 @@ public class CustomerRatingGUI extends JFrame implements ActionListener, ItemLis
         bottomPanel = new JPanel();
 
         topPanel.add( headerLabel );
-        
+
         mainPanel.add( oneStarButton );
         mainPanel.add( twoStarButton );
         mainPanel.add( threeStarButton );
@@ -78,36 +79,52 @@ public class CustomerRatingGUI extends JFrame implements ActionListener, ItemLis
         bottomPanel.add( rateButton );
         bottomPanel.add( backButton );
 
-        add(topPanel, BorderLayout.NORTH);
-        add(mainPanel, BorderLayout.CENTER);
-        add( bottomPanel, BorderLayout.SOUTH);
-        
-        
-        
+        add( topPanel, BorderLayout.NORTH );
+        add( mainPanel, BorderLayout.CENTER );
+        add( bottomPanel, BorderLayout.SOUTH );
+
+
+
     }
 
     @Override
     public void actionPerformed( ActionEvent ae ) {
-        
-        if( ae.getSource() == backButton ) {
-            MediaStoreGUI.customerPurchaseHistoryScreen(false);
+
+        if ( ae.getSource() == backButton ) {
+            MediaStoreGUI.customerPurchaseHistoryScreen( false );
         }
-        if( ae.getSource() == rateButton ) {
-            //TODO: implement rate system
+        if ( ae.getSource() == rateButton ) {
+            rate = true;
+            MediaStoreGUI.customerPurchaseHistoryScreen( false );
         }
-        
+
     }
 
     @Override
     public void itemStateChanged( ItemEvent ie ) {
-        
+
+        if ( ie.getSource() == oneStarButton && rate ) {
+            
+        }
+        if ( ie.getSource() == twoStarButton && rate ) {
+            
+        }
+        if ( ie.getSource() == threeStarButton && rate ) {
+            
+        }
+        if ( ie.getSource() == fourStarButton && rate ) {
+            
+        }
+        if ( ie.getSource() == fiveStarButton && rate ) {
+            
+        }
     }
 
     private class CustomerRatingGUIExitHandler extends WindowAdapter {
 
         @Override
         public void windowClosing( WindowEvent e ) {
-            MediaStoreGUI.customerPurchaseHistoryScreen(false);
+            MediaStoreGUI.customerPurchaseHistoryScreen( false );
         }
     }
 }

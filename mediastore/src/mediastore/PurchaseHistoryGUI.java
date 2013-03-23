@@ -36,7 +36,7 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
         setVisible( true );
         addWindowListener( new PurchaseHistoryGUIExitHandler( managerMode ) );
 
-        headerFont = new Font( "Sans", Font.PLAIN, 36 );
+        headerFont = new Font( "Sans", Font.PLAIN, 20 );
         headerLabel = new JLabel( "Customer Purchase History" );
         headerLabel.setFont( headerFont );
 
