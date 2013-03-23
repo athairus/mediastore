@@ -64,8 +64,12 @@ public class MediaStoreGUI {
                 } catch ( Exception e ) {
                     e.printStackTrace();
                 }
-
                 welcomeScreen();
+                /*try {
+                    mediaViewerScreen(db.getMediaFromID( 1 ),db.getCustomerFromID( 1 ) );
+                } catch ( IOException ex ) {
+                    Logger.getLogger( MediaStoreGUI.class.getName() ).log( Level.SEVERE, null, ex );
+                }*/
             }
         } );
     }
