@@ -69,9 +69,10 @@ public class MediaStoreGUI {
             }
         } );
     }
-    public static void reloadDB(){
+
+    public static void reloadDB() {
         db = null;
-        System.out.println("Database modified. Reloading...");
+        System.out.println( "Database modified. Reloading..." );
         try {
             // the path to the db when running from NetBeans (an assumption is made about the db location relative to the .class files)
             String path = System.getProperty( "user.dir" ).concat( File.separator + ".." + File.separator + ".." + File.separator + "db" + File.separator );
@@ -135,17 +136,14 @@ public class MediaStoreGUI {
         frameDefaults();
     }
 
-    public static void mediaViewerScreen( Media m, Customer c ) {
-        /*if ( frame != null ) {
-         frame.dispose();
-         }
-         try {
-         frame = new MediaViewerGUI( m, c );
-         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-         } catch ( IOException ex ) {
-         Logger.getLogger( MediaStoreGUI.class.getName() ).log( Level.SEVERE, null, ex );
-         }
-         frameDefaults();*/
+    public static void mediaViewerScreen( Media m, Customer c ) throws IOException {
+        if ( frame != null ) {
+            frame.dispose();
+        }
+            //          MediaViewerGUI( Media m, Customer c 
+            frame = new MediaViewerGUI( m, c );
+            frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        frameDefaults();
     }
 
     public static void managerAddContentScreen() {
