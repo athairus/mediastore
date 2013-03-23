@@ -9,10 +9,14 @@ package mediastore;
  */
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.TableRowSorter;
 
-public class MediaTabbedPaneGUI extends JTabbedPane {
+public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, MouseListener {
 
     private JPanel musicTabPanel;              //panel for music tab
     private JPanel movieTabPanel;              //panel for movie tab
@@ -30,11 +34,14 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
     private Vector<Vector> musicVector;        //vector of music
     private Vector<Vector> movieVector;        //vector of movies
     private Vector<Vector> audiobookVector;    //vector of audiobooks
+    private MouseAdapter tableMouseAdapter;
     //private int tabSize = (int) ( MediaStoreGUI.getDefaultFrameHeight() * 0.729 ); //TODO: add method to MediaStoreGUI so I can get the height of the JFrame
 
     public MediaTabbedPaneGUI() {
 
-        setPreferredSize( new Dimension( 350, 350) );
+        setPreferredSize( new Dimension( 350, 350 ) );
+
+
 
 
         headerFont = new Font( "Sans", Font.PLAIN, 36 );
@@ -119,7 +126,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
                 tempVector.addElement( m.genre );
                 tempVector.addElement( Double.toString( m.rating ) );
                 tempVector.addElement( Integer.toString( m.totalReviews ) );
-                tempVector.addElement( String.format( "$%.2f", m.price  ) );
+                tempVector.addElement( String.format( "$%.2f", m.price ) );
                 tempVector.addElement( Integer.toString( m.numSold ) );
 
                 musicVector.addElement( tempVector );
@@ -136,7 +143,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
                 tempVector.addElement( m.genre );
                 tempVector.addElement( Double.toString( m.rating ) );
                 tempVector.addElement( Integer.toString( m.totalReviews ) );
-                tempVector.addElement( String.format( "$%.2f", m.price  ) );
+                tempVector.addElement( String.format( "$%.2f", m.price ) );
                 tempVector.addElement( Integer.toString( m.numSold ) );
                 tempVector.addElement( Integer.toString( m.getReleaseYear() ) );
 
@@ -170,9 +177,13 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
         musicTable.setFillsViewportHeight( true );
         musicTable.setAutoCreateRowSorter( true );
         musicTable.getTableHeader().setReorderingAllowed( false );
-        musicTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        musicTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        musicTable.addMouseListener( this );
         musicTable.setShowGrid( false );
         musicTable.setIntercellSpacing( new Dimension( 0, 0 ) );
+
+
+
 
         musicScrollPane = new JScrollPane( musicTable );
 
@@ -187,9 +198,15 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
         movieTable.setFillsViewportHeight( true );
         movieTable.setAutoCreateRowSorter( true );
         movieTable.getTableHeader().setReorderingAllowed( false );
-        movieTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        movieTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        movieTable.addMouseListener( this );
         movieTable.setShowGrid( false );
         movieTable.setIntercellSpacing( new Dimension( 0, 0 ) );
+
+
+
+
+
 
         movieScrollPane = new JScrollPane( movieTable );
 
@@ -204,14 +221,93 @@ public class MediaTabbedPaneGUI extends JTabbedPane {
         audiobookTable.setFillsViewportHeight( true );
         audiobookTable.setAutoCreateRowSorter( true );
         audiobookTable.getTableHeader().setReorderingAllowed( false );
-        audiobookTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        audiobookTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        audiobookTable.addMouseListener( this );
         audiobookTable.setShowGrid( false );
         audiobookTable.setIntercellSpacing( new Dimension( 0, 0 ) );
+
+
+
+
+
+        musicScrollPane = new JScrollPane( musicTable );
+
+        musicTabPanel.add( musicScrollPane, BorderLayout.CENTER );
+
+        movieTable = new JTable( movieVector, movieColumns ) {
+            public boolean isCellEditable( int data, int columns ) {
+                return false;
+            }
+        };
+
+        movieTable.setPreferredScrollableViewportSize( new Dimension( 350, 100 ) );
+        movieTable.setFillsViewportHeight( true );
+        movieTable.setAutoCreateRowSorter( true );
+        movieTable.getTableHeader().setReorderingAllowed( false );
+        movieTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        //movieTable.addMouseListener( this );
+        movieTable.setShowGrid( false );
+        movieTable.setIntercellSpacing( new Dimension( 0, 0 ) );
 
 
         audiobookScrollPane = new JScrollPane( audiobookTable );
 
         audiobookTabPanel.add( audiobookScrollPane, BorderLayout.CENTER );
 
+    }
+
+    @Override
+    public void actionPerformed( ActionEvent ae ) {
+    }
+
+    @Override
+    public void mouseClicked( MouseEvent e ) {
+    }
+
+    @Override
+    public void mousePressed( MouseEvent e ) {
+        if ( e.getClickCount() > 1 ) {
+            Point p = e.getPoint();
+            JTable target = (JTable) e.getSource();
+            int row = target.rowAtPoint( new Point( e.getX(), e.getY() ) );
+            if ( row == -1 ) {
+                return;
+            }
+            Media media = null;
+            int i = 0;
+            for ( Media m : MediaStoreGUI.db.media ) {
+                media = m;
+
+                if ( i == row ) {
+                    break;
+                }
+                if ( ( target == musicTable ) && ( m instanceof Album ) ) {
+                    i++;
+                }
+                if ( ( target == movieTable ) && ( m instanceof Movie ) ) {
+                    i++;
+                }
+                if ( ( target == audiobookTable ) && ( m instanceof Audiobook ) ) {
+                    i++;
+                }
+            }
+            try {
+                MediaStoreGUI.mediaViewerScreen( media, MediaStoreGUI.loggedInCustomer );
+            } catch ( IOException ex ) {
+                Logger.getLogger( MediaTabbedPaneGUI.class.getName() ).log( Level.SEVERE, null, ex );
+            }
+        }
+    }
+
+    @Override
+    public void mouseReleased( MouseEvent me ) {
+    }
+
+    @Override
+    public void mouseEntered( MouseEvent me ) {
+    }
+
+    @Override
+    public void mouseExited( MouseEvent me ) {
     }
 }

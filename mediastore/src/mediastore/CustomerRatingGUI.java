@@ -33,7 +33,7 @@ public class CustomerRatingGUI extends JFrame implements ActionListener, ItemLis
         addWindowListener( new CustomerRatingGUIExitHandler() );
         setLayout( new BorderLayout() );
 
-        headerFont = new Font( "Sans", Font.PLAIN, 36 );
+        headerFont = new Font( "Sans", Font.PLAIN, 20 );
         
         headerLabel = new JLabel( "Rating (Out of 5 stars)" );
         headerLabel.setFont( headerFont );

@@ -26,6 +26,8 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
     private JTable purchaseTable;
     private Vector<Vector> purchaseHistoryVector;
     private boolean managerMode;
+    private JScrollPane purchaseScrollPane;
+    private MouseAdapter tableMouseAdapter;
 
     public PurchaseHistoryGUI( boolean managerMode ) {
         this.managerMode = managerMode;
@@ -60,23 +62,34 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
         purchaseHistoryColumns.addElement( "Price" );
 
         purchaseTable = new JTable( purchaseHistoryVector, purchaseHistoryColumns );
-
+        purchaseTable.setPreferredScrollableViewportSize( new Dimension( 350, 100 ) );
+        purchaseTable.setFillsViewportHeight( true );
+        purchaseTable.setAutoCreateRowSorter( true );
+        purchaseTable.getTableHeader().setReorderingAllowed( false );
+        purchaseTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        purchaseTable.addMouseListener( tableMouseAdapter );
+        purchaseTable.setShowGrid( false );
+        purchaseTable.setIntercellSpacing( new Dimension( 0, 0 ) );
+        
+        purchaseScrollPane = new JScrollPane( purchaseTable );
+        
+        
         purchaseHistoryVector = new Vector<Vector>();
 
-        /*  for( Purchase p : MediaStoreGUI.loggedInCustomer.getPurchaseHistory() ){
-            
-         Vector<String> tempVector = new Vector<String>();
-         tempVector.addElement( Long.toString( p.purchaseUnixTime ));
-         tempVector.addElement( p.id.getMediaFromID().title );
-         tempVector.addElement( p.id.getMediaFromID().author );
-         tempVector.addElement( Double.toString( p.id.getMediaFromID().price) );
-            
-         purchaseHistoryVector.add( tempVector );
-         }*/
+        for ( Purchase p : MediaStoreGUI.loggedInCustomer.getPurchaseHistory() ) {
+
+            Vector<String> tempVector = new Vector<String>();
+            tempVector.addElement( Long.toString( p.purchaseUnixTime ) );
+            tempVector.addElement( MediaStoreGUI.db.getMediaFromID( p.getID() ).title );
+            tempVector.addElement( MediaStoreGUI.db.getMediaFromID( p.getID() ).author );
+            tempVector.addElement( Double.toString( MediaStoreGUI.db.getMediaFromID( p.getID() ).price ) );
+
+            purchaseHistoryVector.add( tempVector );
+        }
 
 
         add( topPanel, BorderLayout.NORTH );
-        add( purchaseTable, BorderLayout.CENTER );
+        add( purchaseScrollPane, BorderLayout.CENTER );
         add( bottomPanel, BorderLayout.SOUTH );
 
     }
@@ -91,7 +104,7 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
             }
         }
         if ( ae.getSource() == rateButton ) {
-            //MediaStoreGUI.customerRateScreen();
+            MediaStoreGUI.customerRatingScreen();
         }
     }
 
