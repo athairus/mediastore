@@ -90,7 +90,7 @@ public class CustomerRatingGUI extends JFrame implements ActionListener, ItemLis
     public void actionPerformed( ActionEvent ae ) {
         
         if( ae.getSource() == backButton ) {
-            MediaStoreGUI.customerPurchaseHistoryScreen();
+            MediaStoreGUI.customerPurchaseHistoryScreen(false);
         }
         if( ae.getSource() == rateButton ) {
             //TODO: implement rate system
@@ -107,7 +107,7 @@ public class CustomerRatingGUI extends JFrame implements ActionListener, ItemLis
 
         @Override
         public void windowClosing( WindowEvent e ) {
-            MediaStoreGUI.customerPurchaseHistoryScreen();
+            MediaStoreGUI.customerPurchaseHistoryScreen(false);
         }
     }
 }
