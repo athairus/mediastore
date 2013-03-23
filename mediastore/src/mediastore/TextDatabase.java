@@ -797,14 +797,23 @@ public class TextDatabase extends Database {
             return null;
         }
     }
-    
-    public ImageIcon viewCoverImage ( Media m ) throws java.io.IOException{
-        ImageIcon image = new ImageIcon( rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + "cover.png" );
+
+    public ImageIcon viewCoverImage( Media m ) throws java.io.IOException {
+        String path = rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + "cover.png";
+        File f = new File( path );
+        ImageIcon image = null;
+        if ( f.exists() ) {
+            image = new ImageIcon( path );
+        } else {
+            String unknown = "images/unknown.png";
+            image = new ImageIcon( getClass().getResource( unknown ) );
+        }
         return image;
     }
-        public String bgFileLocation ( Media m ) throws java.io.IOException{
-            return (rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + "background.png" );
-        
-        
+
+    public String bgFileLocation( Media m ) throws java.io.IOException {
+        return ( rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + "background.png" );
+
+
     }
 }
