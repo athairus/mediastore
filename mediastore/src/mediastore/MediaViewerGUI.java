@@ -9,6 +9,7 @@ import javax.swing.*;
 public class MediaViewerGUI extends JFrame implements ActionListener {
 
     private Database db;
+  
     private JLabel author;
     private JLabel title;
     private JLabel duration;
@@ -43,6 +44,8 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
         customer = c;
         setLayout( new BorderLayout( 10, 10 ) );
 
+       
+        
         cover = db.viewCoverImage( m );
         coverLabel = new JLabel( cover );
         author = new JLabel( "Author: " + m.getAuthor() + " | " );
@@ -51,7 +54,7 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
         genre = new JLabel( "Genre: " + m.getGenre() + " | " );
         rating = new JLabel( "Rating: " + m.getRating() + " | " );
         totalReviews = new JLabel( "Total Reviews: " + m.getTotalReviews() + " | " );
-        price = new JLabel( "Price: $" + m.getPrice() + " | " );
+        price = new JLabel( "Price: $" + m.getPrice()   + " | " );
         ranking = new JLabel( "Ranking: " + m.getRanking() + " | " );
         preview = new JButton( "Preview" );
         buy = new JButton( "Buy" );
@@ -115,6 +118,7 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
             }
             if ( e.getSource() == buy ) {
                 customer.buy( media.id );
+                MediaStoreGUI.reloadDB();
                 JOptionPane.showMessageDialog( null, "Item has been purchased!", "MEDIA PURCHASED", JOptionPane.INFORMATION_MESSAGE );
 
             }
