@@ -2,6 +2,7 @@ package mediastore;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.swing.*;
 
@@ -30,6 +31,7 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
 
         super( "Mediastore" );
 
+
         addWindowListener( new MediaViewerGUIExitHandler() );
 
         JPanel contentPane = new JPanel();
@@ -54,9 +56,15 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
         preview = new JButton( "Preview" );
         buy = new JButton( "Buy" );
 
+
+
         buttonPanel = new JPanel();
         buttonPanel.add( buy );
         buttonPanel.add( preview );
+
+
+        buy.addActionListener( this );
+        preview.addActionListener( this );
 
 
         infoPanel = new JPanel();
@@ -88,13 +96,13 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
         infoPanel.add( price );
         infoPanel.add( ranking );
         imagePanel = new JPanel();
-        imagePanel.add( coverLabel );
+        Image img = cover.getImage();
+        imagePanel.add( new JLabel( scale( img, (int) ( ( (double) img.getWidth( null ) / (double) img.getHeight( null ) ) * 350.0 ), 350 ) ) );
 
 
         add( imagePanel, BorderLayout.CENTER );
         add( buttonPanel, BorderLayout.NORTH );
         add( infoPanel, BorderLayout.SOUTH );
-
 
 
     }
@@ -107,6 +115,8 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
             }
             if ( e.getSource() == buy ) {
                 customer.buy( media.id );
+                JOptionPane.showMessageDialog( null, "Item has been purchased!", "MEDIA PURCHASED", JOptionPane.INFORMATION_MESSAGE );
+
             }
         } catch ( IOException ex ) {
         }
@@ -116,7 +126,21 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
 
         @Override
         public void windowClosing( WindowEvent e ) {
+
             MediaStoreGUI.customerScreen();
         }
     }
+
+ 
+    private ImageIcon scale( Image src, int width, int height ) {
+        int w = width;
+        int h = height;
+        int type = BufferedImage.TYPE_INT_RGB;
+        BufferedImage dst = new BufferedImage( w, h, type );
+        Graphics2D g2 = dst.createGraphics();
+        g2.drawImage( src, 0, 0, w, h, this );
+        g2.dispose();
+        return new ImageIcon( dst );
+    }
+
 }
