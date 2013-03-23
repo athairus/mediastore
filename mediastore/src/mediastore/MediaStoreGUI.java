@@ -172,6 +172,16 @@ public class MediaStoreGUI {
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameDefaults();
     }
+    
+    public static void customerRatingScreen() {
+        if ( frame != null ) {
+            frame.dispose();
+        }
+        frame = new CustomerRatingGUI();
+
+        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+        frameHalfSize();
+    }
 
     public static void frameDefaults() {
         frame.setSize( defaultWidth, defaultHeight );
