@@ -61,6 +61,19 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
         purchaseHistoryColumns.addElement( "Author/Director" );
         purchaseHistoryColumns.addElement( "Price" );
 
+        purchaseHistoryVector = new Vector<Vector>();
+
+        for ( Purchase p : MediaStoreGUI.loggedInCustomer.getPurchaseHistory() ) {
+
+            Vector<String> tempVector = new Vector<String>();
+            tempVector.addElement( Long.toString( p.purchaseUnixTime ) );
+            tempVector.addElement( MediaStoreGUI.db.getMediaFromID( p.getID() ).title );
+            tempVector.addElement( MediaStoreGUI.db.getMediaFromID( p.getID() ).author );
+            tempVector.addElement( Double.toString( MediaStoreGUI.db.getMediaFromID( p.getID() ).price ) );
+
+            purchaseHistoryVector.add( tempVector );
+        }
+        
         purchaseTable = new JTable( purchaseHistoryVector, purchaseHistoryColumns );
         purchaseTable.setPreferredScrollableViewportSize( new Dimension( 350, 100 ) );
         purchaseTable.setFillsViewportHeight( true );
@@ -74,18 +87,7 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
         purchaseScrollPane = new JScrollPane( purchaseTable );
         
         
-        purchaseHistoryVector = new Vector<Vector>();
-
-        for ( Purchase p : MediaStoreGUI.loggedInCustomer.getPurchaseHistory() ) {
-
-            Vector<String> tempVector = new Vector<String>();
-            tempVector.addElement( Long.toString( p.purchaseUnixTime ) );
-            tempVector.addElement( MediaStoreGUI.db.getMediaFromID( p.getID() ).title );
-            tempVector.addElement( MediaStoreGUI.db.getMediaFromID( p.getID() ).author );
-            tempVector.addElement( Double.toString( MediaStoreGUI.db.getMediaFromID( p.getID() ).price ) );
-
-            purchaseHistoryVector.add( tempVector );
-        }
+        
 
 
         add( topPanel, BorderLayout.NORTH );
