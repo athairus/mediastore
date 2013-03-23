@@ -265,7 +265,7 @@ public class ManagerAddContentGUI extends JFrame implements ItemListener, Action
                             audiobookGenreTextField.getText(), Integer.parseInt( audiobookRatingTextField.getText() ), Integer.parseInt( audiobookTotalReviewsTextField.getText() ), Double.parseDouble( audiobookPriceTextField.getText() ), 0 );
                 }
             } catch ( NumberFormatException ex ) {
-                JOptionPane.showMessageDialog( null, "One or more fields contain invalid input, please try again.", "", JOptionPane.ERROR_MESSAGE );
+                JOptionPane.showMessageDialog( null, "One or more fields contain invalid input, please correct this and try again.", "", JOptionPane.ERROR_MESSAGE );
             }
             db.media.add( newItem );
             try {
@@ -274,6 +274,7 @@ public class ManagerAddContentGUI extends JFrame implements ItemListener, Action
                 Logger.getLogger( ManagerAddContentGUI.class.getName() ).log( Level.SEVERE, null, ex );
             }
 
+            MediaStoreGUI.reloadDB();
             MediaStoreGUI.managerScreen();
             JOptionPane.showMessageDialog( null, "Added new item successfully." );
         }

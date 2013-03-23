@@ -211,11 +211,16 @@ public abstract class Media {
         }
         return rating;
     }
-    
-    public int getTotalReviews(){
+
+    public int getTotalReviews() {
         return totalReviews;
     }
-    
+
+    @Override
+    public String toString() {
+        return title + " (" + author + ")";
+    }
+
     public abstract int getReleaseYear();
     //*****************************************************************************  
 }

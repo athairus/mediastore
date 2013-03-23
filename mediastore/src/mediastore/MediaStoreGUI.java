@@ -49,6 +49,7 @@ public class MediaStoreGUI {
         } catch ( Exception e ) {
             System.out.println( "An exception occured while parsing the database. (" + e.toString() + ")" );
             e.printStackTrace(); // this is what the @SupressWarnings is for
+            System.exit( -1 );
         }
 
         // initalize the substance theme and the welcome screen
@@ -67,6 +68,30 @@ public class MediaStoreGUI {
                 welcomeScreen();
             }
         } );
+    }
+    public static void reloadDB(){
+        db = null;
+        System.out.println("Database modified. Reloading...");
+        try {
+            // the path to the db when running from NetBeans (an assumption is made about the db location relative to the .class files)
+            String path = System.getProperty( "user.dir" ).concat( File.separator + ".." + File.separator + ".." + File.separator + "db" + File.separator );
+
+            // the path to the db when running from a .jar (the db is assumed to be a folder named 'db' in the same folder as the jar)
+            if ( MediaStoreGUI.class.getResource( "MediaStoreGUI.class" ).toString().startsWith( "jar" ) ) {
+                path = System.getProperty( "user.dir" ).concat( File.separator + "db" + File.separator );
+            }
+            //System.out.println( "DB Path = " + path );
+            db = new TextDatabase( path );
+
+            if ( db.getCustomerFromID( 1 ) == null ) {
+                System.out.println( "WARNING: Missing customer #1, creating a default customer in this slot..." );
+                db.writeNewCustomer( new Customer( 1, "Default", "Default", 100, new LinkedList(), db ) );
+            }
+        } catch ( Exception e ) {
+            System.out.println( "An exception occured while parsing the database. (" + e.toString() + ")" );
+            e.printStackTrace(); // this is what the @SupressWarnings is for
+            System.exit( -1 );
+        }
     }
 
     public static void welcomeScreen() {
@@ -133,6 +158,16 @@ public class MediaStoreGUI {
         frameTall();
     }
 
+    public static void managerRemoveContentScreen() {
+        if ( frame != null ) {
+            frame.dispose();
+        }
+        frame = new ManagerRemoveContentGUI();
+
+        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+        frameDefaults();
+    }
+
     public static void customerPurchaseHistoryScreen( boolean managerMode ) {
         if ( frame != null ) {
             frame.dispose();
@@ -172,7 +207,7 @@ public class MediaStoreGUI {
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameDefaults();
     }
-    
+
     public static void customerRatingScreen() {
         if ( frame != null ) {
             frame.dispose();
