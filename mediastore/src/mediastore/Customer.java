@@ -24,7 +24,7 @@ public class Customer {
         credits = 0;
         name = "";
         address = "";
-        id = 0; 
+        id = 0;
         purchaseHistory = new LinkedList();
         db = null;
 
@@ -32,7 +32,7 @@ public class Customer {
 
     /**
      * Initializer Constructor
-     * 
+     *
      * @param id id of the Customer
      * @param name name of the Customer
      * @param address address of the Customer
@@ -53,10 +53,11 @@ public class Customer {
     /**
      * Buys an item from the media store if the user has enough credits
      * then it creates a purchase history and recalculates Ranking of all the
-     * items of that type 
+     * items of that type
+     *
      * @param id id of the item being bought
      * @return id of the purchase
-     * @throws java.io.IOException 
+     * @throws java.io.IOException
      */
     public int buy( int id ) throws java.io.IOException {
         Media object = db.getMediaFromID( id );
@@ -67,8 +68,9 @@ public class Customer {
         }
         credits -= price;
 
-        Purchase purchase = new Purchase( 0, price, System.currentTimeMillis() );
-        db.writeCustomerPurchase( this, purchase );
+        Purchase purchase = new Purchase( object.getID(), price, System.currentTimeMillis() );
+        //db.writeCustomerPurchase( this, purchase );
+        db.writeModifiedCustomer( this );
         purchaseHistory.add( purchase );
 
         object.numSold++;
@@ -80,7 +82,7 @@ public class Customer {
 
     /**
      * Search the media database for a specific item base of the title
-     * 
+     *
      * @param query the title of item your searching for
      * @return media
      */
@@ -96,7 +98,7 @@ public class Customer {
 
     /**
      * Lists all media items in the store
-     * 
+     *
      */
     public void listCLI() {
         System.out.println( "Movies: " );
@@ -122,9 +124,9 @@ public class Customer {
     /**
      * Displays detail information of a particular media item
      * including ACSII art if it is available
-     * 
+     *
      * @param id id of the media item
-     * @throws java.io.IOException 
+     * @throws java.io.IOException
      */
     public void displayInfoCLI( int id ) throws java.io.IOException {
         int maxWidth = 100;
@@ -169,6 +171,7 @@ public class Customer {
 
     /**
      * Returns the name of the customer
+     *
      * @return name
      */
     public String getName() {
@@ -177,6 +180,7 @@ public class Customer {
 
     /**
      * Returns the ID of the customer
+     *
      * @return id
      */
     public int getID() {
@@ -185,14 +189,16 @@ public class Customer {
 
     /**
      * Sets the database to the database in the parameter
+     *
      * @param db database we want customer to use
      */
     public void setDB( Database db ) {
         this.db = db;
     }
-    
+
     /**
      * Returns the customers purchase history
+     *
      * @return purchaseHistory
      */
     public LinkedList<Purchase> getPurchaseHistory() {
@@ -201,20 +207,22 @@ public class Customer {
 
     /**
      * Returns information about the customer
+     *
      * @return toTextDB
      */
     public String toTextDB() {
 
         String customerInfo = name + '\n' + address + '\n' + credits + '\n';
         for ( Purchase p : purchaseHistory ) {
-            customerInfo += p.toTextDB() + '\n';
+            customerInfo += p.toTextDB();
         }
         return customerInfo;
     }
 
     /**
-     * Returns a string that has information of all of customers data members 
-     *@return toString
+     * Returns a string that has information of all of customers data members
+     *
+     * @return toString
      */
     @Override
     public String toString() {
@@ -225,20 +233,22 @@ public class Customer {
         }
         return s;
     }
-    
+
     /**
      * Returns the current amount of credit the customer has
+     *
      * @return credits
      */
-    public double getBalance(){
+    public double getBalance() {
         return credits;
     }
-    
+
     /**
      * Has the Customer rate the media item on 1 through 5 scale
+     *
      * @param id id of item being rated
      * @param rating rating the customer gives the item
-     * @throws java.io.IOException 
+     * @throws java.io.IOException
      */
     public void rate( int id, int rating ) throws java.io.IOException {
         // clamp rating from 1 to 5
@@ -257,7 +267,8 @@ public class Customer {
     /**
      * Recalculates the current ranking of an item after it's been purchased and
      * changes the ranking of the other items accordingly
-     * @throws java.io.IOException 
+     *
+     * @throws java.io.IOException
      */
     private void recalculateRanking() throws java.io.IOException {
         class RankingComparator implements Comparator<Media> {
@@ -321,7 +332,7 @@ public class Customer {
     public void preview( int id ) throws IOException {
         Media m = db.getMediaFromID( id );
         Media result = db.preview( m );
-        if( result == null ){
+        if ( result == null ) {
             System.out.println( "ERROR: Preview/trailer missing or OS not supported!" );
         }
     }

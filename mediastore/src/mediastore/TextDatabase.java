@@ -349,7 +349,7 @@ public class TextDatabase extends Database {
      */
     @Override
     public void writeCustomerPurchase( Customer customer, Purchase purchase ) throws java.io.IOException {
-        purchase.setID( ++maxPurchaseID );
+        //purchase.setID( ++maxPurchaseID );
         File customerToModify = new File( rootDir.concat( "Customers" ) + File.separator + customer.getID() + ".txt" );
         FileWriter fw = new FileWriter( customerToModify, true );
         //BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( customerToModify ), "UTF-8" ) );
@@ -372,6 +372,24 @@ public class TextDatabase extends Database {
         for ( Purchase p : customer.getPurchaseHistory() ) {
             fw.write( p.toTextDB() );
         }
+        fw.close();
+    }
+
+    /**
+     * Writes a Customer to the database.
+     *
+     * @param customer The customer to commit to the database
+     * @throws java.io.IOException
+     */
+    @Override
+    public void writeModifiedCustomer( Customer customer ) throws java.io.IOException {
+        //customers.add( customer );
+        File customerToModify = new File( rootDir.concat( "Customers" ) + File.separator + customer.getID() + ".txt" );
+        FileWriter fw = new FileWriter( customerToModify );
+        fw.write( customer.toTextDB() );
+        //for ( Purchase p : customer.getPurchaseHistory() ) {
+        //    fw.write( p.toTextDB() );
+        //}
         fw.close();
     }
 

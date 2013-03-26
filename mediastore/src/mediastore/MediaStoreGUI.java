@@ -51,6 +51,7 @@ public class MediaStoreGUI {
             e.printStackTrace(); // this is what the @SupressWarnings is for
             System.exit( -1 );
         }
+        loggedInCustomer = db.getCustomerFromID( 1 );
 
         // initalize the substance theme and the welcome screen
         SwingUtilities.invokeLater( new Runnable() {
@@ -66,10 +67,10 @@ public class MediaStoreGUI {
                 }
                 welcomeScreen();
                 /*try {
-                    mediaViewerScreen(db.getMediaFromID( 1 ),db.getCustomerFromID( 1 ) );
-                } catch ( IOException ex ) {
-                    Logger.getLogger( MediaStoreGUI.class.getName() ).log( Level.SEVERE, null, ex );
-                }*/
+                 mediaViewerScreen(db.getMediaFromID( 1 ),db.getCustomerFromID( 1 ) );
+                 } catch ( IOException ex ) {
+                 Logger.getLogger( MediaStoreGUI.class.getName() ).log( Level.SEVERE, null, ex );
+                 }*/
             }
         } );
     }
@@ -130,23 +131,23 @@ public class MediaStoreGUI {
         frameHalfSize();
     }
 
-    public static void customerScreen() {
+    public static void customerScreen( boolean managerMode ) {
         if ( frame != null ) {
             frame.dispose();
         }
-        frame = new CustomerGUI( false, loggedInCustomer.getID() );
+        frame = new CustomerGUI( managerMode, loggedInCustomer.getID() );
 
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameDefaults();
     }
 
-    public static void mediaViewerScreen( Media m, Customer c ) throws IOException {
+    public static void mediaViewerScreen( Media m, Customer c, boolean managerMode ) throws IOException {
         if ( frame != null ) {
             frame.dispose();
         }
-            //          MediaViewerGUI( Media m, Customer c 
-            frame = new MediaViewerGUI( m, c );
-            frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+        //          MediaViewerGUI( Media m, Customer c 
+        frame = new MediaViewerGUI( m, c, managerMode );
+        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameDefaults();
     }
 
@@ -210,11 +211,11 @@ public class MediaStoreGUI {
         frameDefaults();
     }
 
-    public static void customerRatingScreen() {
+    public static void customerRatingScreen( Media m ) {
         if ( frame != null ) {
             frame.dispose();
         }
-        frame = new CustomerRatingGUI();
+        frame = new CustomerRatingGUI( m );
 
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameHalfSize();

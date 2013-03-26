@@ -11,6 +11,9 @@ package mediastore;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CustomerRatingGUI extends JFrame implements ActionListener, ItemListener {
 
@@ -28,11 +31,14 @@ public class CustomerRatingGUI extends JFrame implements ActionListener, ItemLis
     private JPanel mainPanel;
     private JPanel bottomPanel;
     private boolean rate;
+    private int rating;
+    private Media m;
 
-    public CustomerRatingGUI() {
+    public CustomerRatingGUI( Media m ) {
 
         addWindowListener( new CustomerRatingGUIExitHandler() );
         setLayout( new BorderLayout() );
+        this.m = m;
 
         headerFont = new Font( "Sans", Font.PLAIN, 20 );
 
@@ -83,7 +89,7 @@ public class CustomerRatingGUI extends JFrame implements ActionListener, ItemLis
         add( mainPanel, BorderLayout.CENTER );
         add( bottomPanel, BorderLayout.SOUTH );
 
-
+        rating = 0;
 
     }
 
@@ -95,29 +101,37 @@ public class CustomerRatingGUI extends JFrame implements ActionListener, ItemLis
         }
         if ( ae.getSource() == rateButton ) {
             rate = true;
+            try {
+                MediaStoreGUI.loggedInCustomer.rate( m.getID(), rating );
+            } catch ( IOException ex ) {
+                Logger.getLogger( CustomerRatingGUI.class.getName() ).log( Level.SEVERE, null, ex );
+            }
+            MediaStoreGUI.reloadDB();
             MediaStoreGUI.customerPurchaseHistoryScreen( false );
+
         }
 
     }
 
     @Override
     public void itemStateChanged( ItemEvent ie ) {
+        if ( buttons.isSelected( oneStarButton.getModel() ) ) {
+            rating = 1;
+        }
+        if ( buttons.isSelected( twoStarButton.getModel() ) ) {
+            rating = 2;
+        }
+        if ( buttons.isSelected( threeStarButton.getModel() ) ) {
+            rating = 3;
+        }
+        if ( buttons.isSelected( fourStarButton.getModel() ) ) {
+            rating = 4;
+        }
+        if ( buttons.isSelected( fiveStarButton.getModel() ) ) {
+            rating = 5;
+        }
 
-        if ( ie.getSource() == oneStarButton && rate ) {
-            
-        }
-        if ( ie.getSource() == twoStarButton && rate ) {
-            
-        }
-        if ( ie.getSource() == threeStarButton && rate ) {
-            
-        }
-        if ( ie.getSource() == fourStarButton && rate ) {
-            
-        }
-        if ( ie.getSource() == fiveStarButton && rate ) {
-            
-        }
+
     }
 
     private class CustomerRatingGUIExitHandler extends WindowAdapter {

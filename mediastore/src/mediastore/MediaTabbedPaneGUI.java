@@ -36,8 +36,15 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
     private Vector<Vector> audiobookVector;    //vector of audiobooks
     private MouseAdapter tableMouseAdapter;
     //private int tabSize = (int) ( MediaStoreGUI.getDefaultFrameHeight() * 0.729 ); //TODO: add method to MediaStoreGUI so I can get the height of the JFrame
+    private boolean managerMode;
 
     public MediaTabbedPaneGUI() {
+        this( false );
+    }
+
+    public MediaTabbedPaneGUI( boolean managerMode ) {
+        this.managerMode = managerMode;
+
 
         setPreferredSize( new Dimension( 350, 350 ) );
 
@@ -287,7 +294,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
             Media media = MediaStoreGUI.db.getMediaFromID( Integer.parseInt( (String) target.getValueAt( row, col ) ) );
 
             try {
-                MediaStoreGUI.mediaViewerScreen( media, MediaStoreGUI.loggedInCustomer );
+                MediaStoreGUI.mediaViewerScreen( media, MediaStoreGUI.loggedInCustomer, managerMode );
             } catch ( IOException ex ) {
                 Logger.getLogger( MediaTabbedPaneGUI.class.getName() ).log( Level.SEVERE, null, ex );
             }

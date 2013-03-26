@@ -24,10 +24,10 @@ public class Purchase {
 
     /**
      * Initializer Constructor
-     * 
+     *
      * @param id
      * @param price
-     * @param date 
+     * @param date
      */
     Purchase( int id, double price, long date ) {
         this.id = id;
@@ -37,6 +37,7 @@ public class Purchase {
 
     /**
      * returns the id of the purchase
+     *
      * @return id
      */
     public int getID() {
@@ -45,14 +46,16 @@ public class Purchase {
 
     /**
      * Sets the id of the purchase to the id in the parameter
-     * @param id 
+     *
+     * @param id
      */
     public void setID( int id ) {
         this.id = id;
     }
 
     /**
-     * returns the price of the purchase 
+     * returns the price of the purchase
+     *
      * @return price
      */
     public double getPrice() {
@@ -60,7 +63,8 @@ public class Purchase {
     }
 
     /**
-     * returns the time the purchase was made 
+     * returns the time the purchase was made
+     *
      * @return purchaseUnixTime
      */
     public long getPurchaseUnixTime() {
@@ -69,6 +73,7 @@ public class Purchase {
 
     /**
      * returns all the information of purchase order
+     *
      * @return toTextDB
      */
     public String toTextDB() {
@@ -77,6 +82,7 @@ public class Purchase {
 
     /**
      * returns the toString that lists all data members of the purchase
+     *
      * @return toString
      */
     public String toString() {

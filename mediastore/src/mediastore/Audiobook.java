@@ -7,7 +7,6 @@ package mediastore;
  */
 public class Audiobook extends Media {
 
-    
     /**
      * Initializer constructor
      *
@@ -28,13 +27,13 @@ public class Audiobook extends Media {
     }
 
     /**
-     *  
+     *
      * @return a string that contains all the information on the audio book
      */
     public String toTextDB() {
         return author + "\n" + title + "\n" + duration + "\n" + genre + "\n" + rating + "\n" + totalReviews + "\n" + price + "\n" + numSold;
     }
-    
+
     @Override                       //had to add this so I could override it in movie.java
     public int getReleaseYear() {
         return 0;

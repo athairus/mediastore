@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @author Milton John, Ryan Smith and Cole Arnold
  */
 public class Manager {
-    
+
     private String password; //managers password
     private Database db; //the database this instance is a member of
 
@@ -19,10 +19,10 @@ public class Manager {
      * @param db The database this instance belongs to
      */
     Manager( String password, Database db ) {
-        
+
         this.password = password;
         this.db = db;
-        
+
     }
 
     /**
@@ -59,7 +59,7 @@ public class Manager {
                 Media newAlbum = new Album( 0, artist, albumTitle, albumDuration, albumGenre, albumRating, totalAlbumReviews, albumPrice, 0 );
                 db.media.add( newAlbum );
                 db.writeNewMediaItem( newAlbum );
-                
+
                 break;
             case 2:
                 System.out.print( "Enter the movie director: " );
@@ -81,7 +81,7 @@ public class Manager {
                 Media newMovie = new Movie( 0, director, movieTitle, movieDuration, movieGenre, movieRating, totalMovieReviews, moviePrice, movieYear, 0 );
                 db.media.add( newMovie );
                 db.writeNewMediaItem( newMovie );
-                
+
                 break;
             case 3:
                 System.out.print( "Enter the book's author: " );
@@ -101,10 +101,10 @@ public class Manager {
                 Media newAudiobook = new Audiobook( 0, author, bookTitle, bookDuration, bookGenre, bookRating, totalBookReviews, bookPrice, 0 );
                 db.media.add( newAudiobook );
                 db.writeNewMediaItem( newAudiobook );
-                
+
                 break;
         }
-        
+
     }
 
     /**
@@ -115,7 +115,7 @@ public class Manager {
      * @throws java.io.IOException
      */
     public void add( Media m ) throws java.io.IOException {
-        
+
         db.media.add( m );
         db.writeNewMediaItem( m );
     }
@@ -153,7 +153,7 @@ public class Manager {
      * @return The number sold for the given id
      */
     public int getNumSales( int id ) {
-        
+
         Media object = db.getMediaFromID( id );
         return object.numSold;
     }
@@ -164,7 +164,7 @@ public class Manager {
      * @return The total sales for the entire music store
      */
     public int getTotalNumSales() {
-        
+
         int sum = 0;
         for ( Media m : db.media ) {
             sum += m.numSold;
@@ -182,7 +182,7 @@ public class Manager {
         Customer person = db.getCustomerFromID( id );
         return person.toString();
     }
-    
+
     public boolean checkPassword( String password ) {
         return this.password.equals( password );
     }

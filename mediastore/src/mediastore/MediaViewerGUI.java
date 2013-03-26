@@ -9,7 +9,6 @@ import javax.swing.*;
 public class MediaViewerGUI extends JFrame implements ActionListener {
 
     private Database db;
-  
     private JLabel author;
     private JLabel title;
     private JLabel duration;
@@ -28,12 +27,12 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
     private Media media;
     private Customer customer;
 
-    public MediaViewerGUI( Media m, Customer c ) throws java.io.IOException {
+    public MediaViewerGUI( Media m, Customer c, boolean managerMode ) throws java.io.IOException {
 
         super( "Mediastore" );
 
 
-        addWindowListener( new MediaViewerGUIExitHandler() );
+        addWindowListener( new MediaViewerGUIExitHandler( managerMode ) );
 
         JPanel contentPane = new JPanel();
 
@@ -44,8 +43,8 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
         customer = c;
         setLayout( new BorderLayout( 10, 10 ) );
 
-       
-        
+
+
         cover = db.viewCoverImage( m );
         coverLabel = new JLabel( cover );
         author = new JLabel( "Author: " + m.getAuthor() + " | " );
@@ -54,7 +53,7 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
         genre = new JLabel( "Genre: " + m.getGenre() + " | " );
         rating = new JLabel( "Rating: " + m.getRating() + " | " );
         totalReviews = new JLabel( "Total Reviews: " + m.getTotalReviews() + " | " );
-        price = new JLabel( "Price: $" + m.getPrice()   + " | " );
+        price = new JLabel( "Price: $" + m.getPrice() + " | " );
         ranking = new JLabel( "Ranking: " + m.getRanking() + " | " );
         preview = new JButton( "Preview" );
         buy = new JButton( "Buy" );
@@ -62,7 +61,9 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
 
 
         buttonPanel = new JPanel();
-        buttonPanel.add( buy );
+        if ( !managerMode ) {
+            buttonPanel.add( buy );
+        }
         buttonPanel.add( preview );
 
 
@@ -117,7 +118,8 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
                 db.preview( media );
             }
             if ( e.getSource() == buy ) {
-                customer.buy( media.id );
+                //customer.buy( media.getID() );
+                MediaStoreGUI.loggedInCustomer.buy( media.getID() );
                 MediaStoreGUI.reloadDB();
                 JOptionPane.showMessageDialog( null, "Item has been purchased!", "MEDIA PURCHASED", JOptionPane.INFORMATION_MESSAGE );
 
@@ -128,14 +130,19 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
 
     private class MediaViewerGUIExitHandler extends WindowAdapter {
 
+        private boolean managerMode;
+
+        public MediaViewerGUIExitHandler( boolean managerMode ) {
+            this.managerMode = managerMode;
+        }
+
         @Override
         public void windowClosing( WindowEvent e ) {
 
-            MediaStoreGUI.customerScreen();
+            MediaStoreGUI.customerScreen( managerMode );
         }
     }
 
- 
     private ImageIcon scale( Image src, int width, int height ) {
         int w = width;
         int h = height;
@@ -146,5 +153,4 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
         g2.dispose();
         return new ImageIcon( dst );
     }
-
 }

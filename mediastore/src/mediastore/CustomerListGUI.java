@@ -71,7 +71,7 @@ public class CustomerListGUI extends JFrame implements ActionListener {
             }
             MediaStoreGUI.loggedInCustomer = (Customer) MediaStoreGUI.db.customers.toArray()[customerList.getSelectedIndex()];
             if ( !managerMode ) {
-                MediaStoreGUI.customerScreen();
+                MediaStoreGUI.customerScreen( managerMode );
             } else {
                 MediaStoreGUI.customerPurchaseHistoryScreen( true );
             }

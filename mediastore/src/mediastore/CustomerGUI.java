@@ -43,7 +43,7 @@ public class CustomerGUI extends JFrame implements ActionListener {
         searchField.addActionListener( this );
 
 
-        tabs = new MediaTabbedPaneGUI();
+        tabs = new MediaTabbedPaneGUI( managerMode );
 
 
         //set up search panel

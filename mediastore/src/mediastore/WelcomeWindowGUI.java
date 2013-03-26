@@ -18,7 +18,6 @@ public class WelcomeWindowGUI extends JFrame implements ActionListener {
     private JButton enterButton;                        //button to enter the store
     private JButton managerLoginButton;                 //button for Manager login
     private JLabel welcomeLabel;                       //String that displays "Welcome"
-    
     public boolean active;
 
     public WelcomeWindowGUI() {
