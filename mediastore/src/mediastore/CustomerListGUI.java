@@ -8,7 +8,7 @@ import java.util.Vector;
 import javax.swing.border.EmptyBorder;
 import mediastore.helpers.GBC;
 
-public class CustomerListGUI extends JFrame implements ActionListener {
+public class CustomerListGUI extends JFrame implements ActionListener, MouseListener {
 
     JPanel mainPanel;
     final int PADDING = 16;
@@ -36,6 +36,7 @@ public class CustomerListGUI extends JFrame implements ActionListener {
         }
         mainPanel.add( new JLabel( message ), BorderLayout.NORTH );
         customerList = new JList( customerArrayList.toArray() );
+        customerList.addMouseListener(  this );
         mainPanel.add( customerList, BorderLayout.CENTER );
 
         okButton = new JButton( "OK" );
@@ -76,6 +77,41 @@ public class CustomerListGUI extends JFrame implements ActionListener {
                 MediaStoreGUI.customerPurchaseHistoryScreen( true );
             }
         }
+    }
+
+    @Override
+    public void mouseClicked( MouseEvent me ) {
+    }
+
+    @Override
+    public void mousePressed( MouseEvent me ) {
+        if ( me.getClickCount() > 1 ) {
+
+            if ( customerList.getSelectedIndex() == -1 ) {
+                JOptionPane.showMessageDialog( null, "Please choose a customer.", "", JOptionPane.ERROR_MESSAGE );
+                return;
+            }
+            MediaStoreGUI.loggedInCustomer = (Customer) MediaStoreGUI.db.customers.toArray()[customerList.getSelectedIndex()];
+            if ( !managerMode ) {
+                MediaStoreGUI.customerScreen( managerMode );
+            } else {
+                MediaStoreGUI.customerPurchaseHistoryScreen( true );
+            }
+        }
+
+
+    }
+
+    @Override
+    public void mouseReleased( MouseEvent me ) {
+    }
+
+    @Override
+    public void mouseEntered( MouseEvent me ) {
+    }
+
+    @Override
+    public void mouseExited( MouseEvent me ) {
     }
 
     private class CustomerListGUIExitHandler extends WindowAdapter {
