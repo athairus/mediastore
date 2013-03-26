@@ -11,12 +11,15 @@ package mediastore;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.Calendar;
 import mediastore.helpers.GBC;
 import java.util.LinkedList;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class PurchaseHistoryGUI extends JFrame implements ActionListener {
+public class PurchaseHistoryGUI extends JFrame implements ActionListener, MouseListener {
 
     private JLabel headerLabel;
     private Font headerFont;
@@ -90,7 +93,7 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
         purchaseTable.setAutoCreateRowSorter( true );
         purchaseTable.getTableHeader().setReorderingAllowed( false );
         purchaseTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-        purchaseTable.addMouseListener( tableMouseAdapter );
+        purchaseTable.addMouseListener( this );
         purchaseTable.setShowGrid( false );
         purchaseTable.setIntercellSpacing( new Dimension( 0, 0 ) );
 
@@ -119,6 +122,42 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener {
             MediaStoreGUI.customerRatingScreen( MediaStoreGUI.db.getMediaFromID( Integer.parseInt( (String) purchaseTable.getValueAt( purchaseTable.getSelectedRow(), 4 ) ) ) );
         }
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {    
+    }
+ 
+    @Override
+    public void mouseReleased(MouseEvent me) {     
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {     
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {  
+    }
+    
+    @Override
+    public void mousePressed(MouseEvent e) {
+            if ( e.getClickCount() > 1 ) {
+            Point p = e.getPoint();
+            JTable target = (JTable) e.getSource();
+            int row = target.rowAtPoint( new Point( e.getX(), e.getY() ) );
+            if ( row == -1 ) {
+                return;
+            }
+            int col = 4;
+
+            Object valueAt = target.getValueAt( row, col );
+            Media media = MediaStoreGUI.db.getMediaFromID( Integer.parseInt( (String) target.getValueAt( row, col ) ) );
+
+            MediaStoreGUI.customerRatingScreen(media);
+            
+            }
+    }
+
 
     private class PurchaseHistoryGUIExitHandler extends WindowAdapter {
 
