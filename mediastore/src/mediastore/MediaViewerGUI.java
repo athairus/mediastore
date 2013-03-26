@@ -48,13 +48,13 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
         cover = db.viewCoverImage( m );
         coverLabel = new JLabel( cover );
         author = new JLabel( "Author: " + m.getAuthor() + " | " );
-        title = new JLabel( "| Title: " + m.getTitle() + " | " );
+        title = new JLabel( "Title: " + m.getTitle() + " | " );
         duration = new JLabel( "Duration: " + m.getDuration() + " | " );
         genre = new JLabel( "Genre: " + m.getGenre() + " | " );
         rating = new JLabel( "Rating: " + m.getRating() + " | " );
         totalReviews = new JLabel( "Total Reviews: " + m.getTotalReviews() + " | " );
         price = new JLabel( "Price: $" + m.getPrice() + " | " );
-        ranking = new JLabel( "Ranking: " + m.getRanking() + " | " );
+        ranking = new JLabel( "Ranking: " + m.getRanking() );
         preview = new JButton( "Preview" );
         buy = new JButton( "Buy" );
 
@@ -82,14 +82,14 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
         price.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
         ranking.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
         totalReviews.setFont( new Font( "Sans", Font.PLAIN, 14 ) );
-        title.setForeground( Color.red );
-        author.setForeground( Color.red );
-        duration.setForeground( Color.red );
-        genre.setForeground( Color.red );
-        rating.setForeground( Color.red );
-        price.setForeground( Color.red );
-        ranking.setForeground( Color.red );
-        totalReviews.setForeground( Color.red );
+        title.setForeground( Color.white );
+        author.setForeground( Color.white );
+        duration.setForeground( Color.white );
+        genre.setForeground( Color.white );
+        rating.setForeground( Color.white );
+        price.setForeground( Color.white );
+        ranking.setForeground( Color.white );
+        totalReviews.setForeground( Color.white );
 
         infoPanel.add( title );
         infoPanel.add( author );
@@ -119,8 +119,12 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
             }
             if ( e.getSource() == buy ) {
                 //customer.buy( media.getID() );
-                MediaStoreGUI.loggedInCustomer.buy( media.getID() );
+                int result = MediaStoreGUI.loggedInCustomer.buy( media.getID() );
                 MediaStoreGUI.reloadDB();
+                if ( result == -1 ) {
+                    JOptionPane.showMessageDialog( null, "Insufficient funds to buy this item.", "", JOptionPane.ERROR_MESSAGE );
+                    return;
+                }
                 JOptionPane.showMessageDialog( null, "Item has been purchased!", "MEDIA PURCHASED", JOptionPane.INFORMATION_MESSAGE );
 
             }
