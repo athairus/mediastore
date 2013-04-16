@@ -2,7 +2,9 @@
 package mediastore;
 
 import java.io.IOException;
+import java.net.URL;
 import javax.swing.ImageIcon;
+import java.sql.*;  
 
 /**
 A class that interacts with a SQL-based database.
@@ -11,6 +13,13 @@ A class that interacts with a SQL-based database.
  * @version 1.0 April 14, 2013
  */
 public class SQLDatabase extends Database {
+
+   Connection myConnection; 
+
+    public SQLDatabase() throws SQLException {
+        this.myConnection = DriverManager.getConnection( "jdbc:derby://localhost:1527/MediaStore", "media" , "asdf" );
+    }
+    
 
     @Override
     public void writeNewCustomer(Customer customer) throws IOException {
