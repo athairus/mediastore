@@ -115,7 +115,10 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
     public void actionPerformed( ActionEvent e ) {
         try {
             if ( e.getSource() == preview ) {
-                db.preview( media );
+                Media result = db.preview( media );
+                if ( result == null ) {
+                    JOptionPane.showMessageDialog( null, "No preview available.", "", JOptionPane.ERROR_MESSAGE );
+                }
             }
             if ( e.getSource() == buy ) {
                 //customer.buy( media.getID() );
