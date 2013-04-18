@@ -1,6 +1,7 @@
 package mediastore;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -59,7 +60,7 @@ public class Customer {
      * @return id of the purchase
      * @throws java.io.IOException
      */
-    public int buy( int id ) throws java.io.IOException {
+    public int buy( int id ) throws java.io.IOException, SQLException {
         Media object = db.getMediaFromID( id );
         double price = object.getPrice();
         if ( credits < price ) {
@@ -128,7 +129,7 @@ public class Customer {
      * @param id id of the media item
      * @throws java.io.IOException
      */
-    public void displayInfoCLI( int id ) throws java.io.IOException {
+    public void displayInfoCLI( int id ) throws java.io.IOException, SQLException {
         int maxWidth = 100;
         int padding = 0;
         String padString = "";
@@ -250,7 +251,7 @@ public class Customer {
      * @param rating rating the customer gives the item
      * @throws java.io.IOException
      */
-    public void rate( int id, int rating ) throws java.io.IOException {
+    public void rate( int id, int rating ) throws java.io.IOException, SQLException {
         // clamp rating from 1 to 5
         if ( rating < 1 ) {
             rating = 1;
@@ -270,7 +271,7 @@ public class Customer {
      *
      * @throws java.io.IOException
      */
-    private void recalculateRanking() throws java.io.IOException {
+    private void recalculateRanking() throws java.io.IOException, SQLException {
         class RankingComparator implements Comparator<Media> {
 
             @Override
@@ -329,7 +330,7 @@ public class Customer {
         }
     }
 
-    public void preview( int id ) throws IOException {
+    public void preview( int id ) throws IOException, SQLException {
         Media m = db.getMediaFromID( id );
         Media result = db.preview( m );
         if ( result == null ) {

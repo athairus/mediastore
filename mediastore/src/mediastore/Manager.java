@@ -1,6 +1,7 @@
 package mediastore;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -30,7 +31,7 @@ public class Manager {
      *
      * @throws java.io.IOException
      */
-    public void addCLI() throws java.io.IOException {
+    public void addCLI() throws java.io.IOException, SQLException {
 
         //Command Line prompt for manager to add desired item to Media store
         System.out.println( "What media type do you want to add? (0 to exit)" );
@@ -114,7 +115,7 @@ public class Manager {
      * @param m The Media object to add to the database
      * @throws java.io.IOException
      */
-    public void add( Media m ) throws java.io.IOException {
+    public void add( Media m ) throws java.io.IOException, SQLException {
 
         db.media.add( m );
         db.writeNewMediaItem( m );
@@ -127,7 +128,7 @@ public class Manager {
      * @param id The id of the new object
      * @throws java.io.IOException
      */
-    public void add( Media m, int id ) throws java.io.IOException {
+    public void add( Media m, int id ) throws java.io.IOException, SQLException {
         m.id = id;
         db.media.add( m );
         db.writeNewMediaItem( m, id );
@@ -139,7 +140,7 @@ public class Manager {
      * @param id The id of the item to remove
      * @throws java.io.IOException
      */
-    public void remove( int id ) throws java.io.IOException {
+    public void remove( int id ) throws java.io.IOException, SQLException {
         Media object = db.getMediaFromID( id ); //stores desired media item in temporary object
         db.media.remove( object );              //deletes media object from RAM
         db.deleteMediaItem( object );           //deletes media object from disk
