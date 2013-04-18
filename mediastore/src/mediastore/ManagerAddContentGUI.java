@@ -255,7 +255,7 @@ public class ManagerAddContentGUI extends JFrame implements ItemListener, Action
                 if ( mediaTypeComboBox.getSelectedItem().equals( MOVIE ) ) {
                     newItem = new Movie( 0, movieDirectorTextField.getText(), movieTitleTextField.getText(), Integer.parseInt( movieDurationTextField.getText() ),
                             movieGenreTextField.getText(), Integer.parseInt( movieRatingTextField.getText() ), Integer.parseInt( movieTotalReviewsTextField.getText() ), Double.parseDouble( moviePriceTextField.getText() ),
-                            Integer.parseInt( movieReleaseYearTextField.getText() ), 0 );
+                            0, Integer.parseInt( movieReleaseYearTextField.getText() ) );
                 }
                 if ( mediaTypeComboBox.getSelectedItem().equals( ALBUM ) ) {
                     newItem = new Album( 0, albumAuthorTextField.getText(), albumTitleTextField.getText(), Integer.parseInt( albumDurationTextField.getText() ),
