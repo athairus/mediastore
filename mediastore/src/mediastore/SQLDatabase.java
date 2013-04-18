@@ -131,8 +131,8 @@ public class SQLDatabase extends Database {
     public void writeNewCustomer( Customer customer ) throws IOException, SQLException {
 
 
-        sql = "insert into CUSTOMER ( NAME, ADDRESS, BALANCE ) values ( customer.getSqlStatement )";
-        stmt.executeQuery( sql );
+        sql = "insert into CUSTOMER ( NAME, ADDRESS, BALANCE ) values ( " + customer.getSqlStatement() + " )";
+        stmt.execute( sql );
 
     }
     
@@ -146,14 +146,14 @@ public class SQLDatabase extends Database {
     public void writeModifiedCustomer( Customer customer ) throws IOException, SQLException {
         
         sql = "insert into CUSTOMER ( NAME, ADDRESS, BALANCE ) values ( " + customer.getSqlStatement() + " )";
-        stmt.executeQuery( sql );   
+        stmt.execute( sql );   
     }
 
     @Override
     public void writeCustomerPurchase( Customer customer, Purchase purchase ) throws IOException, SQLException {
         
-        sql = "insert into CUSTOMER_PURCHASES ( CUSTOMER_ID, PURCHASE_ID ) values ( customer.getID(), purchase.getID() )";
-        stmt.executeQuery(  sql );
+        sql = "insert into CUSTOMER_PURCHASES ( CUSTOMER_ID, PURCHASE_ID ) values ( " + customer.getID() + "," + purchase.getID() + " )";
+        stmt.execute(  sql );
     }
 
      /**
@@ -179,7 +179,7 @@ public class SQLDatabase extends Database {
         }
         
         sql = " insert into MEDIA ( TYPE, AUTHOR, TITLE, DURATION, GENRE, RATING, TOTAL_REVIEWS. PRICE, NUMSOLD, RELEASEYEAR) values ( \'" + type + "\', \'" + m.getAuthor() + "\'  , \'" + m.getTitle() + "\'  , " + m.getDuration() + ", \'" + m.getGenre() + "\', " + m.getRating() + ", " + m.getTotalReviews() + ", " + m.getPrice() + ", " + m.getNumSold() + ", " + m.getReleaseYear() + " )";
-        stmt.executeQuery( sql );
+        stmt.execute( sql );
     }
 
     @Override
@@ -188,6 +188,8 @@ public class SQLDatabase extends Database {
 
     @Override
     public void writeModifiedMediaItem( Media m ) throws IOException, SQLException {
+        
+        writeNewMediaItem( m, m.getID());
     }
 
     @Override
