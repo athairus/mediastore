@@ -208,6 +208,14 @@ public class SQLDatabase extends Database {
         stmt.execute( sql );
     }
 
+    
+    public void searchItem( String query ) throws IOException, SQLException {
+        
+       sql = "select * from MEDIA where MEDIA_AUTHOR like %" + query + "%";
+       stmt.executeQuery( sql );
+    }
+    
+    
     // don't bother implementing these
     @Override
     public Media preview( Media m ) throws IOException, SQLException {

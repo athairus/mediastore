@@ -7,8 +7,12 @@ package mediastore;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.sql.SQLException;
 import mediastore.helpers.GBC;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CustomerGUI extends JFrame implements ActionListener {
 
@@ -95,7 +99,14 @@ public class CustomerGUI extends JFrame implements ActionListener {
     public void actionPerformed( ActionEvent ae ) {
 
         if ( ae.getSource() == searchField ) {
-            JOptionPane.showMessageDialog( this, "Search functionality is not implemented yet.", "", JOptionPane.ERROR_MESSAGE );
+            try {
+                MediaStoreGUI.db.searchItem( searchField.getText() );
+            } catch ( IOException ex ) {
+                Logger.getLogger( CustomerGUI.class.getName() ).log( Level.SEVERE, null, ex );
+            } catch ( SQLException ex ) {
+                Logger.getLogger( CustomerGUI.class.getName() ).log( Level.SEVERE, null, ex );
+            }
+            MediaStoreGUI.customerScreen( false );
         }
         if ( ae.getSource() == purchaseHistoryButton ) {
             MediaStoreGUI.customerPurchaseHistoryScreen( managerMode );
