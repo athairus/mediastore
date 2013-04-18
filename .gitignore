@@ -1,20 +1,7 @@
-+ /mediastore/
-  + build/
-  + dist/
-  + nbproject/
-    build-impl.xml
-    + /private/
-    + project.properties
-    + project.xml
-  + src/
-  + test/
-  + build.xml
-/mediastore/derby.log
-/mediastore/build/
-/mediastore/dist/
-/mediastore/store/
-/mediastore/nbproject/private/
-/mediastore/MediaStore/
+mediastore/build/
+mediastore/dist/
+mediastore/store/
+mediastore/nbproject/private/
+mediastore/MediaStore/
 
-*private.properties
-*private.xml
+mediastore/derby.log
