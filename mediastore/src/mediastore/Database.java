@@ -1,6 +1,7 @@
 package mediastore;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import javax.swing.ImageIcon;
 
@@ -91,9 +92,9 @@ public abstract class Database {
      * @param customer The customer to commit to the database
      * @throws java.io.IOException
      */
-    public abstract void writeNewCustomer( Customer customer ) throws java.io.IOException;
+    public abstract void writeNewCustomer( Customer customer ) throws java.io.IOException, SQLException;
 
-    public abstract void writeModifiedCustomer( Customer customer ) throws java.io.IOException;
+    public abstract void writeModifiedCustomer( Customer customer ) throws java.io.IOException, SQLException;
 
     /**
      * Appends a customer Purchase to the database entry for the given Customer.
@@ -102,7 +103,7 @@ public abstract class Database {
      * @param purchase
      * @throws java.io.IOException
      */
-    public abstract void writeCustomerPurchase( Customer customer, Purchase purchase ) throws java.io.IOException;
+    public abstract void writeCustomerPurchase( Customer customer, Purchase purchase ) throws java.io.IOException, SQLException;
 
     /**
      * Writes a new Media item to the database, generating a new id in the
@@ -111,7 +112,7 @@ public abstract class Database {
      * @param m The Media item to commit to the database
      * @throws java.io.IOException
      */
-    public abstract void writeNewMediaItem( Media m ) throws java.io.IOException;
+    public abstract void writeNewMediaItem( Media m ) throws java.io.IOException, SQLException;
 
     /**
      * Writes a new Media item to the database.
@@ -120,7 +121,7 @@ public abstract class Database {
      * @param id The id of this new Media item
      * @throws java.io.IOException
      */
-    public abstract void writeNewMediaItem( Media m, int id ) throws java.io.IOException;
+    public abstract void writeNewMediaItem( Media m, int id ) throws java.io.IOException, SQLException;
 
     /**
      * Overwrites an existing Media entry in the database with a modified copy
@@ -129,7 +130,7 @@ public abstract class Database {
      * @param m The Media item to commit to the database
      * @throws java.io.IOException
      */
-    public abstract void writeModifiedMediaItem( Media m ) throws java.io.IOException;
+    public abstract void writeModifiedMediaItem( Media m ) throws java.io.IOException, SQLException;
 
     /**
      * Removes a Media item from the database.
@@ -137,7 +138,7 @@ public abstract class Database {
      * @param m The Media item to remove from the database
      * @throws java.io.IOException
      */
-    public abstract void deleteMediaItem( Media m ) throws java.io.IOException;
+    public abstract void deleteMediaItem( Media m ) throws java.io.IOException, SQLException;
 
     /**
      * Preview a Media item.
@@ -146,7 +147,7 @@ public abstract class Database {
      * @return m is returned if the operation was successful, null otherwise
      * @throws java.io.IOException
      */
-    public abstract Media preview( Media m ) throws java.io.IOException;
+    public abstract Media preview( Media m ) throws java.io.IOException, SQLException;
 
     /**
      * View the cover art in the a JFrame
@@ -155,7 +156,7 @@ public abstract class Database {
      * @return an image is returned to view in GUI
      * @throws java.io.IOException
      */
-    public abstract ImageIcon viewCoverImage( Media m ) throws java.io.IOException;
+    public abstract ImageIcon viewCoverImage( Media m ) throws java.io.IOException, SQLException;
 
-    public abstract String bgFileLocation( Media m ) throws java.io.IOException;
+    public abstract String bgFileLocation( Media m ) throws java.io.IOException, SQLException;
 }

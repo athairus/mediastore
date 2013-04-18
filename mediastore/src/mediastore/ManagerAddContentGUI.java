@@ -3,6 +3,7 @@ package mediastore;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -271,6 +272,8 @@ public class ManagerAddContentGUI extends JFrame implements ItemListener, Action
             try {
                 db.writeNewMediaItem( newItem );
             } catch ( IOException ex ) {
+                Logger.getLogger( ManagerAddContentGUI.class.getName() ).log( Level.SEVERE, null, ex );
+            } catch ( SQLException ex ) {
                 Logger.getLogger( ManagerAddContentGUI.class.getName() ).log( Level.SEVERE, null, ex );
             }
 

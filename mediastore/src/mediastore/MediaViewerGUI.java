@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class MediaViewerGUI extends JFrame implements ActionListener {
@@ -27,7 +30,7 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
     private Media media;
     private Customer customer;
 
-    public MediaViewerGUI( Media m, Customer c, boolean managerMode ) throws java.io.IOException {
+    public MediaViewerGUI( Media m, Customer c, boolean managerMode ) throws java.io.IOException, SQLException {
 
         super( "Mediastore" );
 
@@ -132,6 +135,8 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
 
             }
         } catch ( IOException ex ) {
+        } catch ( SQLException ex ) {
+            Logger.getLogger( MediaViewerGUI.class.getName() ).log( Level.SEVERE, null, ex );
         }
     }
 

@@ -3,6 +3,7 @@ package mediastore;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,7 +13,7 @@ import org.pushingpixels.substance.api.skin.GraphiteAquaSkin;
 
 @SuppressWarnings( "CallToThreadDumpStack" )
 /**
- * A class that serves as an entry point for the Mediastore's UI.
+ * A class that serves as an entry point for the Mediastore's GUI.
  *
  * @author Milton John
  * @version 1.0 Mar 20, 2013
@@ -24,7 +25,7 @@ public class MediaStoreGUI {
     private static final int defaultWidth = 800;                      //width of JFrame
     private static final int defaultHeight = 480;                     //height of JFrame
     private static JFrame frame;
-    public static TextDatabase db;
+    public static SQLDatabase db;
     public static Customer loggedInCustomer;
 
     public static void main( String[] args ) {
@@ -32,15 +33,10 @@ public class MediaStoreGUI {
         // initialize the DB
         db = null;
         try {
-            // the path to the db when running from NetBeans (an assumption is made about the db location relative to the .class files)
-            String path = System.getProperty( "user.dir" ).concat( File.separator + ".." + File.separator + ".." + File.separator + "db" + File.separator );
-
-            // the path to the db when running from a .jar (the db is assumed to be a folder named 'db' in the same folder as the jar)
-            if ( MediaStoreGUI.class.getResource( "MediaStoreGUI.class" ).toString().startsWith( "jar" ) ) {
-                path = System.getProperty( "user.dir" ).concat( File.separator + "db" + File.separator );
-            }
-            //System.out.println( "DB Path = " + path );
-            db = new TextDatabase( path );
+            Class.forName( "org.apache.derby.jdbc.ClientDriver" ).newInstance();
+            
+            
+            db = new SQLDatabase( "jdbc:derby://localhost:1527/MediaStore", "root", "toor" );
 
             if ( db.getCustomerFromID( 1 ) == null ) {
                 System.out.println( "WARNING: Missing customer #1, creating a default customer in this slot..." );
@@ -79,15 +75,8 @@ public class MediaStoreGUI {
         db = null;
         System.out.println( "Database modified. Reloading..." );
         try {
-            // the path to the db when running from NetBeans (an assumption is made about the db location relative to the .class files)
-            String path = System.getProperty( "user.dir" ).concat( File.separator + ".." + File.separator + ".." + File.separator + "db" + File.separator );
-
-            // the path to the db when running from a .jar (the db is assumed to be a folder named 'db' in the same folder as the jar)
-            if ( MediaStoreGUI.class.getResource( "MediaStoreGUI.class" ).toString().startsWith( "jar" ) ) {
-                path = System.getProperty( "user.dir" ).concat( File.separator + "db" + File.separator );
-            }
-            //System.out.println( "DB Path = " + path );
-            db = new TextDatabase( path );
+            
+            db = new SQLDatabase( "jdbc:derby://localhost:1527/MediaStore", "root", "toor" );
 
             if ( db.getCustomerFromID( 1 ) == null ) {
                 System.out.println( "WARNING: Missing customer #1, creating a default customer in this slot..." );
@@ -141,7 +130,7 @@ public class MediaStoreGUI {
         frameDefaults();
     }
 
-    public static void mediaViewerScreen( Media m, Customer c, boolean managerMode ) throws IOException {
+    public static void mediaViewerScreen( Media m, Customer c, boolean managerMode ) throws IOException, SQLException {
         if ( frame != null ) {
             frame.dispose();
         }
