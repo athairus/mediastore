@@ -70,7 +70,7 @@ public class Customer {
         credits -= price;
 
         Purchase purchase = new Purchase( object.getID(), price, System.currentTimeMillis() );
-        //db.writeCustomerPurchase( this, purchase );
+        db.writeCustomerPurchase( this, purchase );
         
         purchaseHistory.add( purchase );
 
