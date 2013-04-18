@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A class that interacts with a SQL-based database.
@@ -13,10 +15,29 @@ import java.sql.*;
  */
 public class SQLDatabase extends Database {
 
-    Connection connection;
+    Connection dbConn;
+    Statement stmt;
+    ResultSet results;
+    final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
 
     public SQLDatabase( String url, String username, String password ) throws SQLException {
-        Connection myConnection = DriverManager.getConnection( url, username, password );
+        try {
+            Class.forName( driver ).newInstance();
+        } catch ( Exception ex ) {
+            Logger.getLogger( SQLDatabase.class.getName() ).log( Level.SEVERE, null, ex );
+        }
+        String protocol = "jdbc:derby:";
+        String dbName = "MediaStore";   // the default database name
+        dbConn = DriverManager.getConnection( protocol + dbName + ";create=true" );
+        stmt = dbConn.createStatement();
+
+        DatabaseMetaData dbMeta = dbConn.getMetaData();
+        String[] tableTypes = { "customer", "purchase", "customer_purchase", "manager", "media" };
+        results = dbMeta.getTables( null, null, "%", tableTypes );
+
+        if ( !results.next() ) {
+            System.out.println( "Database not found. Attemping to create empty database..." );
+        }
     }
 
     @Override
@@ -62,5 +83,4 @@ public class SQLDatabase extends Database {
     public String bgFileLocation( Media m ) throws IOException, SQLException {
         return null;
     }
-
 }
