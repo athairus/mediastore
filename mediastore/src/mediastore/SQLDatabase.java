@@ -121,7 +121,7 @@ public class SQLDatabase extends Database {
 
     }
 
-     /**
+    /**
      * Writes a Customer to the database.
      *
      * @param customer The customer to commit to the database
@@ -131,11 +131,11 @@ public class SQLDatabase extends Database {
     public void writeNewCustomer( Customer customer ) throws IOException, SQLException {
 
 
-        sql = "insert into CUSTOMER ( NAME, ADDRESS, BALANCE ) values ( " + customer.getSqlStatement() + " )";
+        sql = "insert into app.CUSTOMER ( NAME, ADDRESS, BALANCE ) values ( " + customer.getSqlStatement() + " )";
         stmt.execute( sql );
 
     }
-    
+
     /**
      * Writes a Customer to the database.
      *
@@ -144,19 +144,20 @@ public class SQLDatabase extends Database {
      */
     @Override
     public void writeModifiedCustomer( Customer customer ) throws IOException, SQLException {
-        
-        sql = "insert into CUSTOMER ( NAME, ADDRESS, BALANCE ) values ( " + customer.getSqlStatement() + " )";
-        stmt.execute( sql );   
+
+        //sql = "insert into app.CUSTOMER ( NAME, ADDRESS, BALANCE ) values ( " + customer.getSqlStatement() + " )";
+        sql = "update app.customer set name = \'" + customer.getName() + "\', address = \'" + customer.getAddress() + "\', balance = " + customer.getBalance() + " where customer_id = " + customer.getID();
+        stmt.execute( sql );
     }
 
     @Override
     public void writeCustomerPurchase( Customer customer, Purchase purchase ) throws IOException, SQLException {
-        
-        sql = "insert into CUSTOMER_PURCHASES ( CUSTOMER_ID, PURCHASE_ID ) values ( " + customer.getID() + "," + purchase.getID() + " )";
-        stmt.execute(  sql );
+
+        sql = "insert into app.CUSTOMER_PURCHASES ( CUSTOMER_ID, PURCHASE_ID ) values ( " + customer.getID() + "," + purchase.getID() + " )";
+        stmt.execute( sql );
     }
 
-     /**
+    /**
      * Writes a new Media item to the database, generating a new id in the
      * process.
      *
@@ -165,33 +166,35 @@ public class SQLDatabase extends Database {
      */
     @Override
     public void writeNewMediaItem( Media m ) throws IOException, SQLException {
-        
+
         String type = "";
-        
-        if( m instanceof Movie) {
+
+        if( m instanceof Movie ) {
             type = "mv";
         }
-        if( m instanceof Album) {
+        if( m instanceof Album ) {
             type = "al";
         }
-        if( m instanceof Audiobook) {
+        if( m instanceof Audiobook ) {
             type = "ab";
         }
-        
-        sql = " insert into MEDIA ( TYPE, AUTHOR, TITLE, DURATION, GENRE, RATING, TOTAL_REVIEWS. PRICE, NUMSOLD, RELEASEYEAR) values ( \'" + type + "\', \'" + m.getAuthor() + "\'  , \'" + m.getTitle() + "\'  , " + m.getDuration() + ", \'" + m.getGenre() + "\', " + m.getRating() + ", " + m.getTotalReviews() + ", " + m.getPrice() + ", " + m.getNumSold() + ", " + m.getReleaseYear() + " )";
+
+        sql = " insert into app.MEDIA ( TYPE, AUTHOR, TITLE, DURATION, GENRE, RATING, TOTAL_REVIEWS, PRICE, NUMSOLD, RELEASEYEAR ) values ( \'" + type + "\', \'" + m.getAuthor() + "\'  , \'" + m.getTitle() + "\'  , " + m.getDuration() + ", \'" + m.getGenre() + "\', " + m.getRating() + ", " + m.getTotalReviews() + ", " + m.getPrice() + ", " + m.getNumSold() + ", " + ( ( m instanceof Movie ) ? m.getReleaseYear() : 0 ) + " )";
         stmt.execute( sql );
     }
 
     @Override
     public void writeNewMediaItem( Media m, int id ) throws IOException, SQLException {
+        writeNewMediaItem( m );
     }
 
     @Override
     public void writeModifiedMediaItem( Media m ) throws IOException, SQLException {
-        
-        writeNewMediaItem( m, m.getID());
+
+        sql = "update app.media set rating = " + m.getRating() + ", total_reviews = " + m.getTotalReviews() + ", numsold = " + m.getNumSold() + " where media_id = " + m.getID();
+        stmt.execute( sql );
     }
-    
+
     /**
      * Removes a Media item from the database.
      *
@@ -200,8 +203,7 @@ public class SQLDatabase extends Database {
      */
     @Override
     public void deleteMediaItem( Media m ) throws IOException, SQLException {
-        
-        
+
         sql = "delete from app.MEDIA where MEDIA_ID = " + m.getID();
         stmt.execute( sql );
     }
@@ -214,7 +216,9 @@ public class SQLDatabase extends Database {
 
     @Override
     public ImageIcon viewCoverImage( Media m ) throws IOException, SQLException {
-        return null;
+        // do as I say, not as I do
+        String unknown = "images/unknown.png";
+        return new ImageIcon( getClass().getResource( unknown ) );
     }
 
     @Override

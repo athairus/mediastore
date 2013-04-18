@@ -71,12 +71,16 @@ public class Customer {
 
         Purchase purchase = new Purchase( object.getID(), price, System.currentTimeMillis() );
         //db.writeCustomerPurchase( this, purchase );
-        db.writeModifiedCustomer( this );
+        
         purchaseHistory.add( purchase );
 
-        object.numSold++;
-
+        //object.numSold++;
+        object.incNumSold();
+        
         recalculateRanking();
+        
+        db.writeModifiedCustomer( this );
+        db.writeModifiedMediaItem( object );
 
         return purchase.getID();
     }
@@ -344,5 +348,9 @@ public class Customer {
 
     public String getSqlStatement() {
         return "'" + name + "', " + "'" + address + "', " + credits;
+    }
+    
+    public String getAddress() {
+        return address;
     }
 }

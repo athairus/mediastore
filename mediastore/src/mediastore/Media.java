@@ -34,7 +34,7 @@ public abstract class Media {
         rating = 0.0;
         totalReviews = 0;
         price = 0.0;
-
+        numSold = 0;
         ranking = 0;
     }
 
@@ -202,11 +202,15 @@ public abstract class Media {
         return numSold;
     }
 
+    public void incNumSold() {
+        numSold++;
+    }
+
     public double getRating() {
-        if ( rating < 0 ) {
+        if( rating < 0 ) {
             return 0;
         }
-        if ( rating > 5 ) {
+        if( rating > 5 ) {
             return 5;
         }
         return rating;
