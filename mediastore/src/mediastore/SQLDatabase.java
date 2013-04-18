@@ -40,7 +40,7 @@ public class SQLDatabase extends Database {
         results = dbMeta.getTables( null, null, "%", tableTypes );
 
         if ( !results.next() ) {
-            System.out.println( "Database not found. Attemping to create empty database..." );
+            System.out.println( "Database not found. Creating an empty database..." );
 
             InputStream is = SQLDatabase.class.getResourceAsStream( "initDB.sql" );
             InputStreamReader isr = new InputStreamReader( is );
@@ -67,6 +67,13 @@ public class SQLDatabase extends Database {
                 line = br.readLine();
             }
         }
+        
+        // parse customer database
+        
+        // parse media database
+        
+        // parse manager database
+        
     }
 
     @Override

@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -296,6 +297,8 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
             try {
                 MediaStoreGUI.mediaViewerScreen( media, MediaStoreGUI.loggedInCustomer, managerMode );
             } catch ( IOException ex ) {
+                Logger.getLogger( MediaTabbedPaneGUI.class.getName() ).log( Level.SEVERE, null, ex );
+            } catch ( SQLException ex ) {
                 Logger.getLogger( MediaTabbedPaneGUI.class.getName() ).log( Level.SEVERE, null, ex );
             }
         }

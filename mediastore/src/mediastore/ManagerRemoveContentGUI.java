@@ -3,6 +3,7 @@ package mediastore;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,6 +85,8 @@ public class ManagerRemoveContentGUI extends JFrame implements ItemListener, Act
                 // remove item
                 db.manager.remove( deadManWalking.getID() );
             } catch ( IOException ex ) {
+                Logger.getLogger( ManagerRemoveContentGUI.class.getName() ).log( Level.SEVERE, null, ex );
+            } catch ( SQLException ex ) {
                 Logger.getLogger( ManagerRemoveContentGUI.class.getName() ).log( Level.SEVERE, null, ex );
             }
             MediaStoreGUI.managerScreen();
