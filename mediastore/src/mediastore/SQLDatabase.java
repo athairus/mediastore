@@ -1,6 +1,9 @@
 package mediastore;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import java.sql.*;
@@ -19,15 +22,16 @@ public class SQLDatabase extends Database {
     Statement stmt;
     ResultSet results;
     final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+    String sql;
 
-    public SQLDatabase( String url, String username, String password ) throws SQLException {
+    public SQLDatabase( String dbName, String username, String password ) throws IOException, SQLException {
         try {
             Class.forName( driver ).newInstance();
         } catch ( Exception ex ) {
             Logger.getLogger( SQLDatabase.class.getName() ).log( Level.SEVERE, null, ex );
         }
         String protocol = "jdbc:derby:";
-        String dbName = "MediaStore";   // the default database name
+        //String dbName = "MediaStore";   // the default database name
         dbConn = DriverManager.getConnection( protocol + dbName + ";create=true" );
         stmt = dbConn.createStatement();
 
@@ -37,6 +41,31 @@ public class SQLDatabase extends Database {
 
         if ( !results.next() ) {
             System.out.println( "Database not found. Attemping to create empty database..." );
+
+            InputStream is = SQLDatabase.class.getResourceAsStream( "initDB.sql" );
+            InputStreamReader isr = new InputStreamReader( is );
+            BufferedReader br = new BufferedReader( isr );
+            StringBuilder sb = new StringBuilder();
+            String line;
+            line = br.readLine();
+            while ( line != null ) {
+                sb.append( line );
+                if ( line.contains( ";" ) ) {
+                    sql = sb.toString();
+                    sb = new StringBuilder();
+                    // executeQuery cannot process ; so remove it from sql
+                    sql = sql.substring( 0, sql.indexOf( ';' ) );
+                    // run sql here
+                    if ( sql.toUpperCase().contains( "SELECT" ) ) {
+                        // SELECT statement
+                        stmt.executeQuery( sql );
+                    } else {
+                        // All ohter type of statements
+                        stmt.execute( sql );
+                    }
+                }
+                line = br.readLine();
+            }
         }
     }
 

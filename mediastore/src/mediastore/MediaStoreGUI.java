@@ -36,7 +36,7 @@ public class MediaStoreGUI {
             Class.forName( "org.apache.derby.jdbc.ClientDriver" ).newInstance();
             
             
-            db = new SQLDatabase( "jdbc:derby://localhost:1527/MediaStore", "root", "toor" );
+            db = new SQLDatabase( "MediaStore", "root", "toor" );
 
             if ( db.getCustomerFromID( 1 ) == null ) {
                 System.out.println( "WARNING: Missing customer #1, creating a default customer in this slot..." );
@@ -76,7 +76,7 @@ public class MediaStoreGUI {
         System.out.println( "Database modified. Reloading..." );
         try {
             
-            db = new SQLDatabase( "jdbc:derby://localhost:1527/MediaStore", "root", "toor" );
+            db = new SQLDatabase( "MediaStore", "root", "toor" );
 
             if ( db.getCustomerFromID( 1 ) == null ) {
                 System.out.println( "WARNING: Missing customer #1, creating a default customer in this slot..." );
