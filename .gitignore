@@ -9,7 +9,8 @@
   + src/
   + test/
   + build.xml
-/mediastore/derby.log
+
+/mediastore/*.log
 /mediastore/build/
 /mediastore/dist/
 /mediastore/store/
