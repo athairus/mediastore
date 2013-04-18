@@ -118,22 +118,68 @@ public class SQLDatabase extends Database {
         results.next();
         manager = new Manager( results.getString( "password" ), this );
         System.out.println();
+
     }
 
+     /**
+     * Writes a Customer to the database.
+     *
+     * @param customer The customer to commit to the database
+     * @throws java.io.IOException, java.sql.SQLException
+     */
     @Override
     public void writeNewCustomer( Customer customer ) throws IOException, SQLException {
-    }
 
+
+        sql = "insert into CUSTOMER ( NAME, ADDRESS, BALANCE ) values ( customer.getSqlStatement )";
+        stmt.executeQuery( sql );
+
+    }
+    
+    /**
+     * Writes a Customer to the database.
+     *
+     * @param customer The customer to commit to the database
+     * @throws java.io.IOException, java.sql.SQLException
+     */
     @Override
     public void writeModifiedCustomer( Customer customer ) throws IOException, SQLException {
+        
+        sql = "insert into CUSTOMER ( NAME, ADDRESS, BALANCE ) values ( " + customer.getSqlStatement() + " )";
+        stmt.executeQuery( sql );   
     }
 
     @Override
     public void writeCustomerPurchase( Customer customer, Purchase purchase ) throws IOException, SQLException {
+        
+        sql = "insert into CUSTOMER_PURCHASES ( CUSTOMER_ID, PURCHASE_ID ) values ( customer.getID(), purchase.getID() )";
+        stmt.executeQuery(  sql );
     }
 
+     /**
+     * Writes a new Media item to the database, generating a new id in the
+     * process.
+     *
+     * @param m The Media item to commit to the database
+     * @throws java.io.IOException, java.sql.SQLException
+     */
     @Override
     public void writeNewMediaItem( Media m ) throws IOException, SQLException {
+        
+        String type = "";
+        
+        if( m instanceof Movie) {
+            type = "mv";
+        }
+        if( m instanceof Album) {
+            type = "al";
+        }
+        if( m instanceof Audiobook) {
+            type = "ab";
+        }
+        
+        sql = " insert into MEDIA ( TYPE, AUTHOR, TITLE, DURATION, GENRE, RATING, TOTAL_REVIEWS. PRICE, NUMSOLD, RELEASEYEAR) values ( \'" + type + "\', \'" + m.getAuthor() + "\'  , \'" + m.getTitle() + "\'  , " + m.getDuration() + ", \'" + m.getGenre() + "\', " + m.getRating() + ", " + m.getTotalReviews() + ", " + m.getPrice() + ", " + m.getNumSold() + ", " + m.getReleaseYear() + " )";
+        stmt.executeQuery( sql );
     }
 
     @Override

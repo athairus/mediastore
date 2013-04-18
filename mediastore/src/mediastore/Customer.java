@@ -341,4 +341,8 @@ public class Customer {
             System.out.println( "ERROR: Preview/trailer missing or OS not supported!" );
         }
     }
+
+    public String getSqlStatement() {
+        return "'" + name + "', " + "'" + address + "', " + credits;
+    }
 }
