@@ -191,9 +191,19 @@ public class SQLDatabase extends Database {
         
         writeNewMediaItem( m, m.getID());
     }
-
+    
+    /**
+     * Removes a Media item from the database.
+     *
+     * @param m The Media item to remove from the database
+     * @throws java.io.IOException
+     */
     @Override
     public void deleteMediaItem( Media m ) throws IOException, SQLException {
+        
+        
+        sql = "delete from app.MEDIA where MEDIA_ID = " + m.getID();
+        stmt.execute( sql );
     }
 
     // don't bother implementing these
