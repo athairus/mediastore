@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import java.sql.*;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +28,7 @@ public class SQLDatabase extends Database {
     public SQLDatabase( String dbName, String username, String password ) throws IOException, SQLException {
         try {
             Class.forName( driver ).newInstance();
-        } catch ( Exception ex ) {
+        } catch( Exception ex ) {
             Logger.getLogger( SQLDatabase.class.getName() ).log( Level.SEVERE, null, ex );
         }
         String protocol = "jdbc:derby:";
@@ -36,10 +37,10 @@ public class SQLDatabase extends Database {
         stmt = dbConn.createStatement();
 
         DatabaseMetaData dbMeta = dbConn.getMetaData();
-        String[] tableTypes = { "customer", "purchase", "customer_purchase", "manager", "media" };
-        results = dbMeta.getTables( null, null, "%", tableTypes );
+        String[] tableTypes = { "app.manager" };
+        results = dbMeta.getTables( null, null, null, new String[]{ "TABLE" } );
 
-        if ( !results.next() ) {
+        if( !results.next() ) {
             System.out.println( "Database not found. Creating an empty database..." );
 
             InputStream is = SQLDatabase.class.getResourceAsStream( "initDB.sql" );
@@ -48,15 +49,15 @@ public class SQLDatabase extends Database {
             StringBuilder sb = new StringBuilder();
             String line;
             line = br.readLine();
-            while ( line != null ) {
+            while( line != null ) {
                 sb.append( line );
-                if ( line.contains( ";" ) ) {
+                if( line.contains( ";" ) ) {
                     sql = sb.toString();
                     sb = new StringBuilder();
                     // executeQuery cannot process ; so remove it from sql
                     sql = sql.substring( 0, sql.indexOf( ';' ) );
                     // run sql here
-                    if ( sql.toUpperCase().contains( "SELECT" ) ) {
+                    if( sql.toUpperCase().contains( "SELECT" ) ) {
                         // SELECT statement
                         stmt.executeQuery( sql );
                     } else {
@@ -67,13 +68,56 @@ public class SQLDatabase extends Database {
                 line = br.readLine();
             }
         }
-        
+
         // parse customer database
-        
+        customers = new LinkedList();
+        sql = "select * from app.customer";
+        results = stmt.executeQuery( sql );
+        while( results.next() ) {
+            customers.add( new Customer( results.getInt( "customer_id" ), results.getString( "name" ), results.getString( "address" ), results.getDouble( "balance" ), new LinkedList(), this ) );
+            customerCount++;
+            maxCustomerID = customerCount;
+        }
+
+
+        // parse purchase history
+        for( Customer c : customers ) {
+            sql = "select * from app.customer_purchases where customer_id = " + c.getID();
+            results = stmt.executeQuery( sql );
+            while( results.next() ) {
+                sql = "select * from app.purchase where purchase_id = " + results.getInt( "purchase_id" );
+                Statement s = dbConn.createStatement();
+                ResultSet r = s.executeQuery( sql );
+                long dt = 0;
+                if( r.next() ) {
+                    Purchase p = new Purchase( r.getInt( "media_id" ), r.getDouble( "price" ), dt );
+                    c.addPurchase( p );
+                }
+            }
+        }
+
         // parse media database
-        
+        media = new LinkedList();
+        sql = "select * from app.media";
+        results = stmt.executeQuery( sql );
+        while( results.next() ) {
+            if( results.getString( "type" ).equals( "mv" ) ) {
+                media.add( new Movie( results.getInt( "media_id" ), results.getString( "author" ), results.getString( "title" ), results.getInt( "duration" ), results.getString( "genre" ), results.getDouble( "rating" ), results.getInt( "total_reviews" ), results.getDouble( "price" ), results.getInt( "numsold" ), results.getInt( "releaseyear" ) ) );
+            }
+            if( results.getString( "type" ).equals( "al" ) ) {
+                media.add( new Album( results.getInt( "media_id" ), results.getString( "author" ), results.getString( "title" ), results.getInt( "duration" ), results.getString( "genre" ), results.getDouble( "rating" ), results.getInt( "total_reviews" ), results.getDouble( "price" ), results.getInt( "numsold" ) ) );
+            }
+            if( results.getString( "type" ).equals( "ab" ) ) {
+                media.add( new Audiobook( results.getInt( "media_id" ), results.getString( "author" ), results.getString( "title" ), results.getInt( "duration" ), results.getString( "genre" ), results.getDouble( "rating" ), results.getInt( "total_reviews" ), results.getDouble( "price" ), results.getInt( "numsold" ) ) );
+            }
+        }
+
         // parse manager database
-        
+        sql = "select * from app.manager";
+        results = stmt.executeQuery( sql );
+        results.next();
+        manager = new Manager( results.getString( "password" ), this );
+        System.out.println();
     }
 
     @Override

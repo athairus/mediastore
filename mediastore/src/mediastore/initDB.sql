@@ -13,25 +13,21 @@ create table media (
 	total_reviews int,
 	price double,
 	numsold int,
-	releaseyear int/*,
-	constraint pk_media_id primary key ( media_id )*/
+	releaseyear int
 );
 
 create table customer (
 	customer_id int not null primary key generated always as identity ( start with 1, increment by 1 ),
 	name varchar( 256 ),
 	address varchar( 256 ),
-	balance double/*,
-	constraint pk_customer_id primary key ( customer_id )*/
+	balance double
 );
 
 create table purchase (
 	purchase_id int not null primary key generated always as identity ( start with 1, increment by 1 ),
 	media_id int,
 	price double,
-	p_date date,
-	p_time time,
-	/*constraint pk_purchase_id primary key ( purchase_id ),*/
+	dt timestamp,
 	constraint fk_media_id foreign key ( media_id ) references media ( media_id )
 );
 
@@ -44,3 +40,4 @@ create table customer_purchases (
 
 
 insert into customer( name, address, balance ) values ( 'George W. Bush', '123 Texas St.', 350.0 );
+insert into manager( password ) values ( 'cole' );

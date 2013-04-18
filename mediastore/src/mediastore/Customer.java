@@ -81,6 +81,10 @@ public class Customer {
         return purchase.getID();
     }
 
+    public void addPurchase( Purchase p ) {
+        purchaseHistory.add( p );
+    }
+
     /**
      * Search the media database for a specific item base of the title
      *
