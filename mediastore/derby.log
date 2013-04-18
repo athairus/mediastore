@@ -1,10 +1,11 @@
 ----------------------------------------------------------------
-Thu Apr 18 14:15:02 EDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-013e-1e5b-5427-000003465918 
-on database directory C:\Users\whiplash\Dropbox\school\spring 2013\CMPSC 221\project\git\mediastore\mediastore\MediaStore  with class loader sun.misc.Launcher$AppClassLoader@12360be0 
+Thu Apr 18 15:05:05 EDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-013e-1e89-2881-000003465918 
+on database directory C:\Users\whiplash\Dropbox\school\spring 2013\CMPSC 221\project\git\mediastore\mediastore\MediaStore  with class loader sun.misc.Launcher$AppClassLoader@138d107f 
 Loaded from file:/C:/Program%20Files/glassfish-3.1.2.2/javadb/lib/derby.jar
 java.vendor=Sun Microsystems Inc.
 java.runtime.version=1.6.0_43-b01
 user.dir=C:\Users\whiplash\Dropbox\school\spring 2013\CMPSC 221\project\git\mediastore\mediastore
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
+asdf
