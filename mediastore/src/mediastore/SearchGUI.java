@@ -121,6 +121,9 @@ public class SearchGUI extends JFrame implements MouseListener {
             }
             int col = 0;
             Object valueAt = target.getValueAt( row, col );
+            if( valueAt == null ) {
+                return;
+            }
             Media media = MediaStoreGUI.db.getMediaFromID( Integer.parseInt( target.getValueAt( row, col ).toString() ) );
             searchMode = true;
             try {
@@ -155,7 +158,7 @@ public class SearchGUI extends JFrame implements MouseListener {
 
         @Override
         public void windowClosing( WindowEvent e ) {
-            MediaStoreGUI.customerScreen( rootPaneCheckingEnabled );
+            MediaStoreGUI.customerScreen( managerMode );
 
         }
     }
