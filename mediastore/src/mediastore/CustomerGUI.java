@@ -35,8 +35,8 @@ public class CustomerGUI extends JFrame implements ActionListener {
 
         this.managerMode = managerMode;
 
-        
-        
+
+
         addWindowListener( new CustomerGUIExitHandler( managerMode ) );
 
         setLayout( new BorderLayout() );                //set up layout
@@ -53,7 +53,7 @@ public class CustomerGUI extends JFrame implements ActionListener {
 
 
         //set up search panel
-        if ( !managerMode ) {
+        if( !managerMode ) {
             searchPanel = new JPanel();
             searchPanel.add( new JLabel( String.format( "$%.2f  |  ", MediaStoreGUI.db.getCustomerFromID( id ).getBalance() ) ) );
             searchPanel.add( searchLabel );
@@ -67,7 +67,7 @@ public class CustomerGUI extends JFrame implements ActionListener {
         topPanel.add( tabs, new GBC( 0, 1 )
                 .setWeight( 1, 1 )
                 .setFill( GBC.BOTH ) );
-        if ( !managerMode ) {
+        if( !managerMode ) {
             topPanel.add( searchPanel,
                     new GBC( 0, 0 )
                     .setWeight( 0, 0 )
@@ -86,7 +86,7 @@ public class CustomerGUI extends JFrame implements ActionListener {
 
 
 
-        if ( managerMode ) {                                //added when manager is logged in
+        if( managerMode ) {                                //added when manager is logged in
 
             managerLabel = new JLabel( "Manager mode | Total sales in entire store: " + MediaStoreGUI.db.manager.getTotalNumSales() );
             bottomPanel.add( managerLabel, BorderLayout.WEST );
@@ -100,16 +100,16 @@ public class CustomerGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed( ActionEvent ae ) {
 
-        if ( ae.getSource() == searchField ) {
+        if( ae.getSource() == searchField ) {
             try {
-                MediaStoreGUI.searchGUI( false, searchField.getText());
-            } catch ( SQLException ex ) {
+                MediaStoreGUI.searchGUI( false, searchField.getText() );
+            } catch( SQLException ex ) {
                 Logger.getLogger( CustomerGUI.class.getName() ).log( Level.SEVERE, null, ex );
-            } catch ( IOException ex ) {
+            } catch( IOException ex ) {
                 Logger.getLogger( CustomerGUI.class.getName() ).log( Level.SEVERE, null, ex );
             }
         }
-        if ( ae.getSource() == purchaseHistoryButton ) {
+        if( ae.getSource() == purchaseHistoryButton ) {
             MediaStoreGUI.customerPurchaseHistoryScreen( managerMode );
         }
     }
@@ -124,7 +124,7 @@ public class CustomerGUI extends JFrame implements ActionListener {
 
         @Override
         public void windowClosing( WindowEvent e ) {
-            if ( managerMode ) {
+            if( managerMode ) {
                 MediaStoreGUI.managerScreen();
             }
         }

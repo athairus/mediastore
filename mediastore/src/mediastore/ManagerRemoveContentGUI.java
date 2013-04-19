@@ -34,7 +34,7 @@ public class ManagerRemoveContentGUI extends JFrame implements ItemListener, Act
         Vector<String> columns = new Vector<String>();
         columns.addElement( "" );
         db = MediaStoreGUI.db;
-        for ( Media m : db.media ) {
+        for( Media m : db.media ) {
             Vector<Media> tmp = new Vector<Media>();
             tmp.addElement( m );
             items.addElement( tmp );
@@ -64,18 +64,18 @@ public class ManagerRemoveContentGUI extends JFrame implements ItemListener, Act
 
     @Override
     public void actionPerformed( ActionEvent e ) {
-        if ( e.getSource() == okButton ) {
+        if( e.getSource() == okButton ) {
             // determine selected item
             int index = table.getSelectedRow();
-            if ( index == -1 ) {
+            if( index == -1 ) {
                 JOptionPane.showMessageDialog( null, "Please choose an item to remove first.", "", JOptionPane.ERROR_MESSAGE );
                 return;
             }
             Media deadManWalking = null;
             int i = 0;
-            for ( Media m : db.media ) {
+            for( Media m : db.media ) {
                 deadManWalking = m;
-                if ( i == index ) {
+                if( i == index ) {
                     break;
                 }
                 i++;
@@ -84,16 +84,16 @@ public class ManagerRemoveContentGUI extends JFrame implements ItemListener, Act
             try {
                 // remove item
                 db.manager.remove( deadManWalking.getID() );
-            } catch ( IOException ex ) {
+            } catch( IOException ex ) {
                 Logger.getLogger( ManagerRemoveContentGUI.class.getName() ).log( Level.SEVERE, null, ex );
-            } catch ( SQLException ex ) {
+            } catch( SQLException ex ) {
                 Logger.getLogger( ManagerRemoveContentGUI.class.getName() ).log( Level.SEVERE, null, ex );
             }
             MediaStoreGUI.managerScreen();
             JOptionPane.showMessageDialog( null, "Item removed successfully." );
         }
 
-        if ( e.getSource() == cancelButton ) {
+        if( e.getSource() == cancelButton ) {
             MediaStoreGUI.managerScreen();
         }
     }

@@ -41,7 +41,7 @@ public class Manager {
         Scanner input = new Scanner( System.in ); //Scanner oject
 
         int choice = Integer.parseInt( input.nextLine() );
-        switch ( choice ) {
+        switch( choice ) {
             case 1:
                 System.out.print( "Enter the album artist: " );
                 String artist = input.nextLine();
@@ -167,7 +167,7 @@ public class Manager {
     public int getTotalNumSales() {
 
         int sum = 0;
-        for ( Media m : db.media ) {
+        for( Media m : db.media ) {
             sum += m.numSold;
         }
         return sum;

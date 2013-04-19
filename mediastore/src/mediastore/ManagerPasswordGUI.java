@@ -67,17 +67,17 @@ public class ManagerPasswordGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed( ActionEvent e ) {
-        if ( e.getSource() == passwordField ) {
+        if( e.getSource() == passwordField ) {
             // check password
             boolean result = MediaStoreGUI.db.manager.checkPassword( passwordField.getText() );
             // if ok, move on to manager interface
-            if ( result ) {
+            if( result ) {
                 MediaStoreGUI.managerScreen();
             } else {
                 JOptionPane.showMessageDialog( null, "Incorrect password", "", JOptionPane.ERROR_MESSAGE );
             }
         }
-        if ( e.getSource() == backButton ) {
+        if( e.getSource() == backButton ) {
             MediaStoreGUI.welcomeScreen();
         }
     }

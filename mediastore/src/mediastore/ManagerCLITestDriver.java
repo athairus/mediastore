@@ -23,13 +23,13 @@ public class ManagerCLITestDriver {
         TextDatabase db = null;
         try {
             db = new TextDatabase( System.getProperty( "user.dir" ).concat( File.separator + ".." + File.separator + ".." + File.separator + "db" + File.separator ) );
-        } catch ( Exception e ) {
+        } catch( Exception e ) {
             System.out.println( "An exception occured while parsing the database. (" + e.toString() + ")" );
             e.printStackTrace(); // this is what the @SupressWarnings is for
         }
 
         try {
-            if ( db.customers.isEmpty() ) {
+            if( db.customers.isEmpty() ) {
                 db.writeNewCustomer( new Customer( 1, "test", "123 Fake St.", 200, new LinkedList(), db ) );
             }
             db.manager.add( new Movie( 10, "Jack Black", "Tenacious D isn't dead I swear", 104, "Documentary", 5, 300, 49.99, 200000, 2013 ), 10 );
@@ -42,7 +42,7 @@ public class ManagerCLITestDriver {
             db.manager.remove( 11 );
 
 
-        } catch ( Exception e ) {
+        } catch( Exception e ) {
             System.out.println( "An exception occured testing the Manager class. (" + e.toString() + ")" );
             e.printStackTrace();
         }

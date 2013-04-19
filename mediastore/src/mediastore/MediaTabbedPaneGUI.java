@@ -126,9 +126,9 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
         musicVector = new Vector<Vector>();
         movieVector = new Vector<Vector>();
         audiobookVector = new Vector<Vector>();
-        for ( Media m : MediaStoreGUI.db.media ) {
+        for( Media m : MediaStoreGUI.db.media ) {
 
-            if ( m instanceof Album ) {
+            if( m instanceof Album ) {
 
                 Vector<String> tempVector = new Vector<String>();
 
@@ -145,7 +145,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
                 musicVector.addElement( tempVector );
 
             }
-            if ( m instanceof Movie ) {
+            if( m instanceof Movie ) {
 
                 Vector<String> tempVector = new Vector<String>();
 
@@ -163,7 +163,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
 
                 movieVector.addElement( tempVector );
             }
-            if ( m instanceof Audiobook ) {
+            if( m instanceof Audiobook ) {
 
                 Vector<String> tempVector = new Vector<String>();
 
@@ -281,15 +281,15 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
 
     @Override
     public void mousePressed( MouseEvent e ) {
-        if ( e.getClickCount() > 1 ) {
+        if( e.getClickCount() > 1 ) {
             Point p = e.getPoint();
             JTable target = (JTable) e.getSource();
             int row = target.rowAtPoint( new Point( e.getX(), e.getY() ) );
-            if ( row == -1 ) {
+            if( row == -1 ) {
                 return;
             }
             int col = 8;
-            if ( getSelectedIndex() == 1 ) {
+            if( getSelectedIndex() == 1 ) {
                 col = 9;
             }
             Object valueAt = target.getValueAt( row, col );
@@ -297,9 +297,9 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
 
             try {
                 MediaStoreGUI.mediaViewerScreen( media, MediaStoreGUI.loggedInCustomer, managerMode, searchMode );
-            } catch ( IOException ex ) {
+            } catch( IOException ex ) {
                 Logger.getLogger( MediaTabbedPaneGUI.class.getName() ).log( Level.SEVERE, null, ex );
-            } catch ( SQLException ex ) {
+            } catch( SQLException ex ) {
                 Logger.getLogger( MediaTabbedPaneGUI.class.getName() ).log( Level.SEVERE, null, ex );
             }
         }

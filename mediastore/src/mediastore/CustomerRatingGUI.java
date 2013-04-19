@@ -97,16 +97,16 @@ public class CustomerRatingGUI extends JFrame implements ActionListener, ItemLis
     @Override
     public void actionPerformed( ActionEvent ae ) {
 
-        if ( ae.getSource() == backButton ) {
+        if( ae.getSource() == backButton ) {
             MediaStoreGUI.customerPurchaseHistoryScreen( false );
         }
-        if ( ae.getSource() == rateButton ) {
+        if( ae.getSource() == rateButton ) {
             rate = true;
             try {
                 MediaStoreGUI.loggedInCustomer.rate( m.getID(), rating );
-            } catch ( IOException ex ) {
+            } catch( IOException ex ) {
                 Logger.getLogger( CustomerRatingGUI.class.getName() ).log( Level.SEVERE, null, ex );
-            } catch ( SQLException ex ) {
+            } catch( SQLException ex ) {
                 Logger.getLogger( CustomerRatingGUI.class.getName() ).log( Level.SEVERE, null, ex );
             }
             MediaStoreGUI.reloadDB();
@@ -118,19 +118,19 @@ public class CustomerRatingGUI extends JFrame implements ActionListener, ItemLis
 
     @Override
     public void itemStateChanged( ItemEvent ie ) {
-        if ( buttons.isSelected( oneStarButton.getModel() ) ) {
+        if( buttons.isSelected( oneStarButton.getModel() ) ) {
             rating = 1;
         }
-        if ( buttons.isSelected( twoStarButton.getModel() ) ) {
+        if( buttons.isSelected( twoStarButton.getModel() ) ) {
             rating = 2;
         }
-        if ( buttons.isSelected( threeStarButton.getModel() ) ) {
+        if( buttons.isSelected( threeStarButton.getModel() ) ) {
             rating = 3;
         }
-        if ( buttons.isSelected( fourStarButton.getModel() ) ) {
+        if( buttons.isSelected( fourStarButton.getModel() ) ) {
             rating = 4;
         }
-        if ( buttons.isSelected( fiveStarButton.getModel() ) ) {
+        if( buttons.isSelected( fiveStarButton.getModel() ) ) {
             rating = 5;
         }
 

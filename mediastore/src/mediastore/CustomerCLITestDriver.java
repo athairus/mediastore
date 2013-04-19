@@ -22,12 +22,12 @@ public class CustomerCLITestDriver {
         TextDatabase db = null;
         try {
             db = new TextDatabase( System.getProperty( "user.dir" ).concat( File.separator + ".." + File.separator + ".." + File.separator + "db" + File.separator ) );
-        } catch ( Exception e ) {
+        } catch( Exception e ) {
             System.out.println( "An exception occured while parsing the database. (" + e.toString() + ")" );
             e.printStackTrace(); // this is what the @SupressWarnings is for
         }
         try {
-            if ( db.customers.isEmpty() ) {
+            if( db.customers.isEmpty() ) {
                 db.writeNewCustomer( new Customer( 1, "test", "123 Fake St.", 200, new LinkedList(), db ) );
             }
             Customer c = db.getCustomerFromID( 1 );
@@ -36,7 +36,7 @@ public class CustomerCLITestDriver {
             c.displayInfoCLI( 1 );
             c.buy( 1 );
             System.out.println( "Customer purchased: " ); //displays purchased item
-            for ( Purchase p : c.getPurchaseHistory() ) {
+            for( Purchase p : c.getPurchaseHistory() ) {
                 System.out.println( p.toString() );
             }
             c.rate( 1, 4 ); //rates purchased item
@@ -44,7 +44,7 @@ public class CustomerCLITestDriver {
 
 
 
-        } catch ( Exception e ) {
+        } catch( Exception e ) {
             System.out.println( "An exception occured testing customer functionality. (" + e.toString() + ")" );
             e.printStackTrace(); // this is what the @SupressWarnings is for
         }

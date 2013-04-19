@@ -63,7 +63,7 @@ public class Customer {
     public int buy( int id ) throws java.io.IOException, SQLException {
         Media object = db.getMediaFromID( id );
         double price = object.getPrice();
-        if ( credits < price ) {
+        if( credits < price ) {
             // not enough money
             return -1;
         }
@@ -71,14 +71,14 @@ public class Customer {
 
         Purchase purchase = new Purchase( object.getID(), price, System.currentTimeMillis() );
         db.writeCustomerPurchase( this, purchase );
-        
+
         purchaseHistory.add( purchase );
 
         //object.numSold++;
         object.incNumSold();
-        
+
         recalculateRanking();
-        
+
         db.writeModifiedCustomer( this );
         db.writeModifiedMediaItem( object );
 
@@ -97,8 +97,8 @@ public class Customer {
      */
     public Media search( String query ) {
         Media media = null;
-        for ( Media m : db.media ) {
-            if ( m.title.equals( query ) ) {
+        for( Media m : db.media ) {
+            if( m.title.equals( query ) ) {
                 media = m;
             }
         }
@@ -111,20 +111,20 @@ public class Customer {
      */
     public void listCLI() {
         System.out.println( "Movies: " );
-        for ( Media m : db.media ) {
-            if ( m instanceof Movie ) {
+        for( Media m : db.media ) {
+            if( m instanceof Movie ) {
                 System.out.println( "\t" + m.id + "." + m.title );
             }
         }
         System.out.println( "Music: " );
-        for ( Media m : db.media ) {
-            if ( m instanceof Album ) {
+        for( Media m : db.media ) {
+            if( m instanceof Album ) {
                 System.out.println( "\t" + m.id + "." + m.title );
             }
         }
         System.out.println( "Audiobooks: " );
-        for ( Media m : db.media ) {
-            if ( m instanceof Audiobook ) {
+        for( Media m : db.media ) {
+            if( m instanceof Audiobook ) {
                 System.out.println( "\t" + m.id + "." + m.title );
             }
         }
@@ -148,28 +148,28 @@ public class Customer {
         info += m.getAuthor() + " | ";
         info += m.getGenre() + " | ";
         info += ( m.getDuration() / 60 ) + " min. | ";
-        for ( int i = 0; i < (int) m.getRating(); i++ ) {
+        for( int i = 0; i < (int) m.getRating(); i++ ) {
             info += '*';
         }
-        for ( int i = (int) m.getRating(); i < 5; i++ ) {
+        for( int i = (int) m.getRating(); i < 5; i++ ) {
             info += ' ';
         }
         info += "(" + m.totalReviews + ") | ";
         recalculateRanking();
         info += "#" + m.getRanking() + " in ";
-        if ( m instanceof Movie ) {
+        if( m instanceof Movie ) {
             info += "Movies | ";
         }
-        if ( m instanceof Album ) {
+        if( m instanceof Album ) {
             info += "Albums | ";
         }
-        if ( m instanceof Audiobook ) {
+        if( m instanceof Audiobook ) {
             info += "Audiobooks | ";
         }
         info += '$' + String.format( "%.2f", m.getPrice() );
         padding = maxWidth - info.length();
-        if ( padding > 0 ) {
-            for ( int i = 0; i < padding / 2; i++ ) {
+        if( padding > 0 ) {
+            for( int i = 0; i < padding / 2; i++ ) {
                 padString += ' ';
             }
             info = padString + info;
@@ -222,7 +222,7 @@ public class Customer {
     public String toTextDB() {
 
         String customerInfo = name + '\n' + address + '\n' + credits + '\n';
-        for ( Purchase p : purchaseHistory ) {
+        for( Purchase p : purchaseHistory ) {
             customerInfo += p.toTextDB();
         }
         return customerInfo;
@@ -237,7 +237,7 @@ public class Customer {
     public String toString() {
 
         String s = "Customer ID: " + id + '\n' + "Name: " + name + '\n' + "Address: " + address + '\n' + "Credit Balance: " + credits + '\n';
-        for ( Purchase p : purchaseHistory ) {
+        for( Purchase p : purchaseHistory ) {
             s += p.toString() + '\n';
         }
         return s;
@@ -261,10 +261,10 @@ public class Customer {
      */
     public void rate( int id, int rating ) throws java.io.IOException, SQLException {
         // clamp rating from 1 to 5
-        if ( rating < 1 ) {
+        if( rating < 1 ) {
             rating = 1;
         }
-        if ( rating > 5 ) {
+        if( rating > 5 ) {
             rating = 5;
         }
         Media m = db.getMediaFromID( id );
@@ -285,13 +285,13 @@ public class Customer {
             @Override
             public int compare( Media m1, Media m2 ) {
 
-                if ( m1.getNumSold() < m2.getNumSold() ) {
+                if( m1.getNumSold() < m2.getNumSold() ) {
                     return 1;
                 }
-                if ( m1.getNumSold() == m2.getNumSold() ) {
+                if( m1.getNumSold() == m2.getNumSold() ) {
                     return 0;
                 }
-                if ( m1.getNumSold() > m2.getNumSold() ) {
+                if( m1.getNumSold() > m2.getNumSold() ) {
                     return -1;
                 }
                 return 0;
@@ -302,14 +302,14 @@ public class Customer {
         LinkedList<Media> movies = new LinkedList();
         LinkedList<Media> albums = new LinkedList();
         LinkedList<Media> audiobooks = new LinkedList();
-        for ( Media m : db.media ) {
-            if ( m instanceof Movie ) {
+        for( Media m : db.media ) {
+            if( m instanceof Movie ) {
                 movies.add( m );
             }
-            if ( m instanceof Album ) {
+            if( m instanceof Album ) {
                 albums.add( m );
             }
-            if ( m instanceof Audiobook ) {
+            if( m instanceof Audiobook ) {
                 audiobooks.add( m );
             }
         }
@@ -320,19 +320,19 @@ public class Customer {
         Collections.sort( audiobooks, new RankingComparator() );
 
         int i = 1;
-        for ( Media m : movies ) {
+        for( Media m : movies ) {
             m.setRanking( i++ );
             db.writeModifiedMediaItem( m );
         }
 
         i = 1;
-        for ( Media m : albums ) {
+        for( Media m : albums ) {
             m.setRanking( i++ );
             db.writeModifiedMediaItem( m );
         }
 
         i = 1;
-        for ( Media m : audiobooks ) {
+        for( Media m : audiobooks ) {
             m.setRanking( i++ );
             db.writeModifiedMediaItem( m );
         }
@@ -341,7 +341,7 @@ public class Customer {
     public void preview( int id ) throws IOException, SQLException {
         Media m = db.getMediaFromID( id );
         Media result = db.preview( m );
-        if ( result == null ) {
+        if( result == null ) {
             System.out.println( "ERROR: Preview/trailer missing or OS not supported!" );
         }
     }
@@ -349,7 +349,7 @@ public class Customer {
     public String getSqlStatement() {
         return "'" + name + "', " + "'" + address + "', " + credits;
     }
-    
+
     public String getAddress() {
         return address;
     }

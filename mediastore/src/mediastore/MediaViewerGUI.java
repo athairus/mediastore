@@ -65,7 +65,7 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
 
 
         buttonPanel = new JPanel();
-        if ( !managerMode ) {
+        if( !managerMode ) {
             buttonPanel.add( buy );
         }
         buttonPanel.add( preview );
@@ -118,25 +118,25 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed( ActionEvent e ) {
         try {
-            if ( e.getSource() == preview ) {
+            if( e.getSource() == preview ) {
                 Media result = db.preview( media );
-                if ( result == null ) {
+                if( result == null ) {
                     JOptionPane.showMessageDialog( null, "No preview available.", "", JOptionPane.ERROR_MESSAGE );
                 }
             }
-            if ( e.getSource() == buy ) {
+            if( e.getSource() == buy ) {
                 //customer.buy( media.getID() );
                 int result = MediaStoreGUI.loggedInCustomer.buy( media.getID() );
                 MediaStoreGUI.reloadDB();
-                if ( result == -1 ) {
+                if( result == -1 ) {
                     JOptionPane.showMessageDialog( null, "Insufficient funds to buy this item.", "", JOptionPane.ERROR_MESSAGE );
                     return;
                 }
                 JOptionPane.showMessageDialog( null, "Item has been purchased!", "MEDIA PURCHASED", JOptionPane.INFORMATION_MESSAGE );
 
             }
-        } catch ( IOException ex ) {
-        } catch ( SQLException ex ) {
+        } catch( IOException ex ) {
+        } catch( SQLException ex ) {
             Logger.getLogger( MediaViewerGUI.class.getName() ).log( Level.SEVERE, null, ex );
         }
     }
@@ -153,12 +153,12 @@ public class MediaViewerGUI extends JFrame implements ActionListener {
 
         public void windowClosing( WindowEvent e ) {
 
-            if ( searchMode == true ) {
+            if( searchMode == true ) {
                 try {
                     MediaStoreGUI.searchGUI( managerMode, null );
-                } catch ( SQLException ex ) {
+                } catch( SQLException ex ) {
                     Logger.getLogger( MediaViewerGUI.class.getName() ).log( Level.SEVERE, null, ex );
-                } catch ( IOException ex ) {
+                } catch( IOException ex ) {
                     Logger.getLogger( MediaViewerGUI.class.getName() ).log( Level.SEVERE, null, ex );
                 }
             }

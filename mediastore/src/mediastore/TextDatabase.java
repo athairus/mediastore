@@ -45,7 +45,7 @@ public class TextDatabase extends Database {
 
         // check that the root dir exists
         File rootDirFile = new File( rootDir );
-        if ( !rootDirFile.exists() ) {
+        if( !rootDirFile.exists() ) {
             System.out.println( "WARNING: \"" + rootDirFile.getCanonicalPath() + "\" is missing, intializing an empty master database at this location..." );
             rootDirFile.mkdir();
         }
@@ -54,7 +54,7 @@ public class TextDatabase extends Database {
 
         // check that the customer folder exists
         File customerFolder = new File( rootDir.concat( "Customers" ) );
-        if ( !customerFolder.exists() ) {
+        if( !customerFolder.exists() ) {
             System.out.println( "WARNING: \"" + customerFolder.getCanonicalPath() + "\" is missing, initalizing an empty customer database at this location..." );
             customerFolder.mkdir();
         }
@@ -68,14 +68,14 @@ public class TextDatabase extends Database {
         customers = new LinkedList();
 
 
-        for ( File f : filesInCustomerFolder ) {
+        for( File f : filesInCustomerFolder ) {
 
             // strip the '.txt' from the filename to get the customer id
             int id = Integer.parseInt( getFilename( f ) );
 
             checkCustomerID( id );
 
-            if ( id == 0 ) {
+            if( id == 0 ) {
                 throw new java.util.InputMismatchException( "Invalid customer ID 0 present." );
             }
 
@@ -87,7 +87,7 @@ public class TextDatabase extends Database {
 
             // parse the customer's purchase history
             LinkedList purchaseHistory = new LinkedList();
-            while ( in.ready() ) {
+            while( in.ready() ) {
                 int purchaseID = Integer.parseInt( in.readLine() );
                 double purchasePrice = Double.parseDouble( in.readLine() );
                 long purchaseDate = Long.parseLong( in.readLine() );
@@ -120,7 +120,7 @@ public class TextDatabase extends Database {
 
         // <editor-fold defaultstate="collapsed" desc="parse movie database">
         File movieFolder = new File( rootDir.concat( "Movies" ) );
-        if ( !movieFolder.exists() ) {
+        if( !movieFolder.exists() ) {
             System.out.println( "WARNING: \"" + movieFolder.getCanonicalPath() + "\" is missing, initalizing an empty movie database at this location..." );
             movieFolder.mkdir();
         }
@@ -132,7 +132,7 @@ public class TextDatabase extends Database {
 
 
         // parse movie database
-        for ( File fDir : filesInMovieFolder ) {
+        for( File fDir : filesInMovieFolder ) {
             // strip the '.txt' from the filename to get the id
             int id = Integer.parseInt( fDir.getName() );
 
@@ -142,7 +142,7 @@ public class TextDatabase extends Database {
 
             // parse metadata
             f = new File( fDir.getCanonicalPath().concat( File.separator + "metadata.txt" ) );
-            if ( !f.exists() ) {
+            if( !f.exists() ) {
                 System.out.println( "Error parsing database: Movie id " + id + " is missing metadata.txt" );
                 throw new java.io.FileNotFoundException();
             }
@@ -162,17 +162,17 @@ public class TextDatabase extends Database {
             // check for presence of cover, background, and trailer
             // warn if missing
             f = new File( fDir.getCanonicalPath().concat( File.separator + "cover.png" ) );
-            if ( !f.exists() ) {
+            if( !f.exists() ) {
                 System.out.println( "WARNING: Movie id " + id + " is missing cover.png" );
             }
 
             f = new File( fDir.getCanonicalPath().concat( File.separator + "background.png" ) );
-            if ( !f.exists() ) {
+            if( !f.exists() ) {
                 System.out.println( "WARNING: Movie id " + id + " is missing background.png" );
             }
 
             f = new File( fDir.getCanonicalPath().concat( File.separator + "trailer.mp4" ) );
-            if ( !f.exists() ) {
+            if( !f.exists() ) {
                 System.out.println( "WARNING: Movie id " + id + " is missing trailer.mp4" );
             }
             in.close();
@@ -191,7 +191,7 @@ public class TextDatabase extends Database {
         // the folder name is "Music"
 
         File albumFolder = new File( rootDir.concat( "Music" ) );
-        if ( !albumFolder.exists() ) {
+        if( !albumFolder.exists() ) {
             System.out.println( "WARNING: \"" + albumFolder.getCanonicalPath() + "\" is missing, initalizing an empty music album database at this location..." );
             albumFolder.mkdir();
         }
@@ -203,7 +203,7 @@ public class TextDatabase extends Database {
 
 
         // parse music albums database
-        for ( File fDir : filesInAlbumFolder ) {
+        for( File fDir : filesInAlbumFolder ) {
             // strip the '.txt' from the filename to get the id
             int id = Integer.parseInt( fDir.getName() );
 
@@ -213,7 +213,7 @@ public class TextDatabase extends Database {
 
             // parse metadata
             f = new File( fDir.getCanonicalPath().concat( File.separator + "metadata.txt" ) );
-            if ( !f.exists() ) {
+            if( !f.exists() ) {
                 System.out.println( "Error parsing database: Album id " + id + " is missing metadata.txt" );
                 throw new java.io.FileNotFoundException();
             }
@@ -232,17 +232,17 @@ public class TextDatabase extends Database {
             // check for presence of cover, background, and preview
             // warn if missing
             f = new File( fDir.getCanonicalPath().concat( File.separator + "cover.png" ) );
-            if ( !f.exists() ) {
+            if( !f.exists() ) {
                 System.out.println( "WARNING: Album id " + id + " is missing cover.png" );
             }
 
             f = new File( fDir.getCanonicalPath().concat( File.separator + "background.png" ) );
-            if ( !f.exists() ) {
+            if( !f.exists() ) {
                 System.out.println( "WARNING: Album id " + id + " is missing background.png" );
             }
 
             f = new File( fDir.getCanonicalPath().concat( File.separator + "preview.mp3" ) );
-            if ( !f.exists() ) {
+            if( !f.exists() ) {
                 System.out.println( "WARNING: Album id " + id + " is missing preview.mp3" );
             }
             in.close();
@@ -256,7 +256,7 @@ public class TextDatabase extends Database {
         // the 'b' in audiobook is always lowercase
 
         File audiobookFolder = new File( rootDir.concat( "Audiobooks" ) );
-        if ( !audiobookFolder.exists() ) {
+        if( !audiobookFolder.exists() ) {
             System.out.println( "WARNING: \"" + audiobookFolder.getCanonicalPath() + "\" is missing, initalizing an empty audiobook database at this location..." );
             audiobookFolder.mkdir();
         }
@@ -268,7 +268,7 @@ public class TextDatabase extends Database {
 
 
         // parse audiobooks database
-        for ( File fDir : filesInAudiobookFolder ) {
+        for( File fDir : filesInAudiobookFolder ) {
             // strip the '.txt' from the filename to get the id
             int id = Integer.parseInt( fDir.getName() );
 
@@ -278,7 +278,7 @@ public class TextDatabase extends Database {
 
             // parse metadata
             f = new File( fDir.getCanonicalPath().concat( File.separator + "metadata.txt" ) );
-            if ( !f.exists() ) {
+            if( !f.exists() ) {
                 System.out.println( "Error parsing database: Audiobook id " + id + " is missing metadata.txt" );
                 throw new java.io.FileNotFoundException();
             }
@@ -297,17 +297,17 @@ public class TextDatabase extends Database {
             // check for presence of cover, background, and preview
             // warn if missing
             f = new File( fDir.getCanonicalPath().concat( File.separator + "cover.png" ) );
-            if ( !f.exists() ) {
+            if( !f.exists() ) {
                 System.out.println( "WARNING: Audiobook id " + id + " is missing cover.png" );
             }
 
             f = new File( fDir.getCanonicalPath().concat( File.separator + "background.png" ) );
-            if ( !f.exists() ) {
+            if( !f.exists() ) {
                 System.out.println( "WARNING: Audiobook id " + id + " is missing background.png" );
             }
 
             f = new File( fDir.getCanonicalPath().concat( File.separator + "preview.mp3" ) );
-            if ( !f.exists() ) {
+            if( !f.exists() ) {
                 System.out.println( "WARNING: Audiobook id " + id + " is missing preview.mp3" );
             }
             in.close();
@@ -322,7 +322,7 @@ public class TextDatabase extends Database {
 
         // check that the manager config file exists
         File managerFile = new File( rootDir.concat( "Manager.txt" ) );
-        if ( !managerFile.exists() ) {
+        if( !managerFile.exists() ) {
             System.out.println( "WARNING: \"" + managerFile.getCanonicalPath() + "\" is missing, intializing with the default manager password \"asdf\"..." );
             FileWriter fw = new FileWriter( managerFile );
             BufferedWriter out = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( managerFile ), "UTF-8" ) );
@@ -369,7 +369,7 @@ public class TextDatabase extends Database {
         File customerToModify = new File( rootDir.concat( "Customers" ) + File.separator + customer.getID() + ".txt" );
         FileWriter fw = new FileWriter( customerToModify );
         fw.write( customer.toTextDB() );
-        for ( Purchase p : customer.getPurchaseHistory() ) {
+        for( Purchase p : customer.getPurchaseHistory() ) {
             fw.write( p.toTextDB() );
         }
         fw.close();
@@ -411,7 +411,7 @@ public class TextDatabase extends Database {
         // generate a new ID
         m.id = maxMediaID++;
 
-        if ( m instanceof Movie ) {
+        if( m instanceof Movie ) {
             // increment movie count
             movieCount++;
 
@@ -427,7 +427,7 @@ public class TextDatabase extends Database {
             return;
         }
 
-        if ( m instanceof Album ) {
+        if( m instanceof Album ) {
             // increment album count
             albumCount++;
 
@@ -443,7 +443,7 @@ public class TextDatabase extends Database {
             return;
         }
 
-        if ( m instanceof Audiobook ) {
+        if( m instanceof Audiobook ) {
             // increment audiobook count
             audiobookCount++;
 
@@ -474,7 +474,7 @@ public class TextDatabase extends Database {
         // increment media count
         mediaCount++;
 
-        if ( m instanceof Movie ) {
+        if( m instanceof Movie ) {
             // increment movie count
             movieCount++;
 
@@ -490,7 +490,7 @@ public class TextDatabase extends Database {
             return;
         }
 
-        if ( m instanceof Album ) {
+        if( m instanceof Album ) {
             // increment album count
             albumCount++;
 
@@ -506,7 +506,7 @@ public class TextDatabase extends Database {
             return;
         }
 
-        if ( m instanceof Audiobook ) {
+        if( m instanceof Audiobook ) {
             // increment audiobook count
             audiobookCount++;
 
@@ -532,7 +532,7 @@ public class TextDatabase extends Database {
     public void writeModifiedMediaItem( Media m ) throws java.io.IOException {
         File newFile;
 
-        if ( m instanceof Movie ) {
+        if( m instanceof Movie ) {
 
             // create a new .txt entry, fill it with data
             newFile = new File( rootDir.concat( "Movies" + File.separator + Integer.toString( m.id ) + File.separator + "metadata.txt" ) );
@@ -546,7 +546,7 @@ public class TextDatabase extends Database {
             return;
         }
 
-        if ( m instanceof Album ) {
+        if( m instanceof Album ) {
 
             // create a new .txt entry, fill it with data
             newFile = new File( rootDir.concat( "Music" + File.separator + Integer.toString( m.id ) + File.separator + "metadata.txt" ) );
@@ -560,7 +560,7 @@ public class TextDatabase extends Database {
             return;
         }
 
-        if ( m instanceof Audiobook ) {
+        if( m instanceof Audiobook ) {
 
             // create a new .txt entry, fill it with data
             newFile = new File( rootDir.concat( "Audiobooks" + File.separator + Integer.toString( m.id ) + File.separator + "metadata.txt" ) );
@@ -584,7 +584,7 @@ public class TextDatabase extends Database {
         int id = m.id;
         File victim = new File( rootDir + File.separator + getFolderString( m ) + File.separator + id + File.separator );
         File[] victims = victim.listFiles();
-        for ( File f : victims ) {
+        for( File f : victims ) {
             f.delete();
         }
         victim.delete();
@@ -597,13 +597,13 @@ public class TextDatabase extends Database {
      * @return The folder name
      */
     private String getFolderString( Media m ) {
-        if ( m instanceof Movie ) {
+        if( m instanceof Movie ) {
             return "Movies";
         }
-        if ( m instanceof Album ) {
+        if( m instanceof Album ) {
             return "Music";
         }
-        if ( m instanceof Audiobook ) {
+        if( m instanceof Audiobook ) {
             return "Audiobooks";
         }
         return null;
@@ -633,7 +633,7 @@ public class TextDatabase extends Database {
         // this code is from my personal fork, https://github.com/o0whiplash0o/Image2ASCII
         BufferedImage inputImage;
         File image = new File( rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + "cover.png" );
-        if ( !image.exists() ) {
+        if( !image.exists() ) {
             String unknown = "images/unknown.png";
             inputImage = ImageIO.read( getClass().getResource( unknown ) );
         } else {
@@ -645,7 +645,7 @@ public class TextDatabase extends Database {
         // thanks to http://jonathangiles.net/blog/?p=702
         short[] invertTable;
         invertTable = new short[ 256 ];
-        for ( int i = 0; i < 256; i++ ) {
+        for( int i = 0; i < 256; i++ ) {
             invertTable[i] = (short) ( 255 - i );
         }
         BufferedImageOp invertOp = new LookupOp( new ShortLookupTable( 0, invertTable ), null );
@@ -657,15 +657,15 @@ public class TextDatabase extends Database {
         height *= (double) greyscaleImage.getHeight()
                 / (double) greyscaleImage.getWidth();
 
-        if ( border ) {
+        if( border ) {
             width -= 2;
             height -= 2;
         }
 
-        if ( width < 0 ) {
+        if( width < 0 ) {
             width = 0;
         }
-        if ( height < 0 ) {
+        if( height < 0 ) {
             height = 0;
         }
 
@@ -682,84 +682,84 @@ public class TextDatabase extends Database {
         g.dispose();
         greyscaleImage = temp;
 
-        if ( border ) {
-            if ( ( 80 - width ) > 0 ) {
-                for ( int j = 0; j < ( ( 80 - width ) / 2 ); j++ ) {
+        if( border ) {
+            if( ( 80 - width ) > 0 ) {
+                for( int j = 0; j < ( ( 80 - width ) / 2 ); j++ ) {
                     outputString += ' ';
                 }
             }
             outputString += " ";
-            for ( int j = 1; j <= width; j++ ) {
+            for( int j = 1; j <= width; j++ ) {
                 outputString += "_";
             }
             outputString += " \n";
 
         }
 
-        for ( int i = 0; i < height; i++ ) {
-            if ( ( 80 - width ) > 0 ) {
-                for ( int j = 0; j < ( ( 80 - width ) / 2 ); j++ ) {
+        for( int i = 0; i < height; i++ ) {
+            if( ( 80 - width ) > 0 ) {
+                for( int j = 0; j < ( ( 80 - width ) / 2 ); j++ ) {
                     outputString += ' ';
                 }
             }
-            if ( border ) {
+            if( border ) {
                 outputString += '|';
             }
-            for ( int j = 0; j < width; j++ ) {
+            for( int j = 0; j < width; j++ ) {
 
                 char character = ' ';
                 int pixel = greyscaleImage.getRGB( j, i );
                 int grey = pixel & 0xFF;
 
-                if ( grey > 0 ) {
+                if( grey > 0 ) {
                     character = ' ';
                 }
-                if ( grey >= 8 ) {
+                if( grey >= 8 ) {
                     character = '\'';
                 }
-                if ( grey >= 16 ) {
+                if( grey >= 16 ) {
                     character = '.';
                 }
-                if ( grey >= 32 ) {
+                if( grey >= 32 ) {
                     character = '-';
                 }
-                if ( grey >= 48 ) {
+                if( grey >= 48 ) {
                     character = ':';
                 }
-                if ( grey >= 64 ) {
+                if( grey >= 64 ) {
                     character = '+';
                 }
-                if ( grey >= 80 ) {
+                if( grey >= 80 ) {
                     character = ( Math.random() > 0.5 ) ? '/' : '\\';
                 }
-                if ( grey >= 96 ) {
+                if( grey >= 96 ) {
                     character = 'o';
                 }
-                if ( grey >= 112 ) {
+                if( grey >= 112 ) {
                     character = 's';
                 }
-                if ( grey >= 128 ) {
+                if( grey >= 128 ) {
                     character = '*';
                 }
-                if ( grey >= 144 ) {
+                if( grey >= 144 ) {
                     character = 'y';
                 }
-                if ( grey >= 160 ) {
+                if( grey >= 160 ) {
                     character = 'h';
                 }
-                if ( grey >= 176 ) {
+                if( grey >= 176 ) {
                     character = 'd';
                 }
-                if ( grey >= 192 ) {
+                if( grey >= 192 ) {
                     character = 'm';
                 }
-                if ( grey >= 208 ) {
+                if( grey >= 208 ) {
                     character = 'V';
                 }
-                if ( grey >= 224 ) {
+                if( grey >= 224 ) {
                     character = 'Q';
                 }
-                if ( grey >= 240 ) {
+                if( grey >= 240 ) {
                     character = 'M';
                 }
 
@@ -767,7 +767,7 @@ public class TextDatabase extends Database {
 
             }
 
-            if ( border ) {
+            if( border ) {
                 outputString += "|\n";
             } else {
                 outputString += "\n";
@@ -775,14 +775,14 @@ public class TextDatabase extends Database {
 
         }
 
-        if ( border ) {
-            if ( ( 80 - width ) > 0 ) {
-                for ( int j = 0; j < ( ( 80 - width ) / 2 ); j++ ) {
+        if( border ) {
+            if( ( 80 - width ) > 0 ) {
+                for( int j = 0; j < ( ( 80 - width ) / 2 ); j++ ) {
                     outputString += ' ';
                 }
             }
             outputString += '|';
-            for ( int j = 1; j <= width; j++ ) {
+            for( int j = 1; j <= width; j++ ) {
                 outputString += "_";
             }
             outputString += "|";
@@ -800,14 +800,14 @@ public class TextDatabase extends Database {
      */
     public Media preview( Media m ) throws java.io.IOException {
         File previewFile = new File( rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + ( ( m instanceof Movie ) ? "trailer.mp4" : "preview.mp3" ) );
-        if ( !previewFile.exists() ) {
+        if( !previewFile.exists() ) {
             return null;
         }
         String previewFilePath = previewFile.getCanonicalPath();
         String OS = System.getProperty( "os.name" );
         String cmd = "";
         Runtime runtime = Runtime.getRuntime();
-        if ( OS.charAt( 0 ) == 'W' ) { // windows
+        if( OS.charAt( 0 ) == 'W' ) { // windows
             cmd = "cmd.exe /c \"" + previewFilePath + "\"";
             runtime.exec( cmd );
             return m;
@@ -820,7 +820,7 @@ public class TextDatabase extends Database {
         String path = rootDir + getFolderString( m ) + File.separator + m.getID() + File.separator + "cover.png";
         File f = new File( path );
         ImageIcon image = null;
-        if ( f.exists() ) {
+        if( f.exists() ) {
             image = new ImageIcon( path );
         } else {
             String unknown = "images/unknown.png";

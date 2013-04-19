@@ -33,16 +33,13 @@ public class MediaStoreGUI {
         // initialize the DB
         db = null;
         try {
-            Class.forName( "org.apache.derby.jdbc.ClientDriver" ).newInstance();
-            
-            
             db = new SQLDatabase( "MediaStore", "root", "toor" );
 
-            if ( db.getCustomerFromID( 1 ) == null ) {
+            if( db.getCustomerFromID( 1 ) == null ) {
                 System.out.println( "WARNING: Missing customer #1, creating a default customer in this slot..." );
                 db.writeNewCustomer( new Customer( 1, "Default", "Default", 100, new LinkedList(), db ) );
             }
-        } catch ( Exception e ) {
+        } catch( Exception e ) {
             System.out.println( "An exception occured while parsing the database. (" + e.toString() + ")" );
             e.printStackTrace(); // this is what the @SupressWarnings is for
             System.exit( -1 );
@@ -58,15 +55,10 @@ public class MediaStoreGUI {
                     skin = new GraphiteAquaSkin();
                     SubstanceLookAndFeel.setSkin( skin );
 
-                } catch ( Exception e ) {
+                } catch( Exception e ) {
                     e.printStackTrace();
                 }
                 welcomeScreen();
-                /*try {
-                 mediaViewerScreen(db.getMediaFromID( 1 ),db.getCustomerFromID( 1 ) );
-                 } catch ( IOException ex ) {
-                 Logger.getLogger( MediaStoreGUI.class.getName() ).log( Level.SEVERE, null, ex );
-                 }*/
             }
         } );
     }
@@ -75,14 +67,14 @@ public class MediaStoreGUI {
         db = null;
         System.out.println( "Database modified. Reloading..." );
         try {
-            
+
             db = new SQLDatabase( "MediaStore", "root", "toor" );
 
-            if ( db.getCustomerFromID( 1 ) == null ) {
+            if( db.getCustomerFromID( 1 ) == null ) {
                 System.out.println( "WARNING: Missing customer #1, creating a default customer in this slot..." );
                 db.writeNewCustomer( new Customer( 1, "Default", "Default", 100, new LinkedList(), db ) );
             }
-        } catch ( Exception e ) {
+        } catch( Exception e ) {
             System.out.println( "An exception occured while parsing the database. (" + e.toString() + ")" );
             e.printStackTrace(); // this is what the @SupressWarnings is for
             System.exit( -1 );
@@ -90,7 +82,7 @@ public class MediaStoreGUI {
     }
 
     public static void welcomeScreen() {
-        if ( frame != null ) {
+        if( frame != null ) {
             frame.dispose();
         }
         frame = new WelcomeWindowGUI();
@@ -100,7 +92,7 @@ public class MediaStoreGUI {
     }
 
     public static void loginScreen() {
-        if ( frame != null ) {
+        if( frame != null ) {
             frame.dispose();
         }
         //((WelcomeWindowGUI)frame).active = false;
@@ -111,7 +103,7 @@ public class MediaStoreGUI {
     }
 
     public static void managerScreen() {
-        if ( frame != null ) {
+        if( frame != null ) {
             frame.dispose();
         }
         frame = new ManagerGUI();
@@ -121,7 +113,7 @@ public class MediaStoreGUI {
     }
 
     public static void customerScreen( boolean managerMode ) {
-        if ( frame != null ) {
+        if( frame != null ) {
             frame.dispose();
         }
         frame = new CustomerGUI( managerMode, loggedInCustomer.getID() );
@@ -130,8 +122,8 @@ public class MediaStoreGUI {
         frameDefaults();
     }
 
-     public static void searchGUI( boolean managerMode, String search ) throws SQLException, IOException {
-        if ( frame != null ) {
+    public static void searchGUI( boolean managerMode, String search ) throws SQLException, IOException {
+        if( frame != null ) {
             frame.dispose();
         }
         frame = new SearchGUI( managerMode, search );
@@ -139,9 +131,9 @@ public class MediaStoreGUI {
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameDefaults();
     }
-    
+
     public static void mediaViewerScreen( Media m, Customer c, boolean managerMode, boolean searchMode ) throws IOException, SQLException {
-        if ( frame != null ) {
+        if( frame != null ) {
             frame.dispose();
         }
         //          MediaViewerGUI( Media m, Customer c 
@@ -151,7 +143,7 @@ public class MediaStoreGUI {
     }
 
     public static void managerAddContentScreen() {
-        if ( frame != null ) {
+        if( frame != null ) {
             frame.dispose();
         }
         frame = new ManagerAddContentGUI();
@@ -161,7 +153,7 @@ public class MediaStoreGUI {
     }
 
     public static void managerRemoveContentScreen() {
-        if ( frame != null ) {
+        if( frame != null ) {
             frame.dispose();
         }
         frame = new ManagerRemoveContentGUI();
@@ -171,7 +163,7 @@ public class MediaStoreGUI {
     }
 
     public static void customerPurchaseHistoryScreen( boolean managerMode ) {
-        if ( frame != null ) {
+        if( frame != null ) {
             frame.dispose();
         }
         frame = new PurchaseHistoryGUI( managerMode );
@@ -181,7 +173,7 @@ public class MediaStoreGUI {
     }
 
     public static void customerListScreen() {
-        if ( frame != null ) {
+        if( frame != null ) {
             frame.dispose();
         }
         frame = new CustomerListGUI( false );
@@ -191,7 +183,7 @@ public class MediaStoreGUI {
     }
 
     public static void managerCustomerListScreen() {
-        if ( frame != null ) {
+        if( frame != null ) {
             frame.dispose();
         }
         frame = new CustomerListGUI( true );
@@ -201,7 +193,7 @@ public class MediaStoreGUI {
     }
 
     public static void managerCustomerScreen() {
-        if ( frame != null ) {
+        if( frame != null ) {
             frame.dispose();
         }
         frame = new CustomerGUI( true, 0 );
@@ -211,7 +203,7 @@ public class MediaStoreGUI {
     }
 
     public static void customerRatingScreen( Media m ) {
-        if ( frame != null ) {
+        if( frame != null ) {
             frame.dispose();
         }
         frame = new CustomerRatingGUI( m );

@@ -21,7 +21,7 @@ public class CustomerListGUI extends JFrame implements ActionListener, MouseList
     public CustomerListGUI( boolean managerMode ) {
         this.managerMode = managerMode;
         customerArrayList = new ArrayList<String>();
-        for ( Customer c : MediaStoreGUI.db.customers ) {
+        for( Customer c : MediaStoreGUI.db.customers ) {
             customerArrayList.add( c.getName() );
         }
         addWindowListener( new CustomerListGUIExitHandler( managerMode ) );
@@ -31,12 +31,12 @@ public class CustomerListGUI extends JFrame implements ActionListener, MouseList
         mainPanel.setLayout( new BorderLayout() );
 
         String message = "Choose a customer to log in as:";
-        if ( managerMode ) {
+        if( managerMode ) {
             message = "Choose a customer to view:";
         }
         mainPanel.add( new JLabel( message ), BorderLayout.NORTH );
         customerList = new JList( customerArrayList.toArray() );
-        customerList.addMouseListener(  this );
+        customerList.addMouseListener( this );
         mainPanel.add( customerList, BorderLayout.CENTER );
 
         okButton = new JButton( "OK" );
@@ -57,21 +57,21 @@ public class CustomerListGUI extends JFrame implements ActionListener, MouseList
     @Override
     public void actionPerformed( ActionEvent e ) {
 
-        if ( e.getSource() == cancelButton ) {
-            if ( !managerMode ) {
+        if( e.getSource() == cancelButton ) {
+            if( !managerMode ) {
                 MediaStoreGUI.welcomeScreen();
             } else {
                 MediaStoreGUI.managerScreen();
             }
         }
 
-        if ( e.getSource() == okButton ) {
-            if ( customerList.getSelectedIndex() == -1 ) {
+        if( e.getSource() == okButton ) {
+            if( customerList.getSelectedIndex() == -1 ) {
                 JOptionPane.showMessageDialog( null, "Please choose a customer.", "", JOptionPane.ERROR_MESSAGE );
                 return;
             }
             MediaStoreGUI.loggedInCustomer = (Customer) MediaStoreGUI.db.customers.toArray()[customerList.getSelectedIndex()];
-            if ( !managerMode ) {
+            if( !managerMode ) {
                 MediaStoreGUI.customerScreen( managerMode );
             } else {
                 MediaStoreGUI.customerPurchaseHistoryScreen( true );
@@ -85,14 +85,14 @@ public class CustomerListGUI extends JFrame implements ActionListener, MouseList
 
     @Override
     public void mousePressed( MouseEvent me ) {
-        if ( me.getClickCount() > 1 ) {
+        if( me.getClickCount() > 1 ) {
 
-            if ( customerList.getSelectedIndex() == -1 ) {
+            if( customerList.getSelectedIndex() == -1 ) {
                 JOptionPane.showMessageDialog( null, "Please choose a customer.", "", JOptionPane.ERROR_MESSAGE );
                 return;
             }
             MediaStoreGUI.loggedInCustomer = (Customer) MediaStoreGUI.db.customers.toArray()[customerList.getSelectedIndex()];
-            if ( !managerMode ) {
+            if( !managerMode ) {
                 MediaStoreGUI.customerScreen( managerMode );
             } else {
                 MediaStoreGUI.customerPurchaseHistoryScreen( true );
@@ -124,7 +124,7 @@ public class CustomerListGUI extends JFrame implements ActionListener, MouseList
 
         @Override
         public void windowClosing( WindowEvent e ) {
-            if ( !managerMode ) {
+            if( !managerMode ) {
                 MediaStoreGUI.welcomeScreen();
             } else {
                 MediaStoreGUI.managerScreen();

@@ -34,8 +34,8 @@ public abstract class Database {
      *         none found
      */
     public Media getMediaFromID( int id ) {
-        for ( Media m : media ) {
-            if ( id == m.getID() ) {
+        for( Media m : media ) {
+            if( id == m.getID() ) {
                 return m;
             }
         }
@@ -50,8 +50,8 @@ public abstract class Database {
      *         none found
      */
     public Customer getCustomerFromID( int id ) {
-        for ( Customer c : customers ) {
-            if ( id == c.getID() ) {
+        for( Customer c : customers ) {
+            if( id == c.getID() ) {
                 return c;
             }
         }

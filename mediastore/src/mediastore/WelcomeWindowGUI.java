@@ -71,10 +71,10 @@ public class WelcomeWindowGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed( ActionEvent e ) {
-        if ( e.getSource() == managerLoginButton ) {
+        if( e.getSource() == managerLoginButton ) {
             MediaStoreGUI.loginScreen();
         }
-        if ( e.getSource() == enterButton ) {
+        if( e.getSource() == enterButton ) {
             MediaStoreGUI.customerListScreen();
         }
     }
