@@ -216,7 +216,7 @@ public class SQLDatabase extends Database {
      * Removes a Media item from the database.
      *
      * @param m The Media item to remove from the database
-     * @throws java.io.IOException
+     * @throws java.io.IOException, java.sql.SQLException
      */
     @Override
     public void deleteMediaItem( Media m ) throws IOException, SQLException {
