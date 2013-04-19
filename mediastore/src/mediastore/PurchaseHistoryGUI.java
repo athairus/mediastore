@@ -12,6 +12,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import mediastore.helpers.GBC;
 import java.util.LinkedList;
@@ -54,7 +55,7 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener, MouseL
         topPanel.add( headerLabel );
 
         bottomPanel = new JPanel();
-        if ( !managerMode ) {
+        if( !managerMode ) {
             bottomPanel.add( rateButton );
         }
         bottomPanel.add( backButton );
@@ -68,11 +69,13 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener, MouseL
 
         purchaseHistoryVector = new Vector<Vector>();
 
-        for ( Purchase p : MediaStoreGUI.loggedInCustomer.getPurchaseHistory() ) {
+        for( Purchase p : MediaStoreGUI.loggedInCustomer.getPurchaseHistory() ) {
 
             Calendar myDate = Calendar.getInstance();
             myDate.setTimeInMillis( p.purchaseUnixTime );
-            String date = "" + myDate.get( Calendar.MONTH ) + "." + myDate.get( Calendar.DAY_OF_MONTH ) + "." + myDate.get( Calendar.YEAR );
+            //String date = "" + myDate.get( Calendar.MONTH ) + "." + myDate.get( Calendar.DAY_OF_MONTH ) + "." + myDate.get( Calendar.YEAR );
+            SimpleDateFormat sdf = new SimpleDateFormat( "MMMM d, yyyy 'at' h:mm a" );
+            String date = sdf.format( p.purchaseUnixTime );
             Vector<String> tempVector = new Vector<String>();
             tempVector.addElement( date );
             tempVector.addElement( MediaStoreGUI.db.getMediaFromID( p.getID() ).title );
@@ -111,41 +114,41 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener, MouseL
 
     @Override
     public void actionPerformed( ActionEvent ae ) {
-        if ( ae.getSource() == backButton ) {
-            if ( managerMode ) {
+        if( ae.getSource() == backButton ) {
+            if( managerMode ) {
                 MediaStoreGUI.managerCustomerListScreen();
             } else {
                 MediaStoreGUI.customerScreen( managerMode );
             }
         }
-        if ( ae.getSource() == rateButton ) {
+        if( ae.getSource() == rateButton ) {
             MediaStoreGUI.customerRatingScreen( MediaStoreGUI.db.getMediaFromID( Integer.parseInt( (String) purchaseTable.getValueAt( purchaseTable.getSelectedRow(), 4 ) ) ) );
         }
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {    
-    }
- 
-    @Override
-    public void mouseReleased(MouseEvent me) {     
+    public void mouseClicked( MouseEvent e ) {
     }
 
     @Override
-    public void mouseEntered(MouseEvent me) {     
+    public void mouseReleased( MouseEvent me ) {
     }
 
     @Override
-    public void mouseExited(MouseEvent me) {  
+    public void mouseEntered( MouseEvent me ) {
     }
-    
+
     @Override
-    public void mousePressed(MouseEvent e) {
-            if ( e.getClickCount() > 1 ) {
+    public void mouseExited( MouseEvent me ) {
+    }
+
+    @Override
+    public void mousePressed( MouseEvent e ) {
+        if( e.getClickCount() > 1 ) {
             Point p = e.getPoint();
             JTable target = (JTable) e.getSource();
             int row = target.rowAtPoint( new Point( e.getX(), e.getY() ) );
-            if ( row == -1 ) {
+            if( row == -1 ) {
                 return;
             }
             int col = 4;
@@ -153,11 +156,10 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener, MouseL
             Object valueAt = target.getValueAt( row, col );
             Media media = MediaStoreGUI.db.getMediaFromID( Integer.parseInt( (String) target.getValueAt( row, col ) ) );
 
-            MediaStoreGUI.customerRatingScreen(media);
-            
-            }
-    }
+            MediaStoreGUI.customerRatingScreen( media );
 
+        }
+    }
 
     private class PurchaseHistoryGUIExitHandler extends WindowAdapter {
 
@@ -169,7 +171,7 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener, MouseL
 
         @Override
         public void windowClosing( WindowEvent e ) {
-            if ( managerMode ) {
+            if( managerMode ) {
                 MediaStoreGUI.managerCustomerListScreen();
             } else {
                 MediaStoreGUI.customerScreen( managerMode );

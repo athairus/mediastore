@@ -90,6 +90,11 @@ public class SQLDatabase extends Database {
                 ResultSet r = s.executeQuery( sql );
                 long dt = 0;
                 if( r.next() ) {
+                    Timestamp t = r.getTimestamp( "dt" );
+                    int id = r.getInt( "purchase_id" );
+                    if( t != null ) {
+                        dt = t.getTime();
+                    }
                     Purchase p = new Purchase( r.getInt( "media_id" ), r.getDouble( "price" ), dt );
                     c.addPurchase( p );
                 }
@@ -152,8 +157,20 @@ public class SQLDatabase extends Database {
 
     @Override
     public void writeCustomerPurchase( Customer customer, Purchase purchase ) throws IOException, SQLException {
+        Timestamp ts = new Timestamp( purchase.getPurchaseUnixTime() );
+        sql = "insert into app.purchase ( media_id, price, dt ) values ( " + purchase.getID() + ", " + purchase.getPrice() + ", \'" + ts + "\' )";
+        //stmt.execute( sql );
+        long generatedKey = 0;
+        String key[] = { "PURCHASE_ID" }; //put the name of the primary key column
 
-        sql = "insert into app.CUSTOMER_PURCHASES ( CUSTOMER_ID, PURCHASE_ID ) values ( " + customer.getID() + "," + purchase.getID() + " )";
+        PreparedStatement ps = dbConn.prepareStatement( sql, key );
+        ps.executeUpdate();
+
+        ResultSet rs = ps.getGeneratedKeys();
+        if( rs.next() ) {
+            generatedKey = rs.getLong( 1 );
+        }
+        sql = "insert into app.CUSTOMER_PURCHASES ( CUSTOMER_ID, PURCHASE_ID ) values ( " + customer.getID() + "," + generatedKey + " )";
         stmt.execute( sql );
     }
 
