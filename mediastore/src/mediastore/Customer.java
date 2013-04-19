@@ -279,7 +279,7 @@ public class Customer {
      *
      * @throws java.io.IOException
      */
-    private void recalculateRanking() throws java.io.IOException, SQLException {
+    public void recalculateRanking() throws java.io.IOException, SQLException {
         class RankingComparator implements Comparator<Media> {
 
             @Override
