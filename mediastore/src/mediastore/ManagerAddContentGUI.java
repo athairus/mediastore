@@ -238,7 +238,7 @@ public class ManagerAddContentGUI extends JFrame implements ItemListener, Action
 
     @Override
     public void itemStateChanged( ItemEvent e ) {
-        if ( e.getSource() == mediaTypeComboBox ) {
+        if( e.getSource() == mediaTypeComboBox ) {
             CardLayout cl = (CardLayout) ( mainPanel.getLayout() );
             cl.show( mainPanel, (String) e.getItem() );
         }
@@ -246,34 +246,35 @@ public class ManagerAddContentGUI extends JFrame implements ItemListener, Action
 
     @Override
     public void actionPerformed( ActionEvent e ) {
-        if ( e.getSource() == cancelButton ) {
+        if( e.getSource() == cancelButton ) {
             MediaStoreGUI.managerScreen();
         }
-        if ( e.getSource() == okButton ) {
+        if( e.getSource() == okButton ) {
             Media newItem = null;
             try {
-                if ( mediaTypeComboBox.getSelectedItem().equals( MOVIE ) ) {
+                if( mediaTypeComboBox.getSelectedItem().equals( MOVIE ) ) {
                     newItem = new Movie( 0, movieDirectorTextField.getText(), movieTitleTextField.getText(), Integer.parseInt( movieDurationTextField.getText() ),
                             movieGenreTextField.getText(), Integer.parseInt( movieRatingTextField.getText() ), Integer.parseInt( movieTotalReviewsTextField.getText() ), Double.parseDouble( moviePriceTextField.getText() ),
                             0, Integer.parseInt( movieReleaseYearTextField.getText() ) );
                 }
-                if ( mediaTypeComboBox.getSelectedItem().equals( ALBUM ) ) {
+                if( mediaTypeComboBox.getSelectedItem().equals( ALBUM ) ) {
                     newItem = new Album( 0, albumAuthorTextField.getText(), albumTitleTextField.getText(), Integer.parseInt( albumDurationTextField.getText() ),
                             albumGenreTextField.getText(), Integer.parseInt( albumRatingTextField.getText() ), Integer.parseInt( albumTotalReviewsTextField.getText() ), Double.parseDouble( albumPriceTextField.getText() ), 0 );
                 }
-                if ( mediaTypeComboBox.getSelectedItem().equals( AUDIOBOOK ) ) {
+                if( mediaTypeComboBox.getSelectedItem().equals( AUDIOBOOK ) ) {
                     newItem = new Audiobook( 0, audiobookAuthorTextField.getText(), audiobookTitleTextField.getText(), Integer.parseInt( audiobookDurationTextField.getText() ),
                             audiobookGenreTextField.getText(), Integer.parseInt( audiobookRatingTextField.getText() ), Integer.parseInt( audiobookTotalReviewsTextField.getText() ), Double.parseDouble( audiobookPriceTextField.getText() ), 0 );
                 }
-            } catch ( NumberFormatException ex ) {
+            } catch( NumberFormatException ex ) {
                 JOptionPane.showMessageDialog( null, "One or more fields contain invalid input, please correct this and try again.", "", JOptionPane.ERROR_MESSAGE );
+                return;
             }
             db.media.add( newItem );
             try {
                 db.writeNewMediaItem( newItem );
-            } catch ( IOException ex ) {
+            } catch( IOException ex ) {
                 Logger.getLogger( ManagerAddContentGUI.class.getName() ).log( Level.SEVERE, null, ex );
-            } catch ( SQLException ex ) {
+            } catch( SQLException ex ) {
                 Logger.getLogger( ManagerAddContentGUI.class.getName() ).log( Level.SEVERE, null, ex );
             }
 

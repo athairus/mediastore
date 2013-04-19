@@ -122,6 +122,10 @@ public class PurchaseHistoryGUI extends JFrame implements ActionListener, MouseL
             }
         }
         if( ae.getSource() == rateButton ) {
+            if( purchaseTable.getSelectedRow() == -1 ) {
+                JOptionPane.showMessageDialog( null, "Please choose an item to rate", "", JOptionPane.ERROR_MESSAGE );
+                return;
+            }
             MediaStoreGUI.customerRatingScreen( MediaStoreGUI.db.getMediaFromID( Integer.parseInt( (String) purchaseTable.getValueAt( purchaseTable.getSelectedRow(), 4 ) ) ) );
         }
     }
