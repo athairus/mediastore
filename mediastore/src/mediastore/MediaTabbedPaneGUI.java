@@ -38,6 +38,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
     private MouseAdapter tableMouseAdapter;
     //private int tabSize = (int) ( MediaStoreGUI.getDefaultFrameHeight() * 0.729 ); //TODO: add method to MediaStoreGUI so I can get the height of the JFrame
     private boolean managerMode;
+    private boolean searchMode;
 
     public MediaTabbedPaneGUI() {
         this( false );
@@ -49,7 +50,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
 
         setPreferredSize( new Dimension( 350, 350 ) );
 
-
+        searchMode = false;
 
 
         headerFont = new Font( "Sans", Font.PLAIN, 36 );
@@ -295,7 +296,7 @@ public class MediaTabbedPaneGUI extends JTabbedPane implements ActionListener, M
             Media media = MediaStoreGUI.db.getMediaFromID( Integer.parseInt( (String) target.getValueAt( row, col ) ) );
 
             try {
-                MediaStoreGUI.mediaViewerScreen( media, MediaStoreGUI.loggedInCustomer, managerMode );
+                MediaStoreGUI.mediaViewerScreen( media, MediaStoreGUI.loggedInCustomer, managerMode, searchMode );
             } catch ( IOException ex ) {
                 Logger.getLogger( MediaTabbedPaneGUI.class.getName() ).log( Level.SEVERE, null, ex );
             } catch ( SQLException ex ) {

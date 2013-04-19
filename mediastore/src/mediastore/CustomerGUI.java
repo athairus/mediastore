@@ -35,6 +35,8 @@ public class CustomerGUI extends JFrame implements ActionListener {
 
         this.managerMode = managerMode;
 
+        
+        
         addWindowListener( new CustomerGUIExitHandler( managerMode ) );
 
         setLayout( new BorderLayout() );                //set up layout

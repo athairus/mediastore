@@ -140,12 +140,12 @@ public class MediaStoreGUI {
         frameDefaults();
     }
     
-    public static void mediaViewerScreen( Media m, Customer c, boolean managerMode ) throws IOException, SQLException {
+    public static void mediaViewerScreen( Media m, Customer c, boolean managerMode, boolean searchMode ) throws IOException, SQLException {
         if ( frame != null ) {
             frame.dispose();
         }
         //          MediaViewerGUI( Media m, Customer c 
-        frame = new MediaViewerGUI( m, c, managerMode );
+        frame = new MediaViewerGUI( m, c, managerMode, searchMode );
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameDefaults();
     }

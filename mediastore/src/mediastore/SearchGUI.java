@@ -43,6 +43,7 @@ public class SearchGUI extends JFrame implements MouseListener {
     private int rows = 23;
     private Object[][] data = new Object[ rows ][ 10 ];
     private int row = 0;
+    private boolean searchMode;
 
     public SearchGUI() throws SQLException, IOException {
         this( false, "" );
@@ -53,7 +54,7 @@ public class SearchGUI extends JFrame implements MouseListener {
         super( "MediaStore" );
 
         this.managerMode = managerMode;
-
+        searchMode = true;
         addWindowListener( new SearchGUIExitHandler( managerMode ) );
 
         setLayout( new BorderLayout() );                //set up layout
@@ -121,9 +122,9 @@ public class SearchGUI extends JFrame implements MouseListener {
             int col = 0;
             Object valueAt = target.getValueAt( row, col );
             Media media = MediaStoreGUI.db.getMediaFromID( Integer.parseInt( target.getValueAt( row, col ).toString() ) );
-
+            searchMode = true;
             try {
-                MediaStoreGUI.mediaViewerScreen( media, MediaStoreGUI.loggedInCustomer, managerMode );
+                MediaStoreGUI.mediaViewerScreen( media, MediaStoreGUI.loggedInCustomer, managerMode, searchMode );
             } catch( IOException ex ) {
                 Logger.getLogger( MediaTabbedPaneGUI.class.getName() ).log( Level.SEVERE, null, ex );
             } catch( SQLException ex ) {
