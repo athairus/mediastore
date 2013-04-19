@@ -53,6 +53,8 @@ public class SearchGUI extends JFrame implements MouseListener {
         
         this.managerMode = managerMode;
         
+        addWindowListener( new SearchGUIExitHandler( managerMode ) );
+        
         setLayout( new BorderLayout() );                //set up layout
         
         searchList = new JTable(data, COLS);
@@ -72,21 +74,23 @@ public class SearchGUI extends JFrame implements MouseListener {
         }
         
         tabelPanel.addMouseListener( this );
+        add(tabelPanel);
 
     }
 
+    @Override
     public void mousePressed( MouseEvent e ) {
         if ( e.getClickCount() > 1 ) {
             Point p = e.getPoint();
             JTable target = (JTable) e.getSource();
-            int row = target.rowAtPoint( new Point( e.getX(), e.getY() ) );
-            if ( row == -1 ) {
+            int mouseRow = target.rowAtPoint( new Point( e.getX(), e.getY() ) );
+            if ( mouseRow == -1 ) {
                 return;
             }
             int col = 2;
 
-            Object valueAt = target.getValueAt( row, col );
-            Media media = MediaStoreGUI.db.getMediaFromID( Integer.parseInt( (String) target.getValueAt( row, col ) ) );
+            Object valueAt = target.getValueAt( mouseRow, col );
+            Media media = MediaStoreGUI.db.getMediaFromID( Integer.parseInt( (String) target.getValueAt( mouseRow, col ) ) );
 
             try {
                 MediaStoreGUI.mediaViewerScreen( media, MediaStoreGUI.loggedInCustomer, managerMode );
@@ -122,6 +126,12 @@ public class SearchGUI extends JFrame implements MouseListener {
 
     private class SearchGUIExitHandler extends WindowAdapter {
 
+        private boolean managerMode;
+        
+        public SearchGUIExitHandler( boolean managerMode ) {
+            this.managerMode = managerMode;
+        }
+        
         @Override
         public void windowClosing( WindowEvent e ) {
             MediaStoreGUI.customerScreen( rootPaneCheckingEnabled );

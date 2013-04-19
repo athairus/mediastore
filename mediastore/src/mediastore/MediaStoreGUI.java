@@ -130,6 +130,16 @@ public class MediaStoreGUI {
         frameDefaults();
     }
 
+     public static void searchGUI( boolean managerMode, String search ) throws SQLException {
+        if ( frame != null ) {
+            frame.dispose();
+        }
+        frame = new SearchGUI( managerMode, "" );
+
+        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+        frameDefaults();
+    }
+    
     public static void mediaViewerScreen( Media m, Customer c, boolean managerMode ) throws IOException, SQLException {
         if ( frame != null ) {
             frame.dispose();

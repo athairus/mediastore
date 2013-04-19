@@ -100,13 +100,10 @@ public class CustomerGUI extends JFrame implements ActionListener {
 
         if ( ae.getSource() == searchField ) {
             try {
-                MediaStoreGUI.db.searchItem( searchField.getText() );
-            } catch ( IOException ex ) {
-                Logger.getLogger( CustomerGUI.class.getName() ).log( Level.SEVERE, null, ex );
+                MediaStoreGUI.searchGUI( false, searchField.getText());
             } catch ( SQLException ex ) {
                 Logger.getLogger( CustomerGUI.class.getName() ).log( Level.SEVERE, null, ex );
             }
-            MediaStoreGUI.customerScreen( false );
         }
         if ( ae.getSource() == purchaseHistoryButton ) {
             MediaStoreGUI.customerPurchaseHistoryScreen( managerMode );
