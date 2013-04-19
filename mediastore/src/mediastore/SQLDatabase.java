@@ -225,16 +225,14 @@ public class SQLDatabase extends Database {
         stmt.execute( sql );
     }
 
-    
     public ResultSet searchItem( String query ) throws IOException, SQLException {
-        
-      // sql = "select * from app.MEDIA where AUTHOR like \'%" + query + "%\'";
-        sql = "select AUTHOR, PRICE from app.MEDIA";
-       return stmt.executeQuery( sql );
-       
+
+        sql = "select MEDIA_ID, AUTHOR, TITLE, DURATION, GENRE, RATING, TOTAL_REVIEWS, PRICE, NUMSOLD, RELEASEYEAR from app.MEDIA where TITLE like \'%" + query + "%\'";
+        //sql = "select MEDIA_ID, AUTHOR, TITLE, DURATION, GENRE, RATING, TOTAL_REVIEWS, PRICE, NUMSOLD, RELEASEYEAR from app.MEDIA";
+        return stmt.executeQuery( sql );
+
     }
-    
-    
+
     // don't bother implementing these
     @Override
     public Media preview( Media m ) throws IOException, SQLException {

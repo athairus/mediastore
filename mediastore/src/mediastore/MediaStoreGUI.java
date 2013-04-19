@@ -134,7 +134,7 @@ public class MediaStoreGUI {
         if ( frame != null ) {
             frame.dispose();
         }
-        frame = new SearchGUI( managerMode, "" );
+        frame = new SearchGUI( managerMode, search );
 
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frameDefaults();
