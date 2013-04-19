@@ -37,17 +37,17 @@ public class SearchGUI extends JFrame implements MouseListener {
     private boolean managerMode;
     private Statement stmt;
     private ResultSet results;
-    private static final String[] COLS = {"Name", "Price"};
-    private Object[][] data = new Object[20][2];
+    private static final String[] COLS = {"author", "price"};
+    private Object[][] data = new Object[20][20];
     private int row = 0;
     
     
     
-    public SearchGUI() throws SQLException {
+    public SearchGUI() throws SQLException, IOException {
         this( false, "" );
     }
 
-    public SearchGUI(boolean managerMode, String query ) throws SQLException {
+    public SearchGUI(boolean managerMode, String query ) throws SQLException, IOException {
 
         super( "MediaStore" );
         
@@ -58,20 +58,19 @@ public class SearchGUI extends JFrame implements MouseListener {
         setLayout( new BorderLayout() );                //set up layout
         
         searchList = new JTable(data, COLS);
+
+        results = MediaStoreGUI.db.searchItem( query );
+
+        while(results.next()) {
+            searchList.setValueAt(results.getString("author"), row, 0);
+            searchList.setValueAt(results.getString("price"), row, 1);
+            row++;
+        }
+        
         tabelPanel.add( searchList.getTableHeader(), BorderLayout.NORTH );
         tabelPanel.add( searchList, BorderLayout.CENTER );
         add( tabelPanel, BorderLayout.CENTER );
         validate();
-
-        query = "select * from courses";
-        stmt = MediaStoreGUI.db.dbConn.createStatement();
-        results = stmt.executeQuery( query );
-
-        while(results.next()) {
-            searchList.setValueAt(results.getString("Name"), row, 0);
-            searchList.setValueAt(results.getString("Price"), row, 1);
-            row++;
-        }
         
         tabelPanel.addMouseListener( this );
         add(tabelPanel);

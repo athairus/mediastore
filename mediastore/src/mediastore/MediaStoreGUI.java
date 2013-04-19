@@ -130,7 +130,7 @@ public class MediaStoreGUI {
         frameDefaults();
     }
 
-     public static void searchGUI( boolean managerMode, String search ) throws SQLException {
+     public static void searchGUI( boolean managerMode, String search ) throws SQLException, IOException {
         if ( frame != null ) {
             frame.dispose();
         }

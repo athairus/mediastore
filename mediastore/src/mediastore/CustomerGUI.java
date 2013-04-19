@@ -103,6 +103,8 @@ public class CustomerGUI extends JFrame implements ActionListener {
                 MediaStoreGUI.searchGUI( false, searchField.getText());
             } catch ( SQLException ex ) {
                 Logger.getLogger( CustomerGUI.class.getName() ).log( Level.SEVERE, null, ex );
+            } catch ( IOException ex ) {
+                Logger.getLogger( CustomerGUI.class.getName() ).log( Level.SEVERE, null, ex );
             }
         }
         if ( ae.getSource() == purchaseHistoryButton ) {

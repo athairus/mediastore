@@ -226,10 +226,12 @@ public class SQLDatabase extends Database {
     }
 
     
-    public void searchItem( String query ) throws IOException, SQLException {
+    public ResultSet searchItem( String query ) throws IOException, SQLException {
         
-       sql = "select * from MEDIA where MEDIA_AUTHOR like %" + query + "%";
-       stmt.executeQuery( sql );
+      // sql = "select * from app.MEDIA where AUTHOR like \'%" + query + "%\'";
+        sql = "select AUTHOR, PRICE from app.MEDIA";
+       return stmt.executeQuery( sql );
+       
     }
     
     
